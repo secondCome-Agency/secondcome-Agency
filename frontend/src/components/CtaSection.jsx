@@ -94,43 +94,32 @@ export default function CtaSection() {
     setIsSubmitting(true);
     setSubmitError('');
 
-    const apiUrl =
-      import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
     try {
-      const response = await fetch(`${apiUrl}/api/inquiries`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          date: formData.date,
-          service: formData.service,
-          website: formData.website || '',
-        }),
-      });
+      await fetch(
+        'https://script.google.com/macros/s/AKfycbz5OoWge31vWJSRsbxdTkLx2BCQl4lT_bVNuKtlHD5n3jqvu5-YHbUXe8MLVMs44G0Itg/exec',
+        {
+          method: 'POST',
+          body: new URLSearchParams({
+            name: formData.fullName,
+            email: formData.email,
+            contact: formData.phone,
+            services: formData.service,
+            date: formData.date,
+          }),
+        }
+      );
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsSubmitted(true);
-      } else {
-        setSubmitError(
-          data.message || 'Unable to submit inquiry. Please try again.'
-        );
-      }
+      setIsSubmitted(true);
     } catch (err) {
-      console.error('[Inquiry API Error]:', err);
+      console.error('[Inquiry Form Error]:', err);
       setSubmitError(
-        'Unable to connect to server. Please check your network connection.'
+        'Unable to submit inquiry. Please try again.'
       );
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   const handleReset = () => {
     setFormData({ fullName: '', email: '', phone: '', date: '', service: '', website: '' });
