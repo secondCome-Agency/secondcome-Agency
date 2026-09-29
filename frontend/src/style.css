@@ -1669,13 +1669,40 @@ body {
   margin-top: 0.3rem;
 }
 
-/* Phone & Date Line Wrappers */
+/* Phone, Date & Service Line Wrappers */
 .line-phone-wrapper,
-.line-date-wrapper {
+.line-date-wrapper,
+.line-service-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.service-line-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 2rem;
+  background-color: transparent;
+}
+
+.service-line-select option {
+  background-color: #EFECE6;
+  color: #23353F;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  padding: 0.5rem;
+}
+
+.reference-select-arrow {
+  position: absolute;
+  right: 0;
+  bottom: 0.6rem;
+  color: #23353F;
+  font-size: 0.85rem;
+  pointer-events: none;
 }
 
 .country-flag-select {

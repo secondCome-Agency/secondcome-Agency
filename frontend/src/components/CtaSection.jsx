@@ -6,6 +6,7 @@ export default function CtaSection() {
     email: '',
     phone: '',
     date: '',
+    service: '',
     website: '' // Honeypot field
   });
 
@@ -44,6 +45,11 @@ export default function CtaSection() {
           errorMsg = 'Target date is required';
         }
         break;
+      case 'service':
+        if (!value) {
+          errorMsg = 'Please select a service';
+        }
+        break;
       default:
         break;
     }
@@ -70,7 +76,7 @@ export default function CtaSection() {
   const validateAll = () => {
     const newErrors = {};
     const newTouched = {};
-    ['fullName', 'email', 'phone', 'date'].forEach((key) => {
+    ['fullName', 'email', 'phone', 'date', 'service'].forEach((key) => {
       newTouched[key] = true;
       const errorMsg = validateField(key, formData[key] || '');
       if (errorMsg) newErrors[key] = errorMsg;
@@ -102,6 +108,7 @@ export default function CtaSection() {
           email: formData.email,
           phone: formData.phone,
           date: formData.date,
+          service: formData.service,
           website: formData.website || '',
         }),
       });
@@ -126,7 +133,7 @@ export default function CtaSection() {
   };
 
   const handleReset = () => {
-    setFormData({ fullName: '', email: '', phone: '', date: '', website: '' });
+    setFormData({ fullName: '', email: '', phone: '', date: '', service: '', website: '' });
     setErrors({});
     setTouched({});
     setSubmitError('');
@@ -222,6 +229,12 @@ export default function CtaSection() {
                     <span className="summary-val">{formData.date}</span>
                   </div>
                 )}
+                {formData.service && (
+                  <div className="summary-row">
+                    <span className="summary-label">SERVICE REQUESTED</span>
+                    <span className="summary-val">{formData.service}</span>
+                  </div>
+                )}
                 <div className="summary-row">
                   <span className="summary-label">CONCIERGE STATUS</span>
                   <span className="summary-status-badge">
@@ -301,6 +314,33 @@ export default function CtaSection() {
                 </div>
                 {touched.phone && errors.phone && (
                   <span className="field-error-msg">{errors.phone}</span>
+                )}
+              </div>
+
+              <div className={`form-group ${touched.service && errors.service ? 'has-error' : ''} ${touched.service && !errors.service ? 'is-valid' : ''}`}>
+                <label htmlFor="service" className="form-label">WHICH SERVICE ARE YOU INTERESTED IN?</label>
+                <div className="service-input-wrapper line-service-wrapper">
+                  <select
+                    id="service"
+                    name="service"
+                    className="form-input line-input service-line-select"
+                    value={formData.service}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  >
+                    <option value="" disabled hidden>Select your service...</option>
+                    <option value="Advertising & Lead Generation">Advertising & Lead Generation</option>
+                    <option value="Website & Digital Services">Website & Digital Services</option>
+                    <option value="Creative & Design">Creative & Design</option>
+                    <option value="Business Growth & Strategy">Business Growth & Strategy</option>
+                    <option value="Marketing Automation / WhatsApp">Marketing Automation / WhatsApp</option>
+                    <option value="Custom Brand Strategy">Custom Brand Strategy / Other</option>
+                  </select>
+                  <span className="reference-select-arrow">▾</span>
+                </div>
+                {touched.service && errors.service && (
+                  <span className="field-error-msg">{errors.service}</span>
                 )}
               </div>
 
