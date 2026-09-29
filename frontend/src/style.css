@@ -281,14 +281,14 @@ body {
 }
 
 .drawer-menu li {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   overflow: hidden;
 }
 
 .drawer-link {
   display: inline-flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
   text-decoration: none;
   color: var(--color-text-white);
   transition: color 0.3s ease, transform 0.3s ease;
@@ -296,14 +296,14 @@ body {
 
 .link-num {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--color-cyan-accent);
   font-weight: 600;
 }
 
 .link-text {
   font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-size: 1.7rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -2185,11 +2185,6 @@ body {
 
 /* Laptops & Tablets Landscape (1025px - 1280px) */
 @media (max-width: 1280px) {
-  .hero-arch-wrapper {
-    width: 55vw;
-    height: 78vh;
-  }
-
   .section-container {
     gap: 3.5rem;
   }
@@ -2202,11 +2197,6 @@ body {
 
 /* Tablets Portrait & Small Laptops (769px - 1024px) */
 @media (max-width: 1024px) {
-  .hero-arch-wrapper {
-    width: 70vw;
-    height: 72vh;
-  }
-
   .section-container {
     grid-template-columns: 1fr;
     gap: 3.5rem;
@@ -2217,7 +2207,8 @@ body {
   }
 
   .drawer-content {
-    width: 70vw;
+    width: 60vw;
+    min-width: 340px;
   }
 
   .team-metrics-grid {
@@ -2233,14 +2224,18 @@ body {
 
 /* Mobile & Small Tablets (481px - 768px) */
 @media (max-width: 768px) {
+  .site-header {
+    height: 70px;
+  }
+
   .header-inner {
-    padding: 1rem 1.2rem;
+    padding: 0.85rem 1rem;
   }
 
   .pill-btn {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.72rem;
-    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.7rem;
+    gap: 0.4rem;
   }
 
   .pill-text {
@@ -2253,65 +2248,90 @@ body {
   }
 
   .logo-script {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .logo-sub {
-    font-size: 0.55rem;
-    letter-spacing: 0.25em;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
   }
 
   .hero-arch-wrapper {
-    width: 88vw;
+    width: 80vw;
     height: 68vh;
   }
 
   .arch-portal {
-    border-top-left-radius: 200px;
-    border-top-right-radius: 200px;
+    border-top-left-radius: 180px;
+    border-top-right-radius: 180px;
   }
 
   .hero-serif-title {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
     line-height: 1.15;
   }
 
   .script-reveal {
-    font-size: 2.6rem;
+    font-size: 2.3rem;
   }
 
   .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
   }
 
+  /* Mobile Sidebar Drawer Navigation */
   .drawer-content {
-    width: 100vw;
-    padding: 5rem 1.8rem 2rem 1.8rem;
+    width: 85vw;
+    max-width: 360px;
+    min-width: unset;
+    padding: 4.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .drawer-menu {
+    margin-top: 1.2rem;
+  }
+
+  .drawer-menu li {
+    margin-bottom: 0.85rem;
+  }
+
+  .drawer-link {
+    gap: 0.75rem;
+  }
+
+  .link-num {
+    font-size: 0.75rem;
+  }
+
+  .link-text {
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
   }
 
   .polaroid-section {
-    padding: 5rem 1.5rem 6rem 1.5rem;
+    padding: 4rem 1.25rem 5rem 1.25rem;
   }
 
   .polaroid-stack {
-    width: 280px;
-    height: 380px;
+    width: 270px;
+    height: 360px;
   }
 
   .polaroid-img {
-    height: 200px;
+    height: 190px;
   }
 
   .testimonials-section {
-    padding: 5rem 1.5rem;
+    padding: 4rem 1.25rem;
   }
 
   .testimonial-quote-mark {
-    font-size: 5rem;
+    font-size: 4.5rem;
   }
 
   .testimonial-text {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
   }
 
   .floating-whatsapp-btn {
@@ -2347,7 +2367,7 @@ body {
 
   .team-methodology-section,
   .team-bottom-cta {
-    padding: 5rem 1.5rem;
+    padding: 4rem 1.25rem;
   }
 
   .footer-hero-container {
@@ -2358,31 +2378,46 @@ body {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+
+  .service-modal-backdrop {
+    padding: 1rem;
+  }
+
+  .service-modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.8rem 1.4rem;
+  }
 }
 
 /* Extra Small Phones & Foldables (up to 480px) */
 @media (max-width: 480px) {
   .header-inner {
-    padding: 0.8rem 0.8rem;
+    padding: 0.75rem 0.6rem;
   }
 
   .pill-btn {
-    padding: 0.45rem 0.75rem;
-    font-size: 0.68rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.64rem;
+    gap: 0.3rem;
+  }
+
+  .pill-icon {
+    transform: scale(0.85);
   }
 
   .logo-script {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 
   .logo-sub {
-    font-size: 0.5rem;
-    letter-spacing: 0.18em;
+    font-size: 0.45rem;
+    letter-spacing: 0.15em;
   }
 
   .hero-arch-wrapper {
-    width: 94vw;
-    height: 64vh;
+    width: 92vw;
+    height: 66vh;
   }
 
   .arch-portal {
@@ -2391,33 +2426,59 @@ body {
   }
 
   .hero-serif-title {
-    font-size: 1.75rem;
+    font-size: 1.55rem;
+    line-height: 1.2;
   }
 
   .script-reveal {
-    font-size: 2.1rem;
+    font-size: 1.9rem;
   }
 
   .hero-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  /* Extra Small Mobile Sidebar Drawer Links */
+  .drawer-content {
+    width: 90vw;
+    max-width: 320px;
+    padding: 3.5rem 1.2rem 1.5rem 1.2rem;
+  }
+
+  .drawer-menu li {
+    margin-bottom: 0.65rem;
+  }
+
+  .drawer-link {
+    gap: 0.5rem;
+  }
+
+  .link-num {
+    font-size: 0.68rem;
+  }
+
+  .link-text {
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
   }
 
   .spin-badge-wrapper {
-    width: 85px;
-    height: 85px;
+    width: 80px;
+    height: 80px;
   }
 
   .spin-text {
-    font-size: 8px;
+    font-size: 7.5px;
   }
 
   .polaroid-stack {
-    width: 240px;
-    height: 340px;
+    width: 230px;
+    height: 330px;
   }
 
   .polaroid-img {
-    height: 170px;
+    height: 160px;
   }
 
   .polaroid-card {
@@ -2425,12 +2486,12 @@ body {
   }
 
   .case-card {
-    width: 290px;
-    padding: 1.8rem 1.4rem;
+    width: 280px;
+    padding: 1.6rem 1.2rem;
   }
 
   .case-metric {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .form-row-2col {
@@ -2438,16 +2499,16 @@ body {
   }
 
   .cta-form-card {
-    padding: 1.8rem 1.2rem;
+    padding: 1.6rem 1rem;
   }
 
   .team-filter-pills {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .filter-pill-btn {
-    padding: 0.55rem 1.1rem;
-    font-size: 0.7rem;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.68rem;
   }
 }
 

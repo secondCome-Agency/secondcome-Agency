@@ -40,7 +40,7 @@ export default function ServicesSection() {
       id: 4,
       num: '04 / GROWTH & STRATEGY',
       headline: 'Business Growth & Strategy',
-      subHeadline: 'Marketing Strategy • Competitor Analysis • Market Research • Target Audience Research • Brand Positioning • Marketing Funnel • Sales Funnel Strategy • Customer Acquisition • Reputation Management • Marketing Consultation',
+      subHeadline: 'Marketing Strategy • Competitor Analysis • Market Research • Target Audience Research • Brand Positioning • Marketing Funnel',
       desc: 'Comprehensive market intelligence, brand positioning frameworks, customer acquisition funnels, and executive consultation.',
       img: image4,
       tags: [
@@ -49,31 +49,18 @@ export default function ServicesSection() {
         'Market Research',
         'Target Audience Research',
         'Brand Positioning',
-        'Marketing Funnel',
-        'Sales Funnel Strategy',
-        'Customer Acquisition',
-        'Reputation Management',
-        'Marketing Consultation'
+        'Marketing Funnel'
       ]
     },
     {
       id: 5,
       num: '05 / AUTOMATION',
       headline: 'Marketing Automation',
-      subHeadline: 'WhatsApp Automation • Lead Automation • Follow-ups • Email Automation • Social Media Automation • Review Automation • Form Automation • E-commerce Automation • Funnel Automation • Reporting Automation',
+      subHeadline: 'WhatsApp Automation',
       desc: 'Autonomous 24/7 lead follow-up systems, WhatsApp automations, smart CRM workflows, and automated reporting engines.',
       img: image2,
       tags: [
-        'WhatsApp Automation',
-        'Lead Automation',
-        'Follow-ups',
-        'Email Automation',
-        'Social Media Automation',
-        'Review Automation',
-        'Form Automation',
-        'E-commerce Automation',
-        'Funnel Automation',
-        'Reporting Automation'
+        'WhatsApp Automation'
       ]
     }
   ];
