@@ -45,25 +45,31 @@ export default function NavDrawer({ isOpen, onClose }) {
     <div id="nav-drawer" className={`nav-drawer ${isOpen ? 'active' : ''}`} aria-hidden={!isOpen}>
       <div className="drawer-backdrop" onClick={onClose}></div>
       <div className="drawer-content">
-        <div className="drawer-header">
-          <span className="drawer-tag">NAVIGATION</span>
+        <div className="drawer-body-top">
+          <div className="drawer-header">
+            <div className="drawer-logo-container">
+              <span className="drawer-logo-script">Second Come</span>
+              <span className="drawer-logo-sub">AGENCY</span>
+            </div>
+            <span className="drawer-tag">NAVIGATION</span>
+          </div>
+          <nav className="drawer-nav">
+            <ul className="drawer-menu">
+              {links.map((link) => (
+                <li key={link.num}>
+                  <a
+                    href={link.isPage ? link.href : `/#${link.targetId}`}
+                    className="drawer-link"
+                    onClick={handleNavClick(link)}
+                  >
+                    <span className="link-num">{link.num}</span>
+                    <span className="link-text">{link.text}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav className="drawer-nav">
-          <ul className="drawer-menu">
-            {links.map((link) => (
-              <li key={link.num}>
-                <a
-                  href={link.isPage ? link.href : `/#${link.targetId}`}
-                  className="drawer-link"
-                  onClick={handleNavClick(link)}
-                >
-                  <span className="link-num">{link.num}</span>
-                  <span className="link-text">{link.text}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
         <div className="drawer-footer">
           <p className="drawer-email">
             <a href="mailto:secondcome33@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
