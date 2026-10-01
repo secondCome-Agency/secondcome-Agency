@@ -86,6 +86,7 @@ export default function Footer() {
             <ul className="footer-nav-list">
               <li><a href="#home" onClick={scrollToTop}>Home</a></li>
               <li><a href="#about">About Us</a></li>
+              <li><a href="/complementary-services">Complementary Support</a></li>
               <li><a href="#explore">Explore</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>

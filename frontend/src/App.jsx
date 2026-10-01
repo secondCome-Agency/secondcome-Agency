@@ -16,6 +16,9 @@ import TestimonialsSection from './components/TestimonialsSection.jsx';
 import CtaSection from './components/CtaSection.jsx';
 import Footer from './components/Footer.jsx';
 import TeamPage from './components/TeamPage.jsx';
+import ComplementaryServicesPage from './components/ComplementaryServicesPage.jsx';
+import TopAnnouncementBar from './components/TopAnnouncementBar.jsx';
+import HomeComplementarySection from './components/HomeComplementarySection.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,6 +36,7 @@ function HomePage() {
       <Hero />
       <PolaroidSection />
       <ServicesSection />
+      <HomeComplementarySection />
       <CaseStudiesSection />
       <TestimonialsSection />
       <CtaSection />
@@ -85,6 +89,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/complementary-services" element={<ComplementaryServicesPage />} />
         </Routes>
       </main>
 

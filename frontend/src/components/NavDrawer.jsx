@@ -8,10 +8,11 @@ export default function NavDrawer({ isOpen, onClose }) {
   const links = [
     { num: '01', text: 'ABOUT US', targetId: 'about' },
     { num: '02', text: 'OUR TEAM', href: '/team', isPage: true },
-    { num: '03', text: 'OUR CAPABILITIES', targetId: 'services' },
-    { num: '04', text: 'CAMPAIGN PORTFOLIO', targetId: 'portfolio' },
-    { num: '05', text: 'CLIENT RESULTS', targetId: 'testimonials' },
-    { num: '06', text: 'START A PROJECT', targetId: 'contact' },
+    { num: '03', text: 'COMPLEMENTARY SUPPORT', href: '/complementary-services', isPage: true },
+    { num: '04', text: 'OUR CAPABILITIES', targetId: 'services' },
+    { num: '05', text: 'CAMPAIGN PORTFOLIO', targetId: 'portfolio' },
+    { num: '06', text: 'CLIENT RESULTS', targetId: 'testimonials' },
+    { num: '07', text: 'START A PROJECT', targetId: 'contact' },
   ];
 
   const handleNavClick = (link) => (e) => {

@@ -27,8 +27,59 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
     }
   };
 
+  const handleSupportScroll = (e) => {
+    e.preventDefault();
+    const scrollToComp = () => {
+      const el = document.getElementById('complementary-support');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(scrollToComp, 300);
+    } else {
+      scrollToComp();
+    }
+  };
+
   return (
     <header className="site-header">
+      {/* Top Red Marquee / Ticker Strip */}
+      <a href="#complementary-support" onClick={handleSupportScroll} className="top-ticker-strip" aria-label="Explore Complementary Support">
+        <div className="ticker-track">
+          <div className="ticker-content">
+            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
+            <span className="ticker-star">✦</span>
+            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-action">EXPLORE SUPPORT →</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
+            <span className="ticker-star">✦</span>
+            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-action">EXPLORE SUPPORT →</span>
+            <span className="ticker-star">✦</span>
+          </div>
+          <div className="ticker-content" aria-hidden="true">
+            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
+            <span className="ticker-star">✦</span>
+            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-action">EXPLORE SUPPORT →</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
+            <span className="ticker-star">✦</span>
+            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
+            <span className="ticker-star">✦</span>
+            <span className="ticker-action">EXPLORE SUPPORT →</span>
+            <span className="ticker-star">✦</span>
+          </div>
+        </div>
+      </a>
+
       <div className="header-inner">
 
         <button
