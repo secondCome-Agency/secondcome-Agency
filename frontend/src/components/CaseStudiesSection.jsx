@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function CaseStudiesSection() {
   const cases = [
-    { client: 'AURA LIFESTYLE', metric: '+1,050% ROI', desc: 'Scaled D2C revenue from $100k/mo to $1.2M/mo in 90 days via multi-channel ad engine.' },
-    { client: 'VALKYRIE WEAR', metric: '14.2M VIEWS', desc: 'Viral cinematic video campaign generating 45,000+ waitlist signups in 14 days.' },
-    { client: 'NEXUS CAPITAL', metric: '$18.9M REVENUE', desc: 'Luxury rebrand and institutional platform architecture repositioning client for Series B.' },
-    { client: 'SOLARIS YACHTS', metric: '8.4x CONVERSION', desc: 'Bespoke 3D web experience increasing high-net-worth consultation bookings by 840%.' },
+    { client: 'SecondCome Agency', category: 'Brand Identity + Digital Experience', desc: 'Building a distinctive identity and immersive digital presence for a new-generation creative agency.' },
+    { client: 'MoneyMate', category: 'Fintech Web Application', desc: 'Designing a clearer, more engaging experience for personal finance management.' },
+    { client: 'E-Commerce Experience', category: 'Digital Commerce', desc: 'Creating a seamless shopping journey focused on product discovery and user experience.' },
+    { client: 'LMS Platform', category: 'EdTech Experience', desc: 'Designing a modern learning environment that brings courses and learners together.' },
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function CaseStudiesSection() {
           {cases.concat(cases).map((c, idx) => (
             <div className="case-card" key={idx}>
               <span className="case-client">{c.client}</span>
-              <div className="case-metric">{c.metric}</div>
+              <div className="case-metric">{c.category}</div>
               <p className="case-desc">{c.desc}</p>
             </div>
           ))}
