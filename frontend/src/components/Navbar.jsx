@@ -27,27 +27,16 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
     }
   };
 
-  const handleSupportScroll = (e) => {
+  const handleSupportClick = (e) => {
     e.preventDefault();
-    const scrollToComp = () => {
-      const el = document.getElementById('complementary-support');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
-
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(scrollToComp, 300);
-    } else {
-      scrollToComp();
-    }
+    navigate('/complementary-services');
+    window.scrollTo(0, 0);
   };
 
   return (
     <header className="site-header">
       {/* Top Red Marquee / Ticker Strip */}
-      <a href="#complementary-support" onClick={handleSupportScroll} className="top-ticker-strip" aria-label="Explore Complementary Support">
+      <Link to="/complementary-services" onClick={handleSupportClick} className="top-ticker-strip" aria-label="Explore Complementary Support">
         <div className="ticker-track">
           <div className="ticker-content">
             <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
@@ -78,7 +67,7 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
             <span className="ticker-star">✦</span>
           </div>
         </div>
-      </a>
+      </Link>
 
       <div className="header-inner">
 
