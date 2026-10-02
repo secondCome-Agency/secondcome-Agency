@@ -5049,3 +5049,393 @@ body {
     padding: 0 1.5rem;
   }
 }
+
+/* ==========================================================================
+   GLOBAL RESPONSIVE MOBILE FIXES & CENTER ALIGNMENT SYSTEM
+   ========================================================================== */
+
+/* Prevent horizontal overflow on all screen sizes */
+html, body, #root, .app-root, main {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Smooth scroll target offset for sticky header */
+section[id], div[id], [id] {
+  scroll-margin-top: 100px;
+}
+
+/* Ensure headings never overflow containers or break unnaturally */
+h1, h2, h3, h4, h5, h6,
+.heading-serif, .heading-script,
+.comp-hero-headline, .comp-section-title, .comp-calc-title,
+.home-comp-heading, .comp-homepage-heading, .cta-form-heading {
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  hyphens: auto;
+}
+
+/* Header & Navigation Bar Responsiveness */
+@media (max-width: 768px) {
+  .site-header {
+    pointer-events: none;
+  }
+
+  .header-inner {
+    padding: 0.5rem 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .brand-logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.25rem;
+    min-width: 0;
+  }
+
+  .brand-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo-script {
+    font-size: clamp(1.2rem, 4.5vw, 1.7rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .logo-sub {
+    font-size: 0.45rem;
+    letter-spacing: 0.2em;
+    margin-top: -1px;
+  }
+
+  .pill-btn {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.72rem;
+    gap: 0.35rem;
+    border-radius: 50px;
+    flex-shrink: 0;
+  }
+
+  .pill-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .pill-icon {
+    width: 14px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-inner {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .pill-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.65rem;
+    gap: 0.25rem;
+  }
+
+  .logo-script {
+    font-size: 1.15rem;
+  }
+
+  .logo-sub {
+    font-size: 0.4rem;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* Complementary Services Page Mobile Adjustments */
+@media (max-width: 768px) {
+  .comp-services-page {
+    padding-top: 110px;
+  }
+
+  .comp-container {
+    padding: 0 1.25rem;
+    width: 100%;
+  }
+
+  .comp-hero-section {
+    padding: 3rem 0 4rem 0;
+  }
+
+  .comp-hero-top-badge {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.85rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+  }
+
+  .comp-hero-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .comp-hero-headline {
+    font-size: clamp(1.7rem, 7.5vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .comp-hero-script {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    text-align: center;
+  }
+
+  .comp-hero-body-wrap {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .comp-hero-body {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .comp-hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .comp-hero-actions button,
+  .comp-hero-actions .pill-btn,
+  .comp-action-secondary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .comp-hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .comp-stat-card {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .comp-stat-val {
+    font-size: 1.8rem;
+  }
+
+  .comp-stat-lbl {
+    font-size: 0.78rem;
+  }
+
+  .comp-stat-sub {
+    font-size: 0.7rem;
+  }
+
+  .comp-timeline-section {
+    padding: 4rem 0;
+  }
+
+  .comp-timeline-header-wrap {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .comp-section-title {
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .comp-section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-align: center;
+  }
+
+  .comp-tabs-bar {
+    width: 100%;
+    justify-content: center;
+    gap: 0.25rem;
+    border-radius: 16px;
+    padding: 0.25rem;
+  }
+
+  .comp-tab-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .comp-months-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .comp-month-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .comp-month-title {
+    font-size: 1.3rem;
+  }
+
+  .comp-calculator-section {
+    padding: 4rem 0;
+  }
+
+  .comp-calc-box {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+
+  .comp-calc-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .comp-calc-title {
+    font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .comp-calc-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .comp-calc-output-card {
+    padding: 2rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .comp-calc-big-val {
+    font-size: 2.8rem;
+  }
+
+  .comp-simulator-section {
+    padding: 4rem 0;
+  }
+
+  .comp-simulator-box {
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+  }
+
+  .comp-simulator-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .comp-scrubber-controls {
+    margin-bottom: 2rem;
+  }
+
+  .comp-scrubber-ticks {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .comp-tick-btn {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.68rem;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .comp-simulator-dashboard {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .comp-sim-week-title {
+    font-size: 1.5rem;
+  }
+
+  .comp-sim-screen-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .comp-sim-metric-row {
+    font-size: 0.78rem;
+  }
+
+  .comp-comparison-section {
+    padding: 4rem 0;
+  }
+
+  .comp-slider-container {
+    height: 360px;
+    border-radius: 16px;
+  }
+
+  .comp-slider-pane {
+    padding: 1.5rem 1rem;
+  }
+
+  .cta-section, #contact {
+    padding: 4rem 0;
+  }
+
+  .cta-container {
+    padding: 0 1.25rem;
+  }
+
+  .cta-form-wrapper {
+    padding: 2rem 1.25rem !important;
+    border-radius: 20px !important;
+    width: 100% !important;
+  }
+
+  .cta-form-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-form-script {
+    font-size: 2.2rem;
+    display: block;
+    text-align: center;
+  }
+
+  .cta-form-heading {
+    font-size: clamp(1.4rem, 5vw, 2.2rem) !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+  }
+
+  .whatsapp-float,
+  [class*="whatsapp"],
+  [class*="chat-float"] {
+    bottom: 16px !important;
+    right: 16px !important;
+    width: 50px !important;
+    height: 50px !important;
+    z-index: 800 !important;
+  }
+}
