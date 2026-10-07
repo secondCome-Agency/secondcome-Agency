@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
-import OpeningGate from './components/OpeningGate.jsx';
 import Navbar from './components/Navbar.jsx';
 import NavDrawer from './components/NavDrawer.jsx';
 import Hero from './components/Hero.jsx';
@@ -81,7 +80,6 @@ export default function App() {
   return (
     <div className="app-root">
       <ScrollToTop />
-      <OpeningGate />
       <Navbar isDrawerOpen={isDrawerOpen} onToggleDrawer={handleToggleDrawer} />
       <NavDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
 
