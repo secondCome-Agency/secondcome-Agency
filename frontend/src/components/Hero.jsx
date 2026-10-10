@@ -21,12 +21,14 @@ export default function Hero() {
           trigger: wrapperRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.5,
+          scrub: 0.6,
+          pin: true,
+          pinSpacing: true,
           invalidateOnRefresh: true,
         },
       });
 
-      // 1. Expand width & height of the arch wrapper to fill full viewport (100vw x 100vh)
+      // 1. Expand width & height of the arch portal frame from rounded arch (42vw x 82vh) to full screen (100vw x 100vh)
       heroTl.to(
         archWrapperRef.current,
         {
@@ -39,7 +41,6 @@ export default function Hero() {
         0
       );
 
-      // 2. Reduce arch top border radius to 0px
       heroTl.to(
         archPortalRef.current,
         {
@@ -51,7 +52,7 @@ export default function Hero() {
         0
       );
 
-      // 3. Fade out circular spin badge early as user starts scrolling
+      // 2. Fade out circular spin badge right as scroll starts
       heroTl.to(
         spinBadgeRef.current,
         {
@@ -62,8 +63,7 @@ export default function Hero() {
         0
       );
 
-      // 4. Reveal content ONE BY ONE sequentially as user scrolls down inside the gate
-      // Step 1: Script text reveals
+      // 3. Sequentially reveal content line by line as user scrolls down inside the pinned section
       heroTl.to(
         scriptRevealRef.current,
         {
@@ -71,10 +71,9 @@ export default function Hero() {
           y: 0,
           ease: 'power2.out',
         },
-        0.22
+        0.25
       );
 
-      // Step 2: Subtitle reveals
       heroTl.to(
         subtitleRef.current,
         {
@@ -82,10 +81,9 @@ export default function Hero() {
           y: 0,
           ease: 'power2.out',
         },
-        0.48
+        0.55
       );
 
-      // Step 3: Pill badge tag reveals
       heroTl.to(
         badgeTagRef.current,
         {
@@ -93,7 +91,7 @@ export default function Hero() {
           y: 0,
           ease: 'power2.out',
         },
-        0.72
+        0.85
       );
     }, wrapperRef);
 
