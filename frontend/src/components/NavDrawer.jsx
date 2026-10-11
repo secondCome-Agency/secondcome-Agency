@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 export default function NavDrawer({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -15,28 +15,25 @@ export default function NavDrawer({ isOpen, onClose }) {
     { num: '07', text: 'START A PROJECT', targetId: 'contact' },
   ];
 
-  const handleNavClick = (link) => (e) => {
+  const handlePageClick = () => {
+    onClose();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAnchorClick = (targetId) => (e) => {
     e.preventDefault();
     onClose();
 
-    if (link.isPage) {
-      navigate(link.href);
-      window.scrollTo(0, 0);
-      return;
-    }
-
     const scrollToTarget = () => {
-      if (link.targetId) {
-        const el = document.getElementById(link.targetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
     if (location.pathname !== '/') {
       navigate('/');
-      setTimeout(scrollToTarget, 300);
+      setTimeout(scrollToTarget, 150);
     } else {
       scrollToTarget();
     }
@@ -58,14 +55,25 @@ export default function NavDrawer({ isOpen, onClose }) {
             <ul className="drawer-menu">
               {links.map((link) => (
                 <li key={link.num}>
-                  <a
-                    href={link.isPage ? link.href : `/#${link.targetId}`}
-                    className="drawer-link"
-                    onClick={handleNavClick(link)}
-                  >
-                    <span className="link-num">{link.num}</span>
-                    <span className="link-text">{link.text}</span>
-                  </a>
+                  {link.isPage ? (
+                    <Link
+                      to={link.href}
+                      className="drawer-link"
+                      onClick={handlePageClick}
+                    >
+                      <span className="link-num">{link.num}</span>
+                      <span className="link-text">{link.text}</span>
+                    </Link>
+                  ) : (
+                    <a
+                      href={`/#${link.targetId}`}
+                      className="drawer-link"
+                      onClick={handleAnchorClick(link.targetId)}
+                    >
+                      <span className="link-num">{link.num}</span>
+                      <span className="link-text">{link.text}</span>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

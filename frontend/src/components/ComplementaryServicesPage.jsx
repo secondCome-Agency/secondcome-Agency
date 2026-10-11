@@ -834,10 +834,10 @@ export default function ComplementaryServicesPage() {
                   <h3>Blazing Fast & Conversion Focused</h3>
                   <p>Optimized Core Web Vitals, active Google Reviews strategy, synchronized social branding, dynamic QR touchpoints, and continuous monthly tweaks.</p>
                   <ul className="comp-check-list">
-                    <td>✓ 4.9★ Google Business Profile Rating</td>
-                    <td>✓ Sub-second Page Load Times</td>
-                    <td>✓ High-converting Mobile UX & Sticky CTAs</td>
-                    <td>✓ 100% Asset & Schema Indexing</td>
+                    <li>✓ 4.9★ Google Business Profile Rating</li>
+                    <li>✓ Sub-second Page Load Times</li>
+                    <li>✓ High-converting Mobile UX & Sticky CTAs</li>
+                    <li>✓ 100% Asset & Schema Indexing</li>
                   </ul>
                 </div>
               </div>
@@ -852,10 +852,10 @@ export default function ComplementaryServicesPage() {
                   <h3>Stagnant Launch & Missed Reviews</h3>
                   <p>Website is launched but left untouched. No review strategy, unoptimized search profiles, slow image assets, and zero post-launch growth momentum.</p>
                   <ul className="comp-check-list-warn">
-                    <td>⚠️ Low Google Reviews & Zero Schema Markup</td>
-                    <td>⚠️ Slow Mobile Load Times & High Bounce Rate</td>
-                    <td>⚠️ Disconnected Social Profiles & Offline Touchpoints</td>
-                    <td>⚠️ No Ongoing Growth or Performance Analytics</td>
+                    <li>⚠️ Low Google Reviews & Zero Schema Markup</li>
+                    <li>⚠️ Slow Mobile Load Times & High Bounce Rate</li>
+                    <li>⚠️ Disconnected Social Profiles & Offline Touchpoints</li>
+                    <li>⚠️ No Ongoing Growth or Performance Analytics</li>
                   </ul>
                 </div>
               </div>

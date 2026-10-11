@@ -225,7 +225,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 900;
+  z-index: 1200;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s ease, opacity 0.5s ease;
