@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,7 +14,7 @@ export default function Hero() {
   const badgeTagRef = useRef(null);
   const spinBadgeRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const heroTl = gsap.timeline({
         scrollTrigger: {
@@ -22,8 +22,6 @@ export default function Hero() {
           start: 'top top',
           end: 'bottom bottom',
           scrub: 0.6,
-          pin: true,
-          pinSpacing: true,
           invalidateOnRefresh: true,
         },
       });
