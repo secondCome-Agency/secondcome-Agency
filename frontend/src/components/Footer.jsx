@@ -108,7 +108,9 @@ export default function Footer() {
 
       {/* Floating WhatsApp Action Button */}
       <a
-        href="https://wa.me/919528812309"
+        href={`https://wa.me/919528812309?text=${encodeURIComponent(
+        "Hey SecondCome team! 👋 I came across your website and would love to know how you can help my brand grow. Could we discuss this further?"
+        )}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contact us on WhatsApp"
