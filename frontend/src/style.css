@@ -1330,7 +1330,7 @@ body {
   display: flex;
   gap: 2.5rem;
   padding: 1rem 2.5rem;
-  animation: marqueeScroll 25s linear infinite;
+  animation: marqueeScroll 45s linear infinite;
   width: max-content;
 }
 
@@ -1349,20 +1349,33 @@ body {
 }
 
 .case-card {
-  width: 380px;
+  width: 400px;
   background-color: var(--color-dark-teal);
   color: var(--color-text-white);
-  padding: 2.5rem;
-  border-radius: 12px;
+  padding: 2.4rem 2.2rem 2rem 2.2rem;
+  border-radius: 14px;
   box-shadow: 0 20px 40px rgba(21, 36, 41, 0.2);
   flex-shrink: 0;
   border: 1px solid rgba(160, 239, 233, 0.15);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
 }
 
 .case-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
   border-color: var(--color-cyan-accent);
+  box-shadow: 0 25px 50px rgba(13, 25, 29, 0.45);
+}
+
+.case-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .case-client {
@@ -1371,21 +1384,126 @@ body {
   letter-spacing: 0.3em;
   color: var(--color-cyan-accent);
   display: block;
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.case-card-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  background: rgba(160, 239, 233, 0.1);
+  color: var(--color-cyan-accent);
+  border: 1px solid rgba(160, 239, 233, 0.2);
 }
 
 .case-metric {
   font-family: var(--font-serif);
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-weight: 300;
   color: var(--color-text-white);
+  line-height: 1.15;
   margin-bottom: 0.8rem;
+  transition: color 0.25s ease;
+}
+
+.case-card:hover .case-metric {
+  color: #FFFFFF;
+}
+
+.case-card-img-wrap {
+  width: 100%;
+  height: 170px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(160, 239, 233, 0.15);
+}
+
+.case-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.case-card:hover .case-card-img {
+  transform: scale(1.05);
 }
 
 .case-desc {
   font-size: 0.95rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.case-card-actions {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(160, 239, 233, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.case-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.case-btn-live {
+  background-color: var(--color-cyan-accent);
+  color: var(--color-dark-teal-darker);
+  border: 1px solid var(--color-cyan-accent);
+}
+
+.case-btn-live:hover {
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  color: var(--color-dark-teal-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(160, 239, 233, 0.35);
+}
+
+.case-btn-code {
+  background-color: rgba(160, 239, 233, 0.08);
+  color: var(--color-cyan-accent);
+  border: 1px solid rgba(160, 239, 233, 0.25);
+}
+
+.case-btn-code:hover {
+  background-color: rgba(160, 239, 233, 0.18);
+  color: #FFFFFF;
+  border-color: var(--color-cyan-accent);
+  transform: translateY(-2px);
+}
+
+.case-btn-disabled {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.35);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  cursor: not-allowed;
 }
 
 /* ==========================================================================
@@ -3056,12 +3174,21 @@ body {
   }
 
   .case-card {
-    width: 280px;
-    padding: 1.6rem 1.2rem;
+    width: 300px;
+    padding: 1.8rem 1.25rem 1.4rem 1.25rem;
   }
 
   .case-metric {
-    font-size: 2rem;
+    font-size: 1.85rem;
+  }
+
+  .case-card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .case-btn {
+    width: 100%;
   }
 
   .form-row-2col {
