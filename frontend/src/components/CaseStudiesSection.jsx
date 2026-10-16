@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState, useCallback, useLayoutEffect } from 'react';
 
 export default function CaseStudiesSection() {
   const projects = [
@@ -68,6 +68,321 @@ export default function CaseStudiesSection() {
     },
   ];
 
+  // Render 3 sets of cards to create seamless infinite bidirectional scrolling
+  const tripleProjects = [...projects, ...projects, ...projects];
+
+  const marqueeRef = useRef(null);
+  const trackRef = useRef(null);
+  const cardRefs = useRef([]);
+
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Reliable initial calculation so auto-scroll starts on frame 0 without waiting
+  const getFallbackWidth = () => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 480;
+    return 7 * (isMobile ? (300 + 40) : (400 + 40));
+  };
+
+  const initialW = getFallbackWidth();
+  const posRef = useRef(-initialW);
+  const singleSetWidthRef = useRef(initialW);
+  const cardStepRef = useRef(initialW / 7);
+
+  // Interaction tracking refs
+  const isPointerDownRef = useRef(false);
+  const hasDraggedRef = useRef(false);
+  const pointerStartXRef = useRef(0);
+  const lastPointerXRef = useRef(0);
+  const lastPointerTimeRef = useRef(0);
+  const dragDistanceRef = useRef(0);
+  const velocityRef = useRef(0);
+
+  const isHoveredRef = useRef(false);
+  const isFocusedRef = useRef(false);
+  const pauseUntilRef = useRef(0);
+  const stepAnimationRef = useRef(null);
+
+  // Measure precise dimensions from DOM
+  const measure = useCallback(() => {
+    if (!trackRef.current) return;
+    const cards = cardRefs.current;
+    const N = projects.length; // 7
+
+    let measuredW = 0;
+    if (cards[0] && cards[N]) {
+      const diff = cards[N].offsetLeft - cards[0].offsetLeft;
+      if (diff > 200) measuredW = diff;
+    }
+    if (!measuredW && trackRef.current.scrollWidth > 300) {
+      measuredW = trackRef.current.scrollWidth / 3;
+    }
+    if (!measuredW) {
+      measuredW = getFallbackWidth();
+    }
+
+    singleSetWidthRef.current = measuredW;
+
+    let measuredStep = 0;
+    if (cards[0] && cards[1]) {
+      const step = cards[1].offsetLeft - cards[0].offsetLeft;
+      if (step > 50) measuredStep = step;
+    }
+    cardStepRef.current = measuredStep || (measuredW / N);
+  }, [projects.length]);
+
+  useLayoutEffect(() => {
+    measure();
+  }, [measure]);
+
+  useEffect(() => {
+    measure();
+
+    const t1 = setTimeout(measure, 60);
+    const t2 = setTimeout(measure, 300);
+    const t3 = setTimeout(measure, 1000);
+
+    const handleResize = () => {
+      measure();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [measure]);
+
+  // Main animation loop
+  useEffect(() => {
+    let animId;
+    let lastTime = performance.now();
+
+    const loop = (now) => {
+      const rawDt = (now - lastTime) / 1000;
+      const dt = Math.min(Math.max(rawDt, 0), 0.1);
+      lastTime = now;
+
+      // Always guarantee W is valid
+      const W = singleSetWidthRef.current || getFallbackWidth();
+
+      if (isPointerDownRef.current) {
+        // Direct manipulation while dragging
+        pauseUntilRef.current = now + 1200;
+      } else if (stepAnimationRef.current) {
+        // Smooth programmatic step (arrows / keyboard)
+        const { startTime, fromX, toX, duration } = stepAnimationRef.current;
+        const progress = Math.min(1, (now - startTime) / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        posRef.current = fromX + (toX - fromX) * ease;
+
+        if (progress >= 1) {
+          posRef.current = toX;
+          stepAnimationRef.current = null;
+          pauseUntilRef.current = now + 1200;
+        }
+      } else if (Math.abs(velocityRef.current) > 5) {
+        // Inertia coasting after release
+        posRef.current += velocityRef.current * dt;
+        velocityRef.current *= Math.pow(0.92, dt * 60);
+        pauseUntilRef.current = now + 1200;
+      } else {
+        velocityRef.current = 0;
+
+        // Auto-scrolling: runs continuously unless user is actively hovering or interacting
+        const isPaused = isHoveredRef.current || isFocusedRef.current || now < pauseUntilRef.current;
+        if (!isPaused) {
+          // Speed matches original 45s cycle for 1 set of cards
+          const speed = W / 45;
+          posRef.current -= speed * dt;
+        }
+      }
+
+      // Infinite loop wrapping within [-2W, -W)
+      while (posRef.current <= -2 * W) {
+        posRef.current += W;
+        if (stepAnimationRef.current) {
+          stepAnimationRef.current.fromX += W;
+          stepAnimationRef.current.toX += W;
+        }
+      }
+      while (posRef.current > -W) {
+        posRef.current -= W;
+        if (stepAnimationRef.current) {
+          stepAnimationRef.current.fromX -= W;
+          stepAnimationRef.current.toX -= W;
+        }
+      }
+
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${posRef.current.toFixed(2)}px, 0, 0)`;
+      }
+
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  // Trackpad / mouse horizontal wheel support
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el) return;
+
+    const handleWheel = (e) => {
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
+      if (isHorizontal) {
+        e.preventDefault();
+        const delta = e.shiftKey ? e.deltaY : e.deltaX;
+        posRef.current -= delta;
+        velocityRef.current = 0;
+        stepAnimationRef.current = null;
+        pauseUntilRef.current = performance.now() + 1400;
+
+        const W = singleSetWidthRef.current || getFallbackWidth();
+        while (posRef.current <= -2 * W) posRef.current += W;
+        while (posRef.current > -W) posRef.current -= W;
+
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translate3d(${posRef.current.toFixed(2)}px, 0, 0)`;
+        }
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  // Navigation step helper for arrow controls and keyboard
+  const stepByCard = useCallback((direction) => {
+    const W = singleSetWidthRef.current || getFallbackWidth();
+    const step = cardStepRef.current || (W / projects.length) || 440;
+    const fromX = posRef.current;
+    const toX = fromX - direction * step;
+
+    velocityRef.current = 0;
+    stepAnimationRef.current = {
+      startTime: performance.now(),
+      fromX,
+      toX,
+      duration: 450,
+    };
+    pauseUntilRef.current = performance.now() + 1400;
+  }, [projects.length]);
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    stepByCard(-1);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    stepByCard(1);
+  };
+
+  // Pointer event handlers
+  const handlePointerDown = (e) => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    if (e.target.closest('.case-nav-btn')) return;
+
+    isPointerDownRef.current = true;
+    hasDraggedRef.current = false;
+    dragDistanceRef.current = 0;
+    pointerStartXRef.current = e.clientX;
+    lastPointerXRef.current = e.clientX;
+    lastPointerTimeRef.current = performance.now();
+    velocityRef.current = 0;
+    stepAnimationRef.current = null;
+
+    try {
+      marqueeRef.current?.setPointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isPointerDownRef.current) return;
+
+    const dx = e.clientX - lastPointerXRef.current;
+    dragDistanceRef.current += Math.abs(dx);
+
+    if (dragDistanceRef.current > 6) {
+      hasDraggedRef.current = true;
+      setIsDragging(true);
+    }
+
+    const now = performance.now();
+    const dt = (now - lastPointerTimeRef.current) / 1000;
+    if (dt > 0.001) {
+      const instVel = dx / dt;
+      velocityRef.current = velocityRef.current * 0.3 + instVel * 0.7;
+    }
+    lastPointerXRef.current = e.clientX;
+    lastPointerTimeRef.current = now;
+
+    posRef.current += dx;
+
+    const W = singleSetWidthRef.current || getFallbackWidth();
+    while (posRef.current <= -2 * W) posRef.current += W;
+    while (posRef.current > -W) posRef.current -= W;
+
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${posRef.current.toFixed(2)}px, 0, 0)`;
+    }
+  };
+
+  const handlePointerUp = (e) => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    setIsDragging(false);
+
+    try {
+      marqueeRef.current?.releasePointerCapture(e.pointerId);
+    } catch (_) {}
+
+    if (hasDraggedRef.current) {
+      velocityRef.current = Math.max(-1800, Math.min(1800, velocityRef.current));
+      if (Math.abs(velocityRef.current) < 30) velocityRef.current = 0;
+      pauseUntilRef.current = performance.now() + 1400;
+    } else {
+      velocityRef.current = 0;
+    }
+  };
+
+  const handleClickCapture = (e) => {
+    if (hasDraggedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      setTimeout(() => {
+        hasDraggedRef.current = false;
+      }, 50);
+    }
+  };
+
+  const handlePointerEnter = (e) => {
+    // Only pause on actual mouse hover (ignore mobile touch taps)
+    if (e.pointerType === 'mouse') {
+      isHoveredRef.current = true;
+    }
+  };
+
+  const handlePointerLeave = (e) => {
+    if (e.pointerType === 'mouse') {
+      isHoveredRef.current = false;
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      stepByCard(-1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      stepByCard(1);
+    }
+  };
+
   return (
     <section className="portfolio-section" id="portfolio">
       <div className="portfolio-header-wrap">
@@ -76,10 +391,45 @@ export default function CaseStudiesSection() {
         <span className="heading-script">Real metrics. Unmatched growth.</span>
       </div>
 
-      <div className="case-marquee">
-        <div className="case-track">
-          {projects.concat(projects).map((item, idx) => (
-            <div className="case-card" key={idx}>
+      <div
+        className={`case-marquee ${isDragging ? 'is-dragging' : ''}`}
+        ref={marqueeRef}
+        tabIndex={0}
+        role="region"
+        aria-label="Featured projects carousel. Use arrow keys or drag to browse projects."
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        onClickCapture={handleClickCapture}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onFocusCapture={() => { isFocusedRef.current = true; }}
+        onBlurCapture={() => {
+          isFocusedRef.current = false;
+          pauseUntilRef.current = performance.now() + 1000;
+        }}
+        onKeyDown={handleKeyDown}
+      >
+        <button
+          type="button"
+          className="case-nav-btn case-nav-prev"
+          onClick={handlePrev}
+          aria-label="Previous case studies"
+          title="Previous projects"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div className="case-track" ref={trackRef}>
+          {tripleProjects.map((item, idx) => (
+            <div
+              className="case-card"
+              key={idx}
+              ref={(el) => { cardRefs.current[idx] = el; }}
+            >
               <div className="case-card-header">
                 <span className="case-client">{item.client || item.name}</span>
                 <span className="case-card-badge">{item.category}</span>
@@ -143,6 +493,18 @@ export default function CaseStudiesSection() {
             </div>
           ))}
         </div>
+
+        <button
+          type="button"
+          className="case-nav-btn case-nav-next"
+          onClick={handleNext}
+          aria-label="Next case studies"
+          title="Next projects"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
     </section>
   );
