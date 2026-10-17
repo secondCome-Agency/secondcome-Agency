@@ -1,0 +1,407 @@
+/* ==========================================================================
+   SECOND COME AGENCY - HERO SECTION (EXACT REFERENCE COLLAGE ARRANGEMENT)
+   ========================================================================== */
+
+.agency-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c1619;
+  color: var(--color-text-white, #FFFFFF);
+  padding: calc(var(--header-height, 80px) + 1.25rem) 1.5rem 2.5rem 1.5rem;
+  box-sizing: border-box;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+@supports not (height: 100svh) {
+  .agency-hero-section {
+    min-height: 100vh;
+  }
+}
+
+/* Subtle, Restrained Ambient Lighting */
+.hero-ambient-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 1;
+}
+
+.hero-ambient-glow.glow-top {
+  top: -8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(160, 239, 233, 0.05) 0%, transparent 70%);
+}
+
+.hero-ambient-glow.glow-bottom {
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(45, 69, 77, 0.16) 0%, transparent 75%);
+}
+
+/* ==========================================================================
+   CENTER HEADER: Headline & Tagline
+   ========================================================================== */
+
+.hero-content-center {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Headline: Bold, Sophisticated & Balanced */
+.hero-main-headline {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.85rem, 3.2vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-transform: uppercase;
+  max-width: 900px;
+}
+
+.hero-main-headline,
+.hero-main-headline span,
+.hero-main-headline .heading-serif {
+  color: #ffffff !important;
+}
+
+.headline-row {
+  display: block;
+}
+
+/* Clean, flat turquoise badge - matching reference image editorial style */
+.headline-highlight-phrase {
+  display: inline-block;
+  background-color: #A0EFE9;
+  color: #111E22 !important;
+  font-weight: 800;
+  padding: 0.12em 0.5em;
+  border-radius: 10px;
+  letter-spacing: -0.015em;
+  box-shadow: none !important;
+  border: none;
+}
+
+/* Script Tagline matching reference font ('Alex Brush', cursive) */
+.hero-script-tagline-wrapper {
+  margin: 0.15rem 0 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-script-tagline {
+  font-family: var(--font-script, 'Alex Brush', cursive);
+  font-size: clamp(2.3rem, 3.8vw, 3.4rem);
+  font-weight: 400;
+  color: var(--color-cyan-accent, #A0EFE9);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(160, 239, 233, 0.25);
+  display: inline-block;
+}
+
+/* Tagline: 16-18px readable, comfortable line height */
+.hero-lead-subtitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+  margin: 0 auto;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   EXACT REFERENCE FANNED CARD COLLAGE (ADJUSTED UPSIDE TO FILL LANDING PAGE)
+   ========================================================================== */
+
+.hero-reference-collage-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 0.5rem;
+  padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.hero-reference-collage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: auto;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Individual Card Wrapper - Fuller, slightly taller proportions for complete presence */
+.hero-fanned-card {
+  position: relative;
+  width: clamp(180px, 16.5vw, 245px);
+  height: clamp(260px, 24vw, 350px);
+  flex-shrink: 0;
+  margin-left: clamp(-42px, -3.2vw, -24px);
+  margin-right: clamp(-42px, -3.2vw, -24px);
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 0.45s ease;
+  will-change: transform;
+}
+
+.hero-fanned-card:first-child {
+  margin-left: 0;
+}
+
+.hero-fanned-card:last-child {
+  margin-right: 0;
+}
+
+/* Media Box with Rounded Corners & Deep Realistic Shadow */
+.hero-fanned-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background-color: #142328;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-fanned-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   HOVER: DISPLAY UPSIDE PROPER
+   Card rotates to 0deg (upright/proper), lifts up by 32px (upside),
+   scales to 1.06, and brings to front-most layer (z-index: 60)
+   ========================================================================== */
+
+.hero-fanned-card:hover {
+  transform: rotate(0deg) translateY(-32px) scale(1.06) !important;
+  z-index: 60 !important;
+}
+
+.hero-fanned-card:hover .hero-fanned-media {
+  border-color: rgba(160, 239, 233, 0.85);
+  box-shadow: 0 38px 80px -10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(160, 239, 233, 0.25);
+}
+
+.hero-fanned-card:hover .hero-fanned-img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   DEFAULT RESTING ROTATIONS, OFFSETS, AND Z-INDEX FROM REFERENCE IMAGE
+   (Elevated slightly upside for full visibility on screen)
+   ========================================================================== */
+
+/* Card 1: Far Left - Tilted Left */
+.hero-fanned-card.card-pos-1 {
+  transform: rotate(-7.5deg) translateY(16px);
+  z-index: 1;
+}
+
+/* Card 2: Mid Left - Slight Left Tilt, Raised */
+.hero-fanned-card.card-pos-2 {
+  transform: rotate(-3deg) translateY(-10px);
+  z-index: 2;
+}
+
+/* Card 3: Center Left - Nearly Straight, Neutral */
+.hero-fanned-card.card-pos-3 {
+  transform: rotate(-0.5deg) translateY(2px);
+  z-index: 3;
+}
+
+/* Card 4: Center Right - In Front, Raised */
+.hero-fanned-card.card-pos-4 {
+  transform: rotate(1.2deg) translateY(-18px);
+  z-index: 5;
+}
+
+/* Card 5: Mid Right - Tilted Right, Neutral */
+.hero-fanned-card.card-pos-5 {
+  transform: rotate(4.5deg) translateY(2px);
+  z-index: 2;
+}
+
+/* Card 6: Far Right - Tilted Right */
+.hero-fanned-card.card-pos-6 {
+  transform: rotate(8deg) translateY(16px);
+  z-index: 4;
+}
+
+/* ==========================================================================
+   FLOATING PILL BADGES (MATCHING REFERENCE IMAGE EXACTLY)
+   ========================================================================== */
+
+.hero-floating-pill {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding: 0.42rem 1.05rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+  white-space: nowrap;
+  z-index: 30;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Top-Left of Card 1 */
+.pill-pos-top-left {
+  top: 10px;
+  left: 20px;
+  transform: rotate(-6deg);
+}
+
+/* Bottom-Center of Card 3/4 */
+.pill-pos-bottom-center {
+  bottom: -6px;
+  left: 45%;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+/* Top-Right of Card 6 */
+.pill-pos-top-right {
+  top: 10px;
+  right: 20px;
+  transform: rotate(6deg);
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .hero-fanned-card {
+    width: clamp(160px, 15vw, 205px);
+    height: clamp(230px, 21.5vw, 290px);
+    margin-left: -28px;
+    margin-right: -28px;
+  }
+
+  .hero-floating-pill {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.9rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .agency-hero-section {
+    padding-top: calc(var(--header-height, 80px) + 2rem);
+    min-height: 100svh;
+  }
+
+  .hero-reference-collage {
+    transform: scale(0.82);
+    transform-origin: bottom center;
+    margin-bottom: -15px;
+  }
+
+  .hero-main-headline {
+    font-size: clamp(1.75rem, 4.2vw, 2.4rem);
+  }
+
+  .hero-script-tagline {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+  }
+
+  .hero-lead-subtitle {
+    font-size: 0.95rem;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .agency-hero-section {
+    padding-top: calc(var(--header-height, 80px) + 1.5rem);
+    padding-bottom: 2rem;
+  }
+
+  .hero-main-headline {
+    font-size: clamp(1.55rem, 5.5vw, 2rem);
+    line-height: 1.22;
+  }
+
+  .hero-script-tagline {
+    font-size: 1.95rem;
+  }
+
+  .hero-lead-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero-reference-collage-wrapper {
+    padding-top: 1rem;
+  }
+
+  .hero-reference-collage {
+    transform: scale(0.58);
+    transform-origin: bottom center;
+    margin-bottom: -60px;
+  }
+}
+
+@media (max-width: 440px) {
+  .hero-reference-collage {
+    transform: scale(0.48);
+    transform-origin: bottom center;
+    margin-bottom: -80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fanned-card:hover {
+    transform: none !important;
+  }
+}

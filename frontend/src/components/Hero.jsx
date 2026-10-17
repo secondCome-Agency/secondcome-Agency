@@ -1,139 +1,151 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './Hero.css';
 
-gsap.registerPlugin(ScrollTrigger);
+const COLLAGE_CARDS = [
+  {
+    id: 'perfume',
+    title: 'Noir Absolu Luxury Fragrance',
+    img: '/assets/ref_card1_perfume.jpg',
+    cardClass: 'card-pos-1',
+  },
+  {
+    id: 'sneaker',
+    title: 'Velto Kinetic Footwear',
+    img: '/assets/ref_card2_sneaker.jpg',
+    cardClass: 'card-pos-2',
+  },
+  {
+    id: 'storefront',
+    title: 'Aurélien Flagship Retail',
+    img: '/assets/ref_card3_storefront.jpg',
+    cardClass: 'card-pos-3',
+  },
+  {
+    id: 'production',
+    title: 'Studio Runway Cinema Production',
+    img: '/assets/polaroid3.jpg',
+    cardClass: 'card-pos-4',
+  },
+  {
+    id: 'packaging',
+    title: 'Aethel Editorial Packaging',
+    img: '/assets/ref_card5_packaging.jpg',
+    cardClass: 'card-pos-5',
+  },
+  {
+    id: 'billboard',
+    title: 'Seoul Fashion Week Night Billboard',
+    img: '/assets/ref_card6_billboard.jpg',
+    cardClass: 'card-pos-6',
+  },
+];
 
 export default function Hero() {
-  const wrapperRef = useRef(null);
   const heroRef = useRef(null);
-  const archWrapperRef = useRef(null);
-  const archPortalRef = useRef(null);
-  const scriptRevealRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const badgeTagRef = useRef(null);
-  const spinBadgeRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const heroTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      });
+      // Subtle one-time entrance animation
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // 1. Expand width & height of the arch portal frame from rounded arch (42vw x 82vh) to full screen (100vw x 100vh)
-      heroTl.to(
-        archWrapperRef.current,
-        {
-          width: '100vw',
-          height: '100vh',
-          maxWidth: '100vw',
-          maxHeight: '100vh',
-          ease: 'none',
-        },
-        0
-      );
-
-      heroTl.to(
-        archPortalRef.current,
-        {
-          borderTopLeftRadius: '0px',
-          borderTopRightRadius: '0px',
-          boxShadow: '0 0 0px rgba(0,0,0,0)',
-          ease: 'none',
-        },
-        0
-      );
-
-      // 2. Fade out circular spin badge right as scroll starts
-      heroTl.to(
-        spinBadgeRef.current,
-        {
-          opacity: 0,
-          scale: 0.5,
-          ease: 'power1.out',
-        },
-        0
-      );
-
-      // 3. Sequentially reveal content line by line as user scrolls down inside the pinned section
-      heroTl.to(
-        scriptRevealRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-        },
-        0.25
-      );
-
-      heroTl.to(
-        subtitleRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-        },
-        0.55
-      );
-
-      heroTl.to(
-        badgeTagRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-        },
-        0.85
-      );
-    }, wrapperRef);
+      tl.fromTo(
+        '.hero-main-headline',
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.75, delay: 0.1 }
+      )
+        .fromTo(
+          '.hero-script-tagline',
+          { opacity: 0, y: 15, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.7 },
+          '-=0.35'
+        )
+        .fromTo(
+          '.hero-lead-subtitle',
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.65 },
+          '-=0.4'
+        )
+        .fromTo(
+          '.hero-fanned-card',
+          { opacity: 0, y: 35 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.07, ease: 'power2.out' },
+          '-=0.3'
+        )
+        .fromTo(
+          '.hero-floating-pill',
+          { opacity: 0, scale: 0.85 },
+          { opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.5)' },
+          '-=0.4'
+        );
+    }, heroRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="hero-scroll-wrapper" ref={wrapperRef}>
-      <section className="hero-section" id="hero" ref={heroRef}>
-        <div className="hero-canvas-bg"></div>
-        <div className="hero-content-container">
-          <div id="hero-arch-wrapper" ref={archWrapperRef} className="hero-arch-wrapper">
-            <div id="arch-portal" ref={archPortalRef} className="arch-portal">
-              <div className="video-overlay"></div>
-              <img src="/assets/hero_simple.jpg" className="hero-video" alt="Second Come Agency Minimal Background" />
+    <section className="agency-hero-section" id="hero" ref={heroRef}>
+      {/* Background Ambient Lighting */}
+      <div className="hero-ambient-glow glow-top" aria-hidden="true"></div>
+      <div className="hero-ambient-glow glow-bottom" aria-hidden="true"></div>
 
-              <div className="arch-text-content">
-                <h1 className="hero-serif-title">We Help Brands Comeback Stronger..</h1>
-                <div id="script-reveal" ref={scriptRevealRef} className="script-reveal">Crafted with Vision</div>
-                <p id="hero-subtitle" ref={subtitleRef} className="hero-subtitle">
-                  We find what your brand is missing &amp; then build it back even stronger.
-                </p>
-                <div id="hero-badge-tag" ref={badgeTagRef} className="hero-badge-tag">
-                  Every brand deserve a comeback.
-                </div>
-              </div>
+      {/* Main Upper-Middle Headline & Tagline */}
+      <div className="hero-content-center">
+        <h1 className="hero-main-headline">
+          <span className="heading-serif">YOUR BRAND. BUILT TO BE</span>
+        </h1>
 
-              <div className="spin-badge-container" ref={spinBadgeRef}>
-                <div className="spin-badge-wrapper">
-                  <svg className="spin-badge-svg" viewBox="0 0 160 160">
-                    <path id="circlePath" d="M 80, 80 m -60, 0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0" fill="none" />
-                    <text className="spin-text">
-                      <textPath href="#circlePath" startOffset="0%">
-                        SCROLL TO EXPLORE • SECOND COME MARKETING AGENCY •
-                      </textPath>
-                    </text>
-                  </svg>
-                  <div className="spin-center-dot"></div>
-                </div>
+        {/* Script Tagline matching reference font ('Alex Brush', cursive) */}
+        <div className="hero-script-tagline-wrapper">
+          <span className="hero-script-tagline">
+            Ignore to possible
+          </span>
+        </div>
+
+        <p className="hero-lead-subtitle">
+          We build digital experiences that help ambitious brands stand out, connect with their audience, and grow.
+        </p>
+      </div>
+
+      {/* Reference Overlapping Fanned Card Collage */}
+      <div className="hero-reference-collage-wrapper" aria-label="Featured Agency Portfolio">
+        <div className="hero-reference-collage">
+          {/* Top-Left Floating Badge over Card 1 */}
+          <div className="hero-floating-pill pill-pos-top-left" aria-hidden="true">
+            <span>@Sales Marketing</span>
+          </div>
+
+          {/* Bottom-Center Floating Badge between Cards 3 & 4 */}
+          <div className="hero-floating-pill pill-pos-bottom-center" aria-hidden="true">
+            <span>@Brand Consulting</span>
+          </div>
+
+          {/* Top-Right Floating Badge over Card 6 */}
+          <div className="hero-floating-pill pill-pos-top-right" aria-hidden="true">
+            <span>@Performance Media</span>
+          </div>
+
+          {COLLAGE_CARDS.map((card) => (
+            <div
+              key={card.id}
+              className={`hero-fanned-card ${card.cardClass}`}
+              tabIndex={0}
+              role="article"
+              aria-label={card.title}
+            >
+              <div className="hero-fanned-media">
+                <img
+                  src={card.img}
+                  alt={card.title}
+                  className="hero-fanned-img"
+                  draggable={false}
+                  loading="eager"
+                />
               </div>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
