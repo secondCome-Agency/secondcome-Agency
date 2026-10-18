@@ -395,7 +395,7 @@ const DepthCarousel = ({
         drag.moved = true;
         try {
           rootRef.current?.setPointerCapture(drag.id);
-        } catch (_) {}
+        } catch (_) { }
       }
       if (!drag.moved) return;
       const now = performance.now();
@@ -415,7 +415,7 @@ const DepthCarousel = ({
     if (drag.id !== undefined && rootRef.current?.hasPointerCapture?.(drag.id)) {
       try {
         rootRef.current.releasePointerCapture(drag.id);
-      } catch (_) {}
+      } catch (_) { }
     }
     dragRef.current = null;
     if (!drag.moved) return;

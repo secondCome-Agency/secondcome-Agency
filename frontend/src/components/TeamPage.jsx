@@ -6,6 +6,7 @@ import team2 from '../assets/team2.jpg';
 import team3 from '../assets/team3.jpg';
 import team4 from '../assets/team4.jpg';
 import team5 from '../assets/team5.jpg';
+import team6 from '../assets/team6.jpeg';
 
 const TEAM_MEMBERS = [
   {
@@ -40,12 +41,12 @@ const TEAM_MEMBERS = [
   },
   {
     id: 3,
-    name: 'Suhani Maurya',
-    displayRole: 'Design Lead',
-    pillTag: 'LEAD DIGITAL ARCHITECT',
-    bio: 'Suhani focuses on bespoke web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
-    category: 'DESIGN',
-    img: team3,
+    name: 'Sheetal sharma',
+    displayRole: 'Marketing & sales',
+    pillTag: 'Editor & Marketing',
+    bio: 'Sheetal focuses on web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
+    category: 'Editing',
+    img: team6,
     email: 'marcus@secondcomeagency.com',
     socials: {
       linkedin: 'https://www.linkedin.com/company/secondcome-in/',
@@ -82,7 +83,22 @@ const TEAM_MEMBERS = [
       twitter: 'https://twitter.com',
       instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
     }
-  }
+  },
+  {
+    id: 6,
+    name: 'Suhani Maurya',
+    displayRole: 'Design Lead',
+    pillTag: 'LEAD DIGITAL ARCHITECT',
+    bio: 'Suhani focuses on bespoke web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
+    category: 'DESIGN',
+    img: team3,
+    email: 'marcus@secondcomeagency.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  },
 ];
 
 const METHODOLOGY = [

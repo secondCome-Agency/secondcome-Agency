@@ -2,42 +2,42 @@ import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import './Hero.css';
 
+import heroStrategy from '../assets/hero_growth_strategy.png';
+import heroDesign from '../assets/hero_creative_design.png';
+import heroWebsite from '../assets/hero_website_digital.png';
+import heroAdvertising from '../assets/hero_advertising_leads.png';
+import heroAutomation from '../assets/hero_marketing_automation.png';
+
 const COLLAGE_CARDS = [
   {
-    id: 'perfume',
-    title: 'Noir Absolu Luxury Fragrance',
-    img: '/assets/ref_card1_perfume.jpg',
+    id: 'strategy',
+    title: 'Business Growth and Strategy',
+    img: heroStrategy,
     cardClass: 'card-pos-1',
   },
   {
-    id: 'sneaker',
-    title: 'Velto Kinetic Footwear',
-    img: '/assets/ref_card2_sneaker.jpg',
+    id: 'design',
+    title: 'Creative and Design',
+    img: heroDesign,
     cardClass: 'card-pos-2',
   },
   {
-    id: 'storefront',
-    title: 'Aurélien Flagship Retail',
-    img: '/assets/ref_card3_storefront.jpg',
+    id: 'website',
+    title: 'Website and Digital Service',
+    img: heroWebsite,
     cardClass: 'card-pos-3',
   },
   {
-    id: 'production',
-    title: 'Studio Runway Cinema Production',
-    img: '/assets/polaroid3.jpg',
+    id: 'advertising',
+    title: 'Advertising & Lead Generation',
+    img: heroAdvertising,
     cardClass: 'card-pos-4',
   },
   {
-    id: 'packaging',
-    title: 'Aethel Editorial Packaging',
-    img: '/assets/ref_card5_packaging.jpg',
+    id: 'automation',
+    title: 'Marketing Automation',
+    img: heroAutomation,
     cardClass: 'card-pos-5',
-  },
-  {
-    id: 'billboard',
-    title: 'Seoul Fashion Week Night Billboard',
-    img: '/assets/ref_card6_billboard.jpg',
-    cardClass: 'card-pos-6',
   },
 ];
 
@@ -112,17 +112,17 @@ export default function Hero() {
         <div className="hero-reference-collage">
           {/* Top-Left Floating Badge over Card 1 */}
           <div className="hero-floating-pill pill-pos-top-left" aria-hidden="true">
-            <span>@Sales Marketing</span>
+            <span>@Strategy & Scale</span>
           </div>
 
-          {/* Bottom-Center Floating Badge between Cards 3 & 4 */}
+          {/* Bottom-Center Floating Badge between Cards */}
           <div className="hero-floating-pill pill-pos-bottom-center" aria-hidden="true">
-            <span>@Brand Consulting</span>
+            <span>@Digital Flagship</span>
           </div>
 
-          {/* Top-Right Floating Badge over Card 6 */}
+          {/* Top-Right Floating Badge over Card 5 */}
           <div className="hero-floating-pill pill-pos-top-right" aria-hidden="true">
-            <span>@Performance Media</span>
+            <span>@AI & Automation</span>
           </div>
 
           {COLLAGE_CARDS.map((card) => (
