@@ -23,18 +23,18 @@ const DepthCarousel = ({
   cardHeight = 460,
   radius = 20,
   tint = '#0e181c',
-  depth = 190,
-  spread = 85,
-  tilt = 16,
+  depth = 180,
+  spread = 80,
+  tilt = 14,
   tiltDirection = 'right',
   perspective = 1300,
-  visibleCards = 4,
+  visibleCards = 3,
   falloff = 0.22,
-  blur = 5,
-  duration = 650,
-  ease = 'power3.out',
+  blur = 4,
+  duration = 550,
+  ease = 'power2.out',
   autoplay = true,
-  autoplayDelay = 4500,
+  autoplayDelay = 3000,
   loop = true,
   showControls = true,
   showIndicators = true,
@@ -52,11 +52,13 @@ const DepthCarousel = ({
   const overlayRefs = useRef([]);
 
   const posRef = useRef(0);
-  const focusRef = useRef(0);
+  const targetPosRef = useRef(0);
   const tweenRef = useRef(null);
   const scaleRef = useRef(1);
   const cfgRef = useRef({});
   const onChangeRef = useRef(onChange);
+  const dataRef = useRef(data);
+  const prevItemsRef = useRef(items);
 
   const dragRef = useRef(null);
   const wheelTimerRef = useRef(null);
@@ -66,11 +68,13 @@ const DepthCarousel = ({
   const isHoveredRef = useRef(false);
   const isFocusedRef = useRef(false);
   const isPausedRef = useRef(isPaused);
-  isPausedRef.current = isPaused;
 
   const [active, setActive] = useState(0);
 
   onChangeRef.current = onChange;
+  dataRef.current = data;
+  isPausedRef.current = isPaused;
+
   cfgRef.current = {
     count,
     depth,
@@ -88,6 +92,7 @@ const DepthCarousel = ({
     autoplayDelay
   };
 
+  // Math layout for 3D depth stack with seamless wrap-around and zero popping
   const layout = useCallback(pos => {
     const cfg = cfgRef.current;
     const n = cfg.count;
@@ -105,46 +110,75 @@ const DepthCarousel = ({
         if (d > n / 2) d -= n;
       }
 
+      // Safe wrap boundary to prevent popping when crossing n/2
+      const wrapLimit = n > 1 ? n / 2 : 1;
+      const visibleLimit = Math.min(cfg.visibleCards, wrapLimit);
+
+      let opacity = 0;
+      if (d < 0) {
+        // Exiting card sliding out to the left: smooth fade out to 0
+        opacity = clamp(1 + d * 1.15, 0, 1);
+      } else if (d <= 1.2) {
+        opacity = 1;
+      } else if (d < visibleLimit) {
+        // Smoothly fade out into the depth stack before reaching wrap limit
+        opacity = clamp((visibleLimit - d) / (visibleLimit - 1.2), 0, 1);
+      } else {
+        opacity = 0;
+      }
+
       const back = Math.max(0, d);
-      const az = Math.abs(d);
-      const shown = az <= cfg.visibleCards + 0.5;
+      const isExiting = d < 0;
 
-      const tz = -cfg.depth * d;
+      // Depth offset: receding into negative Z for stack; keeping exiting cards safe
+      const tz = isExiting ? d * 35 : -cfg.depth * d;
       const tx = dir * cfg.spread * d;
-      const ry = dir * cfg.tilt * clamp(d, 0, 1);
+      const ry = isExiting
+        ? dir * cfg.tilt * clamp(d * 0.6, -1, 0)
+        : dir * cfg.tilt * clamp(d, 0, 1);
 
-      let opacity = d < 0 ? Math.max(0, 1 + d) : 1;
-      if (!shown) opacity = 0;
+      // Subtle scale perspective
+      const cardScale = sc * Math.max(0.72, 1 - Math.max(0, d) * 0.07);
 
-      const brightness = Math.max(0.18, 1 - back * cfg.falloff);
-      const blurPx = cfg.blur > 0 ? Math.min(cfg.blur, (back / Math.max(1, cfg.visibleCards)) * cfg.blur) : 0;
-      const zi = Math.round(2000 - d * 20);
+      const brightness = isExiting ? 1 : Math.max(0.25, 1 - back * cfg.falloff);
+      const blurPx = cfg.blur > 0 && !isExiting ? Math.min(cfg.blur, (back / Math.max(1, visibleLimit)) * cfg.blur) : 0;
 
-      el.style.transform = `translate(-50%, -50%) scale(${sc}) translateX(${tx.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg)`;
+      // Layering: active card has highest z-index
+      let zi = 500;
+      if (Math.abs(d) < 0.5) {
+        zi = 1000 - Math.round(Math.abs(d) * 100);
+      } else if (isExiting) {
+        zi = Math.max(10, Math.round(920 + d * 100));
+      } else {
+        zi = Math.max(10, Math.round(850 - d * 80));
+      }
+
+      el.style.transform = `translate(-50%, -50%) scale(${cardScale.toFixed(4)}) translateX(${tx.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg)`;
       el.style.opacity = opacity.toFixed(3);
-      el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
+      if (blurPx > 0.1) {
+        el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(1)}px)`;
+      } else {
+        el.style.filter = `brightness(${brightness.toFixed(3)})`;
+      }
       el.style.zIndex = String(zi);
-      el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
+      el.style.pointerEvents = opacity > 0.08 ? 'auto' : 'none';
 
       const ov = overlayRefs.current[i];
-      if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.25, 0, 0.85).toFixed(3);
+      if (ov) {
+        const tintOpacity = isExiting ? 0 : clamp(back * cfg.falloff * 1.3, 0, 0.85);
+        ov.style.opacity = tintOpacity.toFixed(3);
+      }
     }
   }, []);
 
-  const notify = useCallback(
-    idx => {
-      setActive(idx);
-      onChangeRef.current?.(idx, data[idx]);
-    },
-    [data]
-  );
-
+  // GSAP tween animation
   const tweenTo = useCallback(
-    (target, animate) => {
+    (target, animate = true) => {
       tweenRef.current?.kill();
       const cfg = cfgRef.current;
       const proxy = { p: posRef.current };
       const dur = animate && !reducedRef.current ? cfg.duration / 1000 : 0;
+
       tweenRef.current = gsap.to(proxy, {
         p: target,
         duration: dur,
@@ -155,79 +189,133 @@ const DepthCarousel = ({
         },
         onComplete: () => {
           const n = cfg.count;
-          if (n > 0) posRef.current = ((posRef.current % n) + n) % n;
-          layout(posRef.current);
+          if (n > 0) {
+            const normalized = ((proxy.p % n) + n) % n;
+            posRef.current = normalized;
+            targetPosRef.current = normalized;
+            layout(normalized);
+          }
         }
       });
     },
     [layout]
   );
 
-  const setFocus = useCallback(
-    (rawIndex, animate = true) => {
-      const cfg = cfgRef.current;
-      const n = cfg.count;
-      if (!n) return;
-      const idx = cfg.loop ? ((rawIndex % n) + n) % n : clamp(rawIndex, 0, n - 1);
-      let delta = idx - posRef.current;
-      if (cfg.loop && n > 1) {
+  // Navigate by relative step (+1 next, -1 prev)
+  const navigateBy = useCallback(
+    step => {
+      const n = cfgRef.current.count;
+      if (n < 2) return;
+
+      const currentTarget = Math.round(targetPosRef.current);
+      const nextTarget = currentTarget + step;
+      targetPosRef.current = nextTarget;
+
+      const nextActive = ((nextTarget % n) + n) % n;
+      setActive(nextActive);
+      onChangeRef.current?.(nextActive, dataRef.current[nextActive]);
+
+      tweenTo(nextTarget, true);
+    },
+    [tweenTo]
+  );
+
+  // Go to exact slide index via shortest cyclic distance
+  const goToIndex = useCallback(
+    idx => {
+      const n = cfgRef.current.count;
+      if (n < 2) return;
+
+      const currentIdx = ((Math.round(targetPosRef.current) % n) + n) % n;
+      if (idx === currentIdx) return;
+
+      let delta = idx - currentIdx;
+      if (cfgRef.current.loop && n > 1) {
         delta = ((delta % n) + n) % n;
         if (delta > n / 2) delta -= n;
       }
-      tweenTo(posRef.current + delta, animate);
-      if (idx !== focusRef.current) {
-        focusRef.current = idx;
-        notify(idx);
-      }
+
+      const nextTarget = Math.round(targetPosRef.current) + delta;
+      targetPosRef.current = nextTarget;
+
+      setActive(idx);
+      onChangeRef.current?.(idx, dataRef.current[idx]);
+      tweenTo(nextTarget, true);
     },
-    [tweenTo, notify]
+    [tweenTo]
   );
 
-  const navigateBy = useCallback(step => setFocus(focusRef.current + step, true), [setFocus]);
-
-  // Autoplay management with timer resets
+  // Autoplay management
   const startAutoplay = useCallback(() => {
     if (autoTimerRef.current) clearInterval(autoTimerRef.current);
     const cfg = cfgRef.current;
     if (!cfg.autoplay || reducedRef.current || cfg.count < 2) return;
+
     autoTimerRef.current = window.setInterval(() => {
       if (!isHoveredRef.current && !isFocusedRef.current && !isPausedRef.current) {
         navigateBy(1);
       }
-    }, Math.max(cfg.autoplayDelay, 1000));
+    }, cfg.autoplayDelay);
   }, [navigateBy]);
 
   const restartAutoplay = useCallback(() => {
     startAutoplay();
   }, [startAutoplay]);
 
-  // Handle manual navigation actions (each resets the autoplay timer)
-  const handlePrev = useCallback(() => {
-    navigateBy(-1);
-    restartAutoplay();
-  }, [navigateBy, restartAutoplay]);
-
-  const handleNext = useCallback(() => {
-    navigateBy(1);
-    restartAutoplay();
-  }, [navigateBy, restartAutoplay]);
-
-  const handleDotClick = useCallback(
-    idx => {
-      setFocus(idx, true);
+  // Controls handlers
+  const handlePrev = useCallback(
+    e => {
+      e?.stopPropagation?.();
+      navigateBy(-1);
       restartAutoplay();
     },
-    [setFocus, restartAutoplay]
+    [navigateBy, restartAutoplay]
   );
 
-  // Reset focus and relayout when items list updates (e.g. filtering)
+  const handleNext = useCallback(
+    e => {
+      e?.stopPropagation?.();
+      navigateBy(1);
+      restartAutoplay();
+    },
+    [navigateBy, restartAutoplay]
+  );
+
+  const handleDotClick = useCallback(
+    (idx, e) => {
+      e?.stopPropagation?.();
+      goToIndex(idx);
+      restartAutoplay();
+    },
+    [goToIndex, restartAutoplay]
+  );
+
+  const onCardClick = useCallback(
+    (index, e) => {
+      if (dragRef.current?.moved) return;
+      const n = cfgRef.current.count;
+      const currentIdx = ((Math.round(targetPosRef.current) % n) + n) % n;
+      if (index !== currentIdx) {
+        e?.preventDefault?.();
+        e?.stopPropagation?.();
+        goToIndex(index);
+        restartAutoplay();
+      }
+    },
+    [goToIndex, restartAutoplay]
+  );
+
+  // Reset ONLY when items list actually changes (e.g. category filter tab change)
   useEffect(() => {
-    posRef.current = 0;
-    focusRef.current = 0;
-    setActive(0);
-    layout(0);
-    restartAutoplay();
-  }, [count, layout, restartAutoplay]);
+    if (prevItemsRef.current !== items) {
+      prevItemsRef.current = items;
+      posRef.current = 0;
+      targetPosRef.current = 0;
+      setActive(0);
+      layout(0);
+      restartAutoplay();
+    }
+  }, [items, layout, restartAutoplay]);
 
   // Responsive scaling observer
   useEffect(() => {
@@ -262,7 +350,12 @@ const DepthCarousel = ({
         layout(posRef.current);
         if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
         wheelTimerRef.current = setTimeout(() => {
-          setFocus(Math.round(posRef.current), true);
+          const finalTarget = Math.round(posRef.current);
+          targetPosRef.current = finalTarget;
+          tweenTo(finalTarget, true);
+          const nextActive = ((finalTarget % cfg.count) + cfg.count) % cfg.count;
+          setActive(nextActive);
+          onChangeRef.current?.(nextActive, dataRef.current[nextActive]);
           restartAutoplay();
         }, 130);
       }
@@ -272,7 +365,7 @@ const DepthCarousel = ({
       el.removeEventListener('wheel', onWheel);
       if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
     };
-  }, [enableWheel, layout, setFocus, restartAutoplay]);
+  }, [enableWheel, layout, tweenTo, restartAutoplay]);
 
   // Pointer / Touch drag controls
   const onPointerDown = useCallback(e => {
@@ -328,10 +421,15 @@ const DepthCarousel = ({
     if (!drag.moved) return;
     const cfg = cfgRef.current;
     const stepPx = Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
-    const projected = posRef.current - (drag.v * 180) / stepPx;
-    setFocus(Math.round(projected), true);
+    const projected = posRef.current - (drag.v * 160) / stepPx;
+    const finalTarget = Math.round(projected);
+    targetPosRef.current = finalTarget;
+    tweenTo(finalTarget, true);
+    const nextActive = ((finalTarget % cfg.count) + cfg.count) % cfg.count;
+    setActive(nextActive);
+    onChangeRef.current?.(nextActive, dataRef.current[nextActive]);
     restartAutoplay();
-  }, [setFocus, restartAutoplay]);
+  }, [tweenTo, restartAutoplay]);
 
   const onKeyDown = useCallback(
     e => {
@@ -344,21 +442,6 @@ const DepthCarousel = ({
       }
     },
     [handlePrev, handleNext]
-  );
-
-  const onCardClick = useCallback(
-    (index, e) => {
-      if (dragRef.current?.moved) return;
-      if (index !== focusRef.current) {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        setFocus(index, true);
-        restartAutoplay();
-      }
-    },
-    [setFocus, restartAutoplay]
   );
 
   // Setup autoplay lifecycle with hover and focus listeners
@@ -396,9 +479,9 @@ const DepthCarousel = ({
       root?.removeEventListener('focusin', onFocusIn);
       root?.removeEventListener('focusout', onFocusOut);
     };
-  }, [autoplay, autoplayDelay, count, startAutoplay, restartAutoplay]);
+  }, [autoplay, count, startAutoplay, restartAutoplay]);
 
-  // Restart autoplay when external pause state is lifted
+  // Resume autoplay when pause prop is released
   useEffect(() => {
     if (!isPaused) {
       restartAutoplay();
@@ -467,12 +550,12 @@ const DepthCarousel = ({
             aria-label="Previous team member"
             onClick={handlePrev}
           >
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <path
-                d="M15 5l-7 7 7 7"
+                d="M15 19l-7-7 7-7"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.2"
+                strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -484,12 +567,12 @@ const DepthCarousel = ({
             aria-label="Next team member"
             onClick={handleNext}
           >
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <path
                 d="M9 5l7 7-7 7"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.2"
+                strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -508,7 +591,7 @@ const DepthCarousel = ({
               aria-selected={active === i}
               aria-label={`Go to ${item.name || `slide ${i + 1}`}`}
               className={`depth-carousel__dot${active === i ? ' is-active' : ''}`}
-              onClick={() => handleDotClick(i)}
+              onClick={e => handleDotClick(i, e)}
             />
           ))}
         </div>

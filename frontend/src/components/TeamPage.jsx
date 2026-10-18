@@ -1,128 +1,124 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import DepthCarousel from './DepthCarousel.jsx';
+import './DepthCarousel.css';
 import team1 from '../assets/team1.jpg';
 import team2 from '../assets/team2.jpg';
 import team3 from '../assets/team3.jpg';
 import team4 from '../assets/team4.jpg';
 import team5 from '../assets/team5.jpg';
 
+const TEAM_MEMBERS = [
+  {
+    id: 1,
+    name: 'Akash',
+    displayRole: 'Strategy Executer',
+    pillTag: 'CHIEF EXECUTIVE OFFICER',
+    bio: 'Akash helped build SecondCome Agency around the idea that ambitious businesses need bespoke luxury positioning, market-defining digital platforms, and autonomous systems. His focus is on turning overlooked brands into unforgettable market leaders, blending high-impact storytelling with measurable revenue architecture.',
+    category: 'STRATEGY',
+    img: team1,
+    email: 'akashkumar1072008@gmail.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  },
+  {
+    id: 2,
+    name: 'Anvi Sharma',
+    displayRole: 'Developer',
+    pillTag: 'CHIEF TECHNOLOGY OFFICER',
+    bio: 'Anvi leads systems engineering, autonomous AI workflows, and CRM pipeline infrastructure at SecondCome. Her focus is on deploying intelligent conversational agents and automated data pipelines that eliminate operational friction and scale client acquisition 24/7.',
+    category: 'AI',
+    img: team2,
+    email: 'tanusharma2313@gmail.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  },
+  {
+    id: 3,
+    name: 'Suhani Maurya',
+    displayRole: 'Design Lead',
+    pillTag: 'LEAD DIGITAL ARCHITECT',
+    bio: 'Suhani focuses on bespoke web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
+    category: 'DESIGN',
+    img: team3,
+    email: 'marcus@secondcomeagency.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  },
+  {
+    id: 4,
+    name: 'Tannu Bhadoria',
+    displayRole: 'COO',
+    pillTag: 'CHIEF OPERATING OFFICER',
+    bio: 'Tannu directs omnichannel media acquisition, operational coordination, and conversion rate optimization. She ensures strategic campaigns run with precision, managing high-performance ad spend into predictable scaling funnels for high-growth enterprises.',
+    category: 'STRATEGY',
+    img: team4,
+    email: 'tannubhadoria92@gmail.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  },
+  {
+    id: 5,
+    name: 'Rashmi',
+    displayRole: 'Director of CRM',
+    pillTag: 'DIRECTOR OF AI AUTOMATION',
+    bio: 'Rashmi engineers intelligent enterprise CRM architectures, real-time analytics dashboards, and automated lead nurturing systems. Her data-driven pipelines ensure every inbound interaction is captured, scored, and converted efficiently.',
+    category: 'AI',
+    img: team5,
+    email: 'raghuvanshirashmi7037@gmail.com',
+    socials: {
+      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      twitter: 'https://twitter.com',
+      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+    }
+  }
+];
+
+const METHODOLOGY = [
+  {
+    num: '01',
+    title: 'Bespoke Discovery & Positioning',
+    desc: 'We analyze your brand core, uncover untapped positioning angles, and outline a tailored roadmap built for category dominance.'
+  },
+  {
+    num: '02',
+    title: 'Autonomous System Engineering',
+    desc: 'Our AI engineers deploy intelligent 24/7 automation systems, turning manual lead generation into automated scale.'
+  },
+  {
+    num: '03',
+    title: 'High-Conversion Digital Platforms',
+    desc: 'We craft stunning visual identities, interactive web experiences, and high-converting performance growth engines.'
+  }
+];
+
 export default function TeamPage() {
   const [activeFilter, setActiveFilter] = useState('ALL');
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHoveredDetail, setIsHoveredDetail] = useState(false);
 
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Akash',
-      role: 'Founder & Chief Brand Strategist',
-      tagline: 'High-Impact Luxury Brand Architecture & Executive Storytelling',
-      category: 'STRATEGY',
-      work: [
-        'Brand Architecture & Positioning',
-        'High-Impact Executive Storytelling',
-        'Omnichannel Brand Identity Systems'
-      ],
-      img: team1,
-      email: 'akashkumar1072008@gmail.com',
-      badge: '40+ Enterprise Rebrands'
-    },
-    {
-      id: 2,
-      name: 'Anvi sharma',
-      role: 'Head of AI & Development',
-      tagline: 'Autonomous AI Agents & Enterprise Workflow Architecture',
-      category: 'AI & Development',
-      work: [
-        'Custom Conversational AI Agents',
-        'Enterprise Workflow Automations',
-        'CRM & Data Pipeline Architecture'
-      ],
-      img: team2,
-      email: 'tanusharma2313@gmail.com',
-      badge: '24/7 Autonomous AI'
-    },
-    {
-      id: 3,
-      name: 'Suhani maurya',
-      role: 'Lead Digital Architect & UI Designer',
-      tagline: 'Luxury Web Platforms & Interactive 3D Digital Craft',
-      category: 'DESIGN',
-      work: [
-        'Luxury Web Architecture',
-        'Interactive 3D & Micro-Animations',
-        'Performance Engineering & UX'
-      ],
-      img: team3,
-      email: 'marcus@secondcomeagency.com',
-      badge: 'Bespoke UI/UX'
-    },
-    {
-      id: 4,
-      name: 'Tannu bhadoria',
-      role: 'VP of secondcome Growth & Performance',
-      tagline: 'Omnichannel Paid Media & Conversion Scaling Engine',
-      category: 'STRATEGY',
-      work: [
-        'Omnichannel Acquisition Strategy',
-        'Paid Media & Performance Scaling',
-        'Conversion Rate Optimization'
-      ],
-      img: team4,
-      email: 'tannubhadoria92@gmail.com',
-      badge: '10x Performance Scale'
-    },
-    {
-      id: 5,
-      name: 'Rashmi',
-      role: 'Director of AI Automation & CRM Pipelines',
-      tagline: 'Enterprise CRM Automations & Real-Time Data Pipelines',
-      category: 'AI',
-      work: [
-        'Real-time Analytics Dashboards',
-        'Enterprise Data Integrations',
-        'Automated Lead Scoring Systems'
-      ],
-      img: team5,
-      email: 'raghuvanshirashmi7037@gmail.com',
-      badge: 'Enterprise Systems'
-    }
-  ];
+  const filteredMembers = useMemo(() => {
+    if (activeFilter === 'ALL') return TEAM_MEMBERS;
+    return TEAM_MEMBERS.filter((m) => {
+      if (activeFilter === 'STRATEGY') return m.category.includes('STRATEGY');
+      if (activeFilter === 'AI') return m.category.includes('AI');
+      if (activeFilter === 'DESIGN') return m.category.includes('DESIGN');
+      return m.category === activeFilter;
+    });
+  }, [activeFilter]);
 
-  const filteredMembers = activeFilter === 'ALL'
-    ? teamMembers
-    : teamMembers.filter((m) => {
-        if (activeFilter === 'STRATEGY') return m.category.includes('STRATEGY');
-        if (activeFilter === 'AI') return m.category.includes('AI');
-        if (activeFilter === 'DESIGN') return m.category.includes('DESIGN');
-        return m.category === activeFilter;
-      });
-
-  const activeMember = filteredMembers[activeIndex] || filteredMembers[0] || teamMembers[0];
-
-  const handleFilterChange = (filterId) => {
+  const handleFilterChange = useCallback((filterId) => {
     setActiveFilter(filterId);
-    setActiveIndex(0);
-  };
-
-  const methodology = [
-    {
-      num: '01',
-      title: 'Bespoke Discovery & Positioning',
-      desc: 'We analyze your brand core, uncover untapped positioning angles, and outline a tailored roadmap built for category dominance.'
-    },
-    {
-      num: '02',
-      title: 'Autonomous System Engineering',
-      desc: 'Our AI engineers deploy intelligent 24/7 automation systems, turning manual lead generation into automated scale.'
-    },
-    {
-      num: '03',
-      title: 'High-Conversion Digital Platforms',
-      desc: 'We craft stunning visual identities, interactive web experiences, and high-converting performance growth engines.'
-    }
-  ];
+  }, []);
 
   return (
     <div className="team-page dark-executive-theme">
@@ -186,121 +182,102 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Team Showcase Two-Column Section */}
-      <section className="team-grid-section">
+      {/* Alternating Executive Spotlight Rows (Reference Image Layout) */}
+      <section className="team-spotlight-section">
         <div className="team-container">
-          <div className="team-split-section">
-            {/* LEFT SIDE: Team Member Information */}
-            <div className="team-detail-col">
-              <div
-                className="team-detail-card"
-                key={activeMember.id}
-                onMouseEnter={() => setIsHoveredDetail(true)}
-                onMouseLeave={() => setIsHoveredDetail(false)}
-              >
-                <div className="detail-header-meta">
-                  <div className="detail-tags">
-                    <span className="detail-category-badge">
-                      <span className="detail-category-dot"></span>
-                      {activeMember.category}
-                    </span>
-                    <span className="detail-highlight-badge">{activeMember.badge}</span>
-                  </div>
-                  <span className="detail-counter">
-                    <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
-                    <span className="counter-sep">/</span>
-                    <span className="counter-total">{String(filteredMembers.length).padStart(2, '0')}</span>
-                  </span>
-                </div>
+          <div className="team-spotlight-list">
+            {filteredMembers.map((member, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <React.Fragment key={member.id}>
+                  <div className={`team-spotlight-row ${isEven ? 'row-normal' : 'row-reversed'}`}>
+                    {/* Circle Portrait Frame */}
+                    <div className="team-spotlight-photo-col">
+                      <div className="team-circle-frame">
+                        <img
+                          src={member.img}
+                          alt={member.name}
+                          className="team-circle-img"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
 
-                <div className="detail-title-group">
-                  <h3 className="detail-name heading-serif">{activeMember.name}</h3>
-                  <p className="detail-designation">{activeMember.role}</p>
-                  <p className="detail-tagline-text">{activeMember.tagline}</p>
-                </div>
+                    {/* Member Details */}
+                    <div className="team-spotlight-content-col">
+                      <div className="team-spotlight-pill">
+                        <span>{member.pillTag}</span>
+                      </div>
 
-                <div className="detail-divider"></div>
+                      <h2 className="team-spotlight-name">
+                        {member.name} – <span className="team-role-highlight">{member.displayRole}</span>
+                      </h2>
 
-                <div className="detail-scope-block">
-                  <div className="scope-block-header">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan-accent)" strokeWidth="2.5">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <span className="scope-block-title">CORE SCOPE OF WORK & RESPONSIBILITIES</span>
-                  </div>
-                  <ul className="detail-scope-list">
-                    {activeMember.work.map((item, idx) => (
-                      <li key={idx} className="detail-scope-item">
-                        <div className="scope-check-circle">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                            <polyline points="20 6 9 17 4 12"></polyline>
+                      <p className="team-spotlight-bio">
+                        {member.bio}
+                      </p>
+
+                      <div className="team-spotlight-actions">
+                        <a
+                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(member.email)}&su=${encodeURIComponent('Executive Inquiry - ' + member.name)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="team-spotlight-btn"
+                        >
+                          <span>View Profile</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
                           </svg>
+                        </a>
+
+                        <div className="team-spotlight-socials">
+                          <a
+                            href={member.socials.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} LinkedIn`}
+                            className="spotlight-social-btn"
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z" />
+                            </svg>
+                          </a>
+                          <a
+                            href={member.socials.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} Twitter`}
+                            className="spotlight-social-btn"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                          </a>
+                          <a
+                            href={member.socials.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} Instagram`}
+                            className="spotlight-social-btn"
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                          </a>
                         </div>
-                        <span className="scope-item-text">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="detail-footer-action">
-                  <a
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(activeMember.email)}&su=${encodeURIComponent('Inquiry via Second Come Agency - ' + activeMember.name)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="detail-connect-btn"
-                  >
-                    <span>CONNECT WITH {activeMember.name.split(' ')[0].toUpperCase()}</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT SIDE: Team Member Carousel Cards */}
-            <div className="team-carousel-col">
-              <DepthCarousel
-                items={filteredMembers}
-                cardWidth={320}
-                cardHeight={460}
-                radius={22}
-                tint="#0e181c"
-                depth={190}
-                spread={85}
-                tilt={16}
-                tiltDirection="right"
-                perspective={1300}
-                visibleCards={4}
-                falloff={0.22}
-                blur={5}
-                duration={650}
-                ease="power3.out"
-                autoplay={true}
-                autoplayDelay={4500}
-                loop={true}
-                showControls={true}
-                showIndicators={true}
-                isPaused={isHoveredDetail}
-                onChange={(idx) => setActiveIndex(idx)}
-                renderCard={(item) => (
-                  <>
-                    <div className="card-portrait-wrapper">
-                      <img src={item.img} alt={item.name} className="card-portrait-img" draggable={false} />
-                      <div className="card-portrait-gradient"></div>
-                      {item.badge && (
-                        <span className="card-portrait-badge">{item.badge}</span>
-                      )}
+                      </div>
                     </div>
+                  </div>
 
-                    <div className="card-caption-block">
-                      <h3 className="card-member-name heading-serif">{item.name}</h3>
-                      <p className="card-member-tagline">{item.tagline || item.role}</p>
-                    </div>
-                  </>
-                )}
-              />
-            </div>
+                  {index < filteredMembers.length - 1 && (
+                    <div className="team-spotlight-divider" aria-hidden="true" />
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -314,7 +291,7 @@ export default function TeamPage() {
           </div>
 
           <div className="methodology-cards-grid">
-            {methodology.map((m) => (
+            {METHODOLOGY.map((m) => (
               <div className="dark-methodology-card" key={m.num}>
                 <span className="dark-methodology-num">{m.num}</span>
                 <h4 className="dark-methodology-title">{m.title}</h4>

@@ -35,39 +35,44 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
 
   return (
     <header className="site-header">
-      {/* Top Red Marquee / Ticker Strip */}
-      <Link to="/complementary-services" onClick={handleSupportClick} className="top-ticker-strip" aria-label="Explore Complementary Support">
-        <div className="ticker-track">
-          <div className="ticker-content">
-            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
-            <span className="ticker-star">✦</span>
-            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-action">EXPLORE SUPPORT →</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
-            <span className="ticker-star">✦</span>
-            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-action">EXPLORE SUPPORT →</span>
-            <span className="ticker-star">✦</span>
+      {/* Top Announcement Marquee Ticker Strip */}
+      <div className="top-ticker-strip">
+        <Link
+          to="/complementary-services"
+          onClick={handleSupportClick}
+          className="ticker-marquee-link"
+          aria-label="Explore Complementary Support"
+        >
+          <div className="ticker-track">
+            <div className="ticker-content">
+              <span>Every website includes 3 months of free support</span>
+              <span className="ticker-diamond">◆</span>
+              <span>SEO, Google Business Profile, Social Optimization, Speed</span>
+              <span className="ticker-diamond">◆</span>
+              <span>Real digital impact for ambitious businesses</span>
+              <span className="ticker-diamond">◆</span>
+            </div>
+            <div className="ticker-content" aria-hidden="true">
+              <span>Every website includes 3 months of free support</span>
+              <span className="ticker-diamond">◆</span>
+              <span>SEO, Google Business Profile, Social Optimization, Speed</span>
+              <span className="ticker-diamond">◆</span>
+              <span>Real digital impact for ambitious businesses</span>
+              <span className="ticker-diamond">◆</span>
+            </div>
           </div>
-          <div className="ticker-content" aria-hidden="true">
-            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
-            <span className="ticker-star">✦</span>
-            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-action">EXPLORE SUPPORT →</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-badge">3 MONTHS SUPPORT INCLUDED</span>
-            <span className="ticker-star">✦</span>
-            <span>SEO · GBP · SOCIAL OPTIMIZATION · WEBSITE SPEED</span>
-            <span className="ticker-star">✦</span>
-            <span className="ticker-action">EXPLORE SUPPORT →</span>
-            <span className="ticker-star">✦</span>
-          </div>
-        </div>
-      </Link>
+        </Link>
+
+        <Link
+          to="/complementary-services"
+          onClick={handleSupportClick}
+          className="ticker-action-fixed"
+          aria-label="See what's included"
+        >
+          <span>See what's included</span>
+          <span className="ticker-action-arrow">→</span>
+        </Link>
+      </div>
 
       <div className="header-inner">
 
