@@ -39,21 +39,21 @@ const TEAM_MEMBERS = [
       instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
     }
   },
-  {
-    id: 3,
-    name: 'Sheetal sharma',
-    displayRole: 'Marketing & sales',
-    pillTag: 'Editor & Marketing',
-    bio: 'Sheetal focuses on web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
-    category: 'Editing',
-    img: team6,
-    email: 'marcus@secondcomeagency.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
-    }
-  },
+  // {
+  //   id: 3,
+  //   name: 'Sheetal sharma',
+  //   displayRole: 'Marketing & sales',
+  //   pillTag: 'Editor & Marketing',
+  //   bio: 'Sheetal focuses on web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
+  //   category: 'Editing',
+  //   img: team6,
+  //   email: 'marcus@secondcomeagency.com',
+  //   socials: {
+  //     linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+  //     twitter: 'https://twitter.com',
+  //     instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+  //   }
+  // },
   {
     id: 4,
     name: 'Tannu Bhadoria',
