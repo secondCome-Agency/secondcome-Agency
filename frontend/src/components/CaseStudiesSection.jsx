@@ -31,12 +31,12 @@ export default function CaseStudiesSection() {
     },
     // Preserved existing projects
     {
-      name: 'MoneyMate',
-      client: 'MoneyMate',
-      category: 'Fintech Web Application',
-      desc: 'Designing a clearer, more engaging experience for personal finance management.',
+      name: 'Real Estate',
+      client: 'Rainbasera',
+      category: 'Real Estate Web Application',
+      desc: 'Designing a clearer, more engaging experience for personal property dealing.',
       image: null,
-      liveUrl: 'https://example.com/moneymate',
+      liveUrl: 'https://real-estate-ctdh.vercel.app/',
       githubUrl: 'https://github.com/secondCome-Agency',
     },
     {
@@ -55,15 +55,6 @@ export default function CaseStudiesSection() {
       desc: 'Designing a modern learning environment that brings courses and learners together.',
       image: null,
       liveUrl: 'https://example.com/lms',
-      githubUrl: 'https://github.com/secondCome-Agency',
-    },
-    {
-      name: 'SecondCome Agency',
-      client: 'SecondCome Agency',
-      category: 'Brand Identity + Digital Experience',
-      desc: 'Building a distinctive identity and immersive digital presence for a new-generation creative agency.',
-      image: null,
-      liveUrl: 'https://example.com/secondcome',
       githubUrl: 'https://github.com/secondCome-Agency',
     },
   ];
@@ -298,7 +289,7 @@ export default function CaseStudiesSection() {
 
     try {
       marqueeRef.current?.setPointerCapture(e.pointerId);
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const handlePointerMove = (e) => {
@@ -339,7 +330,7 @@ export default function CaseStudiesSection() {
 
     try {
       marqueeRef.current?.releasePointerCapture(e.pointerId);
-    } catch (_) {}
+    } catch (_) { }
 
     if (hasDraggedRef.current) {
       velocityRef.current = Math.max(-1800, Math.min(1800, velocityRef.current));

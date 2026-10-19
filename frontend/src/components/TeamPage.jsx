@@ -19,9 +19,9 @@ const TEAM_MEMBERS = [
     img: team1,
     email: 'akashkumar1072008@gmail.com',
     socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      linkedin: 'https://www.linkedin.com/in/growth-with-akash?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+      instagram: 'https://www.instagram.com/akash4u_01?stkn=Z2RpdG5oMGlzanJo'
     }
   },
   {
@@ -34,9 +34,9 @@ const TEAM_MEMBERS = [
     img: team2,
     email: 'tanusharma2313@gmail.com',
     socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      linkedin: 'https://www.linkedin.com/in/tanusharma2/',
       twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+      instagram: 'https://www.instagram.com/toolify_era/'
     }
   },
   // {
@@ -64,9 +64,9 @@ const TEAM_MEMBERS = [
     img: team4,
     email: 'tannubhadoria92@gmail.com',
     socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      linkedin: 'https://www.linkedin.com/in/tannu-bhadoria-b9743a378?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+      instagram: 'https://www.instagram.com/nuvi_008?dlrf=OWZ6a3NjY2QyN2Ru'
     }
   },
   {
@@ -94,9 +94,9 @@ const TEAM_MEMBERS = [
     img: team3,
     email: 'marcus@secondcomeagency.com',
     socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
+      linkedin: 'https://www.linkedin.com/in/suhani-maurya-78b49b378/?isSelfProfile=true',
       twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
+      instagram: 'https://www.instagram.com/suhani_maurya00/'
     }
   },
 ];
@@ -234,18 +234,6 @@ export default function TeamPage() {
                       </p>
 
                       <div className="team-spotlight-actions">
-                        <a
-                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(member.email)}&su=${encodeURIComponent('Executive Inquiry - ' + member.name)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="team-spotlight-btn"
-                        >
-                          <span>View Profile</span>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                          </svg>
-                        </a>
 
                         <div className="team-spotlight-socials">
                           <a
