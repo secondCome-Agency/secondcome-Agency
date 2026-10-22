@@ -1,334 +1,258 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import './DepthCarousel.css';
-import team1 from '../assets/team1.jpg';
-import team2 from '../assets/team2.jpg';
-import team3 from '../assets/team3.jpg';
-import team4 from '../assets/team4.jpg';
-import team5 from '../assets/team5.jpg';
-import team6 from '../assets/team6.jpeg';
+import React from 'react';
+import './TeamPageEditorial.css';
 
-const TEAM_MEMBERS = [
+// ============================================================================
+// SECONDCOME AGENCY — TEAM ROSTER PHOTOGRAPHS
+// ============================================================================
+// To assign or replace a photograph:
+// Update the `image` property in TEAM_MEMBERS_SPEC below.
+// If an image has not yet been provided, set `image: null` — an obvious temporary
+// placeholder rectangle will be rendered automatically without fabricating a person.
+// ============================================================================
+import team1 from '../assets/team1.jpg'; // Akash (Strategy Executer / CEO)
+import team2 from '../assets/team2.jpg'; // Anvi Sharma (CTO)
+import team3 from '../assets/team3.jpg'; // Suhani Maurya (Design Lead)
+import team4 from '../assets/team4.jpg'; // Tannu Bhadoria (COO)
+import team5 from '../assets/team5.jpg'; // Rashmi (Director of CRM)
+import team6 from '../assets/team6.jpeg'; // Sheetal Sharma (Marketing & Sales)
+
+// ============================================================================
+// ============================================================================
+// ASYMMETRICAL EDITORIAL CANVAS GEOMETRY — BALANCED DISTANCE SPECIFICATION
+// ============================================================================
+export const TEAM_MEMBERS_SPEC = [
   {
-    id: 1,
+    id: 'portrait-a',
+    code: 'A',
     name: 'Akash',
-    displayRole: 'Strategy Executer',
-    pillTag: 'CHIEF EXECUTIVE OFFICER',
-    bio: 'Akash helped build SecondCome Agency around the idea that ambitious businesses need bespoke luxury positioning, market-defining digital platforms, and autonomous systems. His focus is on turning overlooked brands into unforgettable market leaders, blending high-impact storytelling with measurable revenue architecture.',
-    category: 'STRATEGY',
-    img: team1,
-    email: 'akashkumar1072008@gmail.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/growth-with-akash?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/akash4u_01?stkn=Z2RpdG5oMGlzanJo'
-    }
+    signature: 'Akash',
+    role: 'Strategy Executer / Founder',
+    description: 'Bespoke luxury positioning & revenue architecture.',
+    image: team1,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '6%', top: '5%' },
+    portraitSize: { width: '37%', height: '20%' },
+    zIndex: 3,
+    signaturePosition: { left: '6%', top: '25.5%', textAlign: 'left' },
+    descPosition: { left: '6%', top: '27.8%', textAlign: 'left', maxWidth: '37cqi' },
+    blueBlock: { left: '2.5%', top: '15%', width: '7.5%', height: '11%', zIndex: 2 },
   },
   {
-    id: 2,
-    name: 'Anvi Sharma',
-    displayRole: 'Developer',
-    pillTag: 'CHIEF TECHNOLOGY OFFICER',
-    bio: 'Anvi leads systems engineering, autonomous AI workflows, and CRM pipeline infrastructure at SecondCome. Her focus is on deploying intelligent conversational agents and automated data pipelines that eliminate operational friction and scale client acquisition 24/7.',
-    category: 'AI',
-    img: team2,
-    email: 'tanusharma2313@gmail.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/tanusharma2/',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/toolify_era/'
-    }
-  },
-  // {
-  //   id: 3,
-  //   name: 'Sheetal sharma',
-  //   displayRole: 'Marketing & sales',
-  //   pillTag: 'Editor & Marketing',
-  //   bio: 'Sheetal focuses on web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
-  //   category: 'Editing',
-  //   img: team6,
-  //   email: 'marcus@secondcomeagency.com',
-  //   socials: {
-  //     linkedin: 'https://www.linkedin.com/company/secondcome-in/',
-  //     twitter: 'https://twitter.com',
-  //     instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
-  //   }
-  // },
-  {
-    id: 4,
+    id: 'portrait-b',
+    code: 'B',
     name: 'Tannu Bhadoria',
-    displayRole: 'COO',
-    pillTag: 'CHIEF OPERATING OFFICER',
-    bio: 'Tannu directs omnichannel media acquisition, operational coordination, and conversion rate optimization. She ensures strategic campaigns run with precision, managing high-performance ad spend into predictable scaling funnels for high-growth enterprises.',
-    category: 'STRATEGY',
-    img: team4,
-    email: 'tannubhadoria92@gmail.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/tannu-bhadoria-b9743a378?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/nuvi_008?dlrf=OWZ6a3NjY2QyN2Ru'
-    }
+    signature: 'Tannu Bhadoria',
+    role: 'Chief Operating Officer',
+    description: 'Omnichannel acquisition & operational scale.',
+    image: team4,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '56%', top: '12%' },
+    portraitSize: { width: '37%', height: '21%' },
+    zIndex: 3,
+    signaturePosition: { left: '56%', top: '33.5%', textAlign: 'left' },
+    descPosition: { left: '56%', top: '35.8%', textAlign: 'left', maxWidth: '37cqi' },
+    blueBlock: { left: '85%', top: '7%', width: '7.5%', height: '10.5%', zIndex: 2 },
   },
   {
-    id: 5,
-    name: 'Rashmi',
-    displayRole: 'Director of CRM',
-    pillTag: 'DIRECTOR OF AI AUTOMATION',
-    bio: 'Rashmi engineers intelligent enterprise CRM architectures, real-time analytics dashboards, and automated lead nurturing systems. Her data-driven pipelines ensure every inbound interaction is captured, scored, and converted efficiently.',
-    category: 'AI',
-    img: team5,
-    email: 'raghuvanshirashmi7037@gmail.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/company/secondcome-in/',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/secondcome.in?stkn=cG04MDh6cXpyZnlt'
-    }
+    id: 'portrait-c',
+    code: 'C',
+    name: 'Anvi Sharma',
+    signature: 'Anvi Sharma',
+    role: 'Chief Technology Officer',
+    description: 'Autonomous AI workflows & systems engineering.',
+    image: team2,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '10%', top: '37%' },
+    portraitSize: { width: '38%', height: '21%' },
+    zIndex: 4,
+    signaturePosition: { left: '10%', top: '58.5%', textAlign: 'left' },
+    descPosition: { left: '10%', top: '60.8%', textAlign: 'left', maxWidth: '37cqi' },
+    blueBlock: { left: '6.5%', top: '46%', width: '7.5%', height: '11%', zIndex: 3 },
   },
   {
-    id: 6,
+    id: 'portrait-f',
+    code: 'F',
     name: 'Suhani Maurya',
-    displayRole: 'Design Lead',
-    pillTag: 'LEAD DIGITAL ARCHITECT',
-    bio: 'Suhani focuses on bespoke web platforms, editorial typography, and interactive micro-animations that elevate brands to luxury standards. Her human-centered design craft bridges aesthetics with high-performance conversion engineering to deliver unforgettable digital touchpoints.',
-    category: 'DESIGN',
-    img: team3,
-    email: 'marcus@secondcomeagency.com',
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/suhani-maurya-78b49b378/?isSelfProfile=true',
-      twitter: 'https://twitter.com',
-      instagram: 'https://www.instagram.com/suhani_maurya00/'
-    }
-  },
-];
-
-const METHODOLOGY = [
-  {
-    num: '01',
-    title: 'Bespoke Discovery & Positioning',
-    desc: 'We analyze your brand core, uncover untapped positioning angles, and outline a tailored roadmap built for category dominance.'
+    signature: 'Suhani Maurya',
+    role: 'Lead Digital Architect',
+    description: 'Bespoke UI platforms & editorial typography.',
+    image: team3,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '56%', top: '43%' },
+    portraitSize: { width: '35%', height: '20%' },
+    zIndex: 3,
+    signaturePosition: { left: '56%', top: '63.5%', textAlign: 'left' },
+    descPosition: { left: '56%', top: '65.8%', textAlign: 'left', maxWidth: '35cqi' },
+    blueBlock: { left: '83%', top: '51%', width: '7.5%', height: '11%', zIndex: 2 },
   },
   {
-    num: '02',
-    title: 'Autonomous System Engineering',
-    desc: 'Our AI engineers deploy intelligent 24/7 automation systems, turning manual lead generation into automated scale.'
+    id: 'portrait-d',
+    code: 'D',
+    name: 'Sheetal Sharma',
+    signature: 'Sheetal Sharma',
+    role: 'Editor & Marketing Lead',
+    description: 'Conversion storytelling & brand narrative.',
+    image: team6,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '6%', top: '68%' },
+    portraitSize: { width: '37%', height: '20%' },
+    zIndex: 4,
+    signaturePosition: { left: '6%', top: '88.5%', textAlign: 'left' },
+    descPosition: { left: '6%', top: '90.8%', textAlign: 'left', maxWidth: '37cqi' },
+    blueBlock: { left: '2.5%', top: '76%', width: '7.5%', height: '11%', zIndex: 3 },
   },
   {
-    num: '03',
-    title: 'High-Conversion Digital Platforms',
-    desc: 'We craft stunning visual identities, interactive web experiences, and high-converting performance growth engines.'
-  }
+    id: 'portrait-e',
+    code: 'E',
+    name: 'Rashmi',
+    signature: 'Rashmi',
+    role: 'Director of CRM & AI Automation',
+    description: 'Enterprise data pipelines & predictive lead systems.',
+    image: team5,
+    imagePosition: 'center 10%',
+    portraitPosition: { left: '54%', top: '71%' },
+    portraitSize: { width: '37%', height: '20%' },
+    zIndex: 5,
+    signaturePosition: { left: '54%', top: '91.5%', textAlign: 'left' },
+    descPosition: { left: '54%', top: '93.8%', textAlign: 'left', maxWidth: '37cqi' },
+    blueBlock: { left: '83%', top: '80%', width: '7.5%', height: '11%', zIndex: 4 },
+  },
 ];
 
 export default function TeamPage() {
-  const [activeFilter, setActiveFilter] = useState('ALL');
-
-  const filteredMembers = useMemo(() => {
-    if (activeFilter === 'ALL') return TEAM_MEMBERS;
-    return TEAM_MEMBERS.filter((m) => {
-      if (activeFilter === 'STRATEGY') return m.category.includes('STRATEGY');
-      if (activeFilter === 'AI') return m.category.includes('AI');
-      if (activeFilter === 'DESIGN') return m.category.includes('DESIGN');
-      return m.category === activeFilter;
-    });
-  }, [activeFilter]);
-
-  const handleFilterChange = useCallback((filterId) => {
-    setActiveFilter(filterId);
-  }, []);
-
   return (
-    <div className="team-page dark-executive-theme">
-      {/* Background Ambient Lights */}
-      <div className="team-bg-glow glow-1"></div>
-      <div className="team-bg-glow glow-2"></div>
-
-      {/* Hero Section */}
-      <section className="team-hero">
-        <div className="team-hero-container">
-          <div className="trust-pill dark-pill">
-            <span className="trust-dot"></span> THE MINDS BEHIND SECOND COME AGENCY
-          </div>
-
-          <div className="dual-heading-wrapper" style={{ margin: '1.5rem 0' }}>
-            <span className="heading-script team-script-cyan">Visionaries, Engineers & Designers</span>
-            <h1 className="heading-serif team-hero-title">THE MASTERS OF BRAND & AUTOMATION</h1>
-          </div>
-
-          <p className="team-hero-subtitle">
-            We fuse high-end luxury brand positioning, 24/7 autonomous AI engineering, and bespoke digital architecture to engineer radical market growth.
-          </p>
-
-          {/* Metric Badges */}
-          <div className="team-metrics-grid">
-            <div className="metric-box">
-              <span className="metric-val">40+</span>
-              <span className="metric-lbl">BRANDS REPOSITIONED</span>
-            </div>
-            <div className="metric-box">
-              <span className="metric-val">24/7</span>
-              <span className="metric-lbl">AI AUTOMATION</span>
-            </div>
-            <div className="metric-box">
-              <span className="metric-val">10x</span>
-              <span className="metric-lbl">AVERAGE ROI</span>
-            </div>
-            <div className="metric-box">
-              <span className="metric-val">100%</span>
-              <span className="metric-lbl">BESPOKE DELIVERY</span>
-            </div>
-          </div>
-
-          {/* Filter Bar */}
-          <div className="team-filter-pills">
-            {[
-              { id: 'ALL', label: 'ALL MASTERS (5)' },
-              { id: 'STRATEGY', label: 'BRAND STRATEGY' },
-              { id: 'AI', label: 'AI & AUTOMATION' },
-              { id: 'DESIGN', label: 'DESIGN & UI' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                className={`filter-pill-btn ${activeFilter === tab.id ? 'active' : ''}`}
-                onClick={() => handleFilterChange(tab.id)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+    <div className="secondcome-team-editorial-root">
+      {/* ==================================================================
+          TOP HEADER: Earlier Team Page Title Section
+          ================================================================== */}
+      <section className="editorial-team-header" aria-label="Team Overview">
+        <div className="editorial-trust-pill">
+          <span className="editorial-trust-dot" />
+          <span>THE MINDS BEHIND SECOND COME AGENCY</span>
         </div>
+
+        <div className="editorial-title-group">
+          <span className="editorial-script-subtitle">Visionaries, Engineers & Designers</span>
+          <h1 className="editorial-hero-title">THE MASTERS OF BRAND & AUTOMATION</h1>
+        </div>
+
+        <p className="editorial-hero-lead">
+          We fuse high-end luxury brand positioning, 24/7 autonomous AI engineering, and bespoke digital architecture to engineer radical market growth.
+        </p>
       </section>
 
-      {/* Alternating Executive Spotlight Rows (Reference Image Layout) */}
-      <section className="team-spotlight-section">
-        <div className="team-container">
-          <div className="team-spotlight-list">
-            {filteredMembers.map((member, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <React.Fragment key={member.id}>
-                  <div className={`team-spotlight-row ${isEven ? 'row-normal' : 'row-reversed'}`}>
-                    {/* Circle Portrait Frame */}
-                    <div className="team-spotlight-photo-col">
-                      <div className="team-circle-frame">
-                        <img
-                          src={member.img}
-                          alt={member.name}
-                          className="team-circle-img"
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Member Details */}
-                    <div className="team-spotlight-content-col">
-                      <div className="team-spotlight-pill">
-                        <span>{member.pillTag}</span>
-                      </div>
-
-                      <h2 className="team-spotlight-name">
-                        {member.name} – <span className="team-role-highlight">{member.displayRole}</span>
-                      </h2>
-
-                      <p className="team-spotlight-bio">
-                        {member.bio}
-                      </p>
-
-                      <div className="team-spotlight-actions">
-
-                        <div className="team-spotlight-socials">
-                          <a
-                            href={member.socials.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${member.name} LinkedIn`}
-                            className="spotlight-social-btn"
-                          >
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z" />
-                            </svg>
-                          </a>
-                          <a
-                            href={member.socials.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${member.name} Twitter`}
-                            className="spotlight-social-btn"
-                          >
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                          </a>
-                          <a
-                            href={member.socials.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${member.name} Instagram`}
-                            className="spotlight-social-btn"
-                          >
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {index < filteredMembers.length - 1 && (
-                    <div className="team-spotlight-divider" aria-hidden="true" />
-                  )}
-                </React.Fragment>
-              );
-            })}
+      {/* 860 × 1680 Editorial Canvas with Generous Breathing Room */}
+      <div className="reference-editorial-canvas" aria-label="SecondCome Agency Team Roster">
+        {/* ==================================================================
+            1. TOP INTRODUCTION (Upper-Right Quadrant: x=56%, y=1%, width=40%)
+            ================================================================== */}
+        <section className="editorial-top-intro" aria-label="Team Philosophy">
+          <div className="intro-text-group">
+            <p className="intro-line">Growing together, timeless and enduring,</p>
+            <p className="intro-line">Inquiring relentlessly, tracing to the source,</p>
+            <p className="intro-line">Probing every question to its deepest core.</p>
           </div>
-        </div>
-      </section>
-
-      {/* Methodology Section */}
-      <section className="team-methodology-section">
-        <div className="team-container">
-          <div className="methodology-header">
-            <span className="heading-script team-script-cyan">Precision, Innovation, Scale</span>
-            <h2 className="heading-serif methodology-heading">HOW OUR TEAM OPERATES</h2>
+          <div className="intro-gap" />
+          <div className="intro-text-group">
+            <p className="intro-line">Embracing innovation head-on,</p>
+            <p className="intro-line">Driven by action and transformation,</p>
+            <p className="intro-line">Giving this ever-shifting era its answer.</p>
           </div>
+        </section>
 
-          <div className="methodology-cards-grid">
-            {METHODOLOGY.map((m) => (
-              <div className="dark-methodology-card" key={m.num}>
-                <span className="dark-methodology-num">{m.num}</span>
-                <h4 className="dark-methodology-title">{m.title}</h4>
-                <p className="dark-methodology-desc">{m.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* ==================================================================
+            2. BLUE RECTANGLES & PORTRAIT COLLAGE WITH SIGNATURE OVERLAYS
+            ================================================================== */}
+        {TEAM_MEMBERS_SPEC.map((member) => (
+          <React.Fragment key={member.id}>
+            {/* Graphic Rectangular Accent Block matching Featured Studio cards (--color-dark-teal #2D454D) */}
+            {member.blueBlock && (
+              <div
+                className="editorial-blue-rect"
+                aria-hidden="true"
+                style={{
+                  left: member.blueBlock.left,
+                  top: member.blueBlock.top,
+                  width: member.blueBlock.width,
+                  height: member.blueBlock.height,
+                  zIndex: member.blueBlock.zIndex,
+                }}
+              />
+            )}
 
-      {/* CTA Section */}
-      <section className="team-bottom-cta">
-        <div className="team-container" style={{ textAlign: 'center' }}>
-          <span className="heading-script team-script-cyan">Let's build something iconic</span>
-          <h2 className="heading-serif team-bottom-heading">
-            READY TO COLLABORATE WITH OUR TEAM?
-          </h2>
-          <p className="team-bottom-text">
-            Partner with our executive strategists and AI engineers to transform ambitious goals into market-defining execution.
-          </p>
-          <div className="team-bottom-actions">
-            <Link to="/#contact" className="btn-primary btn-cta-light">
-              <span>START A PROJECT</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link to="/" className="btn-secondary-cyan">
-              RETURN TO HOME
-            </Link>
+            {/* Asymmetrical Sharp-Cornered Rectangular Grayscale Portrait */}
+            <div
+              className="editorial-portrait-frame"
+              style={{
+                left: member.portraitPosition.left,
+                top: member.portraitPosition.top,
+                width: member.portraitSize.width,
+                height: member.portraitSize.height,
+                zIndex: member.zIndex,
+              }}
+            >
+              {member.image ? (
+                <img
+                  src={member.image}
+                  alt={`${member.name} — ${member.role}`}
+                  className="editorial-portrait-photo"
+                  style={{ objectPosition: member.imagePosition || 'center' }}
+                  loading="eager"
+                  draggable={false}
+                />
+              ) : (
+                <div className="editorial-placeholder-box" role="status">
+                  <span className="placeholder-lbl">PORTRAIT PENDING</span>
+                  <span className="placeholder-sublbl">{member.name}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Editorial Signature-Style Name */}
+            <div
+              className="editorial-member-signature"
+              aria-hidden="true"
+              style={{
+                left: member.signaturePosition.left,
+                top: member.signaturePosition.top,
+                textAlign: member.signaturePosition.textAlign || 'left',
+                zIndex: 10 + member.zIndex,
+              }}
+            >
+              {member.signature || member.name}
+            </div>
+
+            {/* Small Restrained Role & Description */}
+            <div
+              className="editorial-member-meta"
+              style={{
+                left: member.descPosition.left,
+                top: member.descPosition.top,
+                textAlign: member.descPosition.textAlign || 'left',
+                maxWidth: member.descPosition.maxWidth || '24cqi',
+                zIndex: 10 + member.zIndex,
+              }}
+            >
+              <div className="meta-role-line">{member.role}</div>
+              {member.description && (
+                <div className="meta-desc-line">{member.description}</div>
+              )}
+            </div>
+          </React.Fragment>
+        ))}
+
+        {/* ==================================================================
+            3. BOTTOM BRANDING (x=63%, y=78%)
+            ================================================================== */}
+        {/* <section className="editorial-bottom-branding" aria-label="SecondCome Agency Branding">
+          <div className="branding-wordmark-row">
+            <span className="wordmark-blue">secondcome</span>
           </div>
-        </div>
-      </section>
+          <div className="branding-chinese-title">STUDIO COLLECTIVE</div>
+          <div className="branding-chinese-sub">Luxury Brand Acceleration & Intelligent Systems</div>
+          <div className="branding-agency-tag">SECONDCOME AGENCY // 2026</div>
+        </section> */}
+      </div>
     </div>
   );
 }

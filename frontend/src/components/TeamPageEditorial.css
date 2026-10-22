@@ -1,0 +1,352 @@
+/* ==========================================================================
+   SECONDCOME AGENCY — EDITORIAL TEAM PAGE (WITH HEADER & SPACED ASYMMETRICAL GRID)
+   Scope: ALL rules strictly scoped to .secondcome-team-editorial-root
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Root Page Wrapper
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0e181c;
+  color: #F3F0EB;
+  margin: 0;
+  padding: calc(var(--header-height, 80px) + 2.5rem) 1.5rem 8rem 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   2. Team Hero Header (Earlier Title Section At Top Of Grid)
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-team-header {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto clamp(2.5rem, 5vw, 4.5rem) auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.secondcome-team-editorial-root .editorial-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(160, 239, 233, 0.08);
+  border: 1px solid rgba(160, 239, 233, 0.28);
+  padding: 0.45rem 1.35rem;
+  border-radius: 100px;
+  font-size: clamp(0.68rem, 1.2vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #A0EFE9;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.secondcome-team-editorial-root .editorial-trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A0EFE9;
+  box-shadow: 0 0 10px #A0EFE9;
+}
+
+.secondcome-team-editorial-root .editorial-title-group {
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.secondcome-team-editorial-root .editorial-script-subtitle {
+  font-family: 'Alex Brush', cursive;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  color: #A0EFE9;
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.secondcome-team-editorial-root .editorial-hero-title {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.secondcome-team-editorial-root .editorial-hero-lead {
+  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 720px;
+  margin: 1.25rem auto 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   3. Editorial Canvas With Spaced Asymmetrical Layout
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .reference-editorial-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  aspect-ratio: 860 / 1840;
+  background-color: #0e181c;
+  margin: 0 auto;
+  box-sizing: border-box;
+  container-type: inline-size;
+  box-shadow: none;
+  border: none;
+  overflow: visible;
+}
+
+@supports not (aspect-ratio: 860 / 1680) {
+  .secondcome-team-editorial-root .reference-editorial-canvas {
+    height: 1680px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Top Introduction (Upper-Right Quadrant: x=56%, y=1%, width=40%)
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-top-intro {
+  position: absolute;
+  left: 56%;
+  top: 1%;
+  width: 40%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.secondcome-team-editorial-root .intro-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 0.5cqi, 4px);
+}
+
+.secondcome-team-editorial-root .intro-line {
+  margin: 0;
+  padding: 0;
+  font-size: clamp(8.5px, 1.45cqi, 12px);
+  line-height: 1.6;
+  color: #C8C2BA;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  word-break: break-word;
+}
+
+.secondcome-team-editorial-root .intro-gap {
+  height: clamp(14px, 2.4cqi, 22px);
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. Electric-Blue Vertical Rectangles (#2864F0)
+   - Sharp 90° corners (border-radius: 0)
+   - Solid electric blue, flat, no gradient, no glow, no shadow, no border
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-blue-rect {
+  position: absolute;
+  background-color: var(--color-dark-teal, #2D454D);
+  border: 1px solid rgba(160, 239, 233, 0.22);
+  border-radius: 0;
+  outline: none;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   6. Asymmetrical Grayscale Rectangular Portraits (Maintaining Distance)
+   - Sharp 90° corners (border-radius: 0)
+   - 100% Grayscale filter with crisp contrast
+   - Distinct spacing between all cards
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-portrait-frame {
+  position: absolute;
+  border-radius: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #1C1915;
+  border: none;
+  box-shadow: none;
+}
+
+.secondcome-team-editorial-root .editorial-portrait-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  filter: none;
+  transition: filter 0.4s ease, transform 0.4s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.secondcome-team-editorial-root .editorial-portrait-frame:hover .editorial-portrait-photo {
+  filter: brightness(105%);
+}
+
+/* Obvious temporary placeholder when portrait is missing */
+.secondcome-team-editorial-root .editorial-placeholder-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #1C1915;
+  border: 1px dashed rgba(243, 240, 235, 0.2);
+  color: #7A756F;
+  text-align: center;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.secondcome-team-editorial-root .placeholder-lbl {
+  font-size: clamp(7px, 1.2cqi, 9.5px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cyan-accent, #A0EFE9);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.secondcome-team-editorial-root .placeholder-sublbl {
+  font-size: clamp(8px, 1.4cqi, 11px);
+  color: #C8C2BA;
+}
+
+/* --------------------------------------------------------------------------
+   7. Member Signatures (Delicate Cursive / Handwritten Script)
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-member-signature {
+  position: absolute;
+  font-family: 'Alex Brush', 'Caveat', cursive;
+  font-size: clamp(18px, 3.6cqi, 30px);
+  line-height: 1;
+  color: #F8F6F2;
+  font-weight: 400;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-2.5deg);
+  transform-origin: left bottom;
+  text-shadow: 0 1px 3px rgba(21, 18, 15, 0.95);
+}
+
+/* --------------------------------------------------------------------------
+   8. Member Metadata: Role & Brief Description
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-member-meta {
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.secondcome-team-editorial-root .meta-role-line {
+  font-size: clamp(7.5px, 1.35cqi, 10.5px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #EDE8E1;
+  line-height: 1.3;
+  margin-bottom: 2px;
+  text-shadow: 0 1px 2px rgba(21, 18, 15, 0.9);
+}
+
+.secondcome-team-editorial-root .meta-desc-line {
+  font-size: clamp(7px, 1.2cqi, 9.2px);
+  font-weight: 400;
+  color: #D4CEC6;
+  line-height: 1.38;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(10, 8, 6, 0.95);
+}
+
+/* --------------------------------------------------------------------------
+   9. Bottom Branding (Bottom-Right: x=54%, y=98.5%)
+   -------------------------------------------------------------------------- */
+.secondcome-team-editorial-root .editorial-bottom-branding {
+  position: absolute;
+  left: 54%;
+  top: 98.5%;
+  width: 40%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.secondcome-team-editorial-root .branding-wordmark-row {
+  margin-bottom: clamp(2px, 0.5cqi, 5px);
+}
+
+.secondcome-team-editorial-root .wordmark-blue {
+  font-size: clamp(24px, 5cqi, 40px);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  color: var(--color-cyan-accent, #A0EFE9);
+  display: inline-block;
+  line-height: 0.95;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.secondcome-team-editorial-root .branding-chinese-title {
+  font-size: clamp(10px, 1.8cqi, 14px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #EDE8E1;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.secondcome-team-editorial-root .branding-chinese-sub {
+  font-size: clamp(8px, 1.3cqi, 10px);
+  font-weight: 400;
+  color: #9E9890;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  margin-bottom: clamp(6px, 1cqi, 10px);
+}
+
+.secondcome-team-editorial-root .branding-agency-tag {
+  font-size: clamp(7.5px, 1.15cqi, 9px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(237, 232, 225, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   10. Responsive Adaptation for Narrow Screens
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .secondcome-team-editorial-root {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 4rem;
+  }
+}
