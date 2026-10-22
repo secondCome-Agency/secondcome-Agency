@@ -1,407 +1,432 @@
 /* ==========================================================================
-   SECOND COME AGENCY - HERO SECTION (EXACT REFERENCE COLLAGE ARRANGEMENT)
+   SECOND COME AGENCY - EDITORIAL REFERENCE HERO
+   Exact recreation of the reference agency visual structure and animation
    ========================================================================== */
 
-.agency-hero-section {
-  position: relative;
-  width: 100%;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #0c1619;
-  color: var(--color-text-white, #FFFFFF);
-  padding: calc(var(--header-height, 80px) + 1.25rem) 1.5rem 2.5rem 1.5rem;
-  box-sizing: border-box;
-  overflow-x: clip;
-  overflow-y: visible;
-}
-
-@supports not (height: 100svh) {
-  .agency-hero-section {
-    min-height: 100vh;
-  }
-}
-
-/* Subtle, Restrained Ambient Lighting */
-.hero-ambient-glow {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: 1;
-}
-
-.hero-ambient-glow.glow-top {
-  top: -8%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 650px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(160, 239, 233, 0.05) 0%, transparent 70%);
-}
-
-.hero-ambient-glow.glow-bottom {
-  bottom: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(45, 69, 77, 0.16) 0%, transparent 75%);
-}
-
-/* ==========================================================================
-   CENTER HEADER: Headline & Tagline
-   ========================================================================== */
-
-.hero-content-center {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 940px;
-  margin: 0 auto 1.5rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Headline: Bold, Sophisticated & Balanced */
-.hero-main-headline {
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-weight: 800;
-  font-size: clamp(1.85rem, 3.2vw, 3rem);
-  line-height: 1.18;
-  letter-spacing: -0.02em;
-  color: #ffffff !important;
-  margin: 0 0 0.5rem 0;
-  display: flex;
-  margin-top: 30px;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  text-transform: uppercase;
-  max-width: 900px;
-}
-
-.hero-main-headline,
-.hero-main-headline span,
-.hero-main-headline .heading-serif {
-  color: #ffffff !important;
-}
-
-.headline-row {
-  display: block;
-}
-
-/* Clean, flat turquoise badge - matching reference image editorial style */
-.headline-highlight-phrase {
+/* Typography Glyphs for SMA letters - Imperial Luxury Display */
+.sma-font-s,
+.sma-font-m,
+.sma-font-a {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 700;
   display: inline-block;
-  background-color: #A0EFE9;
-  color: #111E22 !important;
-  font-weight: 800;
-  padding: 0.12em 0.5em;
-  border-radius: 10px;
-  letter-spacing: -0.015em;
-  box-shadow: none !important;
-  border: none;
-}
-
-/* Script Tagline matching reference font ('Alex Brush', cursive) */
-.hero-script-tagline-wrapper {
-  margin: 0.15rem 0 0.75rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-script-tagline {
-  font-family: var(--font-script, 'Alex Brush', cursive);
-  font-size: clamp(2.3rem, 3.8vw, 3.4rem);
-  font-weight: 400;
-  color: var(--color-cyan-accent, #A0EFE9);
-  line-height: 1.1;
+  line-height: 0.86;
   letter-spacing: 0.02em;
-  text-shadow: 0 0 20px rgba(160, 239, 233, 0.25);
-  display: inline-block;
+  color: #FFFFFF;
+  text-shadow: 0 4px 35px rgba(0, 0, 0, 0.7);
 }
 
-/* Tagline: 16-18px readable, comfortable line height */
-.hero-lead-subtitle {
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: clamp(1rem, 1.15vw, 1.125rem);
-  font-weight: 400;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 640px;
-  margin: 0 auto;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-/* ==========================================================================
-   EXACT REFERENCE FANNED CARD COLLAGE (ADJUSTED UPSIDE TO FILL LANDING PAGE)
-   ========================================================================== */
-
-.hero-reference-collage-wrapper {
+/* Base Hero Canvas */
+.secondcome-reference-hero {
   position: relative;
-  z-index: 5;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: 0.5rem;
-  padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: #0c1619;
+  color: #FFFFFF;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
-.hero-reference-collage {
-  position: relative;
+/* ==========================================================================
+   1. OPENING SMA TYPOGRAPHIC INTRO OVERLAY
+   ========================================================================== */
+
+.sma-intro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0c1619;
+  z-index: 50;
   display: flex;
   justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 3vw;
+  pointer-events: none;
+}
+
+.sma-intro-container {
+  width: 100%;
+  max-width: 1720px;
+  height: 74vh;
+  display: flex;
+  justify-content: space-between;
   align-items: flex-end;
-  width: auto;
-  max-width: 1440px;
   margin: 0 auto;
 }
 
-/* Individual Card Wrapper - Fuller, slightly taller proportions for complete presence */
-.hero-fanned-card {
+.sma-intro-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  will-change: transform, opacity, clip-path;
+}
+
+.sma-oversized-letter {
+  font-size: clamp(140px, 46vh, 480px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.sma-intro-sublabel {
+  margin-top: clamp(1.2rem, 2.8vh, 3rem);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 900;
+  font-size: clamp(1rem, 1.8vw, 2.3rem);
+  letter-spacing: clamp(0.12em, 0.25vw, 0.22em);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ==========================================================================
+   2. EDITORIAL CANVAS & 5 SERVICE VISUALS
+   ========================================================================== */
+
+.hero-editorial-canvas {
   position: relative;
-  width: clamp(180px, 16.5vw, 245px);
-  height: clamp(260px, 24vw, 350px);
-  flex-shrink: 0;
-  margin-left: clamp(-42px, -3.2vw, -24px);
-  margin-right: clamp(-42px, -3.2vw, -24px);
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Centered Supporting Statement ("Making the ordinary") */
+.hero-statement-wrapper {
+  position: absolute;
+  top: clamp(116px, 14.5vh, 140px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.hero-sub-statement {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.95rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 auto;
+}
+
+/* 5 Services Layer - Unified Alternating Staggered Flex Grid (One Upside, One Downside) */
+.hero-service-images-layer {
+  position: relative;
+  width: min(94vw, 1540px);
+  margin: 0 auto;
+  top: clamp(140px, 16.5vh, 165px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(16px, 2vw, 32px);
+  z-index: 10;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* Individual Service Image Card */
+.hero-service-image-card {
+  flex: 1 1 0;
+  min-width: 0;
+  height: clamp(285px, 22.5vw, 360px);
+  position: relative;
+  pointer-events: auto;
   cursor: pointer;
   user-select: none;
-  overflow: visible;
-  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 0.45s ease;
+  box-sizing: border-box;
+  border-radius: 6px;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.45s ease;
   will-change: transform;
 }
 
-.hero-fanned-card:first-child {
-  margin-left: 0;
+/* Alternating Upside and Downside Arrangement with Identical Gap (Never Sticking) */
+/* Card 1, 3, 5: UPSIDE (Top) */
+.hero-service-image-card:nth-child(odd) {
+  margin-top: 0;
 }
 
-.hero-fanned-card:last-child {
-  margin-right: 0;
+/* Card 2, 4: DOWNSIDE (Bottom) */
+.hero-service-image-card:nth-child(even) {
+  margin-top: clamp(120px, 14vh, 165px);
 }
 
-/* Media Box with Rounded Corners & Deep Realistic Shadow */
-.hero-fanned-media {
+.service-image-frame {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: 6px;
   overflow: hidden;
-  background-color: #142328;
-  border: 1.5px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  background-color: #122025;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.85);
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.hero-fanned-img {
+.service-editorial-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  pointer-events: none;
-  -webkit-user-drag: none;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
 
-/* ==========================================================================
-   HOVER: DISPLAY UPSIDE PROPER
-   Card rotates to 0deg (upright/proper), lifts up by 32px (upside),
-   scales to 1.06, and brings to front-most layer (z-index: 60)
-   ========================================================================== */
-
-.hero-fanned-card:hover {
-  transform: rotate(0deg) translateY(-32px) scale(1.06) !important;
-  z-index: 60 !important;
-}
-
-.hero-fanned-card:hover .hero-fanned-media {
-  border-color: rgba(160, 239, 233, 0.85);
-  box-shadow: 0 38px 80px -10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(160, 239, 233, 0.25);
-}
-
-.hero-fanned-card:hover .hero-fanned-img {
-  transform: scale(1.05);
-}
-
-/* ==========================================================================
-   DEFAULT RESTING ROTATIONS, OFFSETS, AND Z-INDEX FROM REFERENCE IMAGE
-   (Elevated slightly upside for full visibility on screen)
-   ========================================================================== */
-
-/* Card 1: Far Left - Tilted Left */
-.hero-fanned-card.card-pos-1 {
-  transform: rotate(-7.5deg) translateY(16px);
-  z-index: 1;
-}
-
-/* Card 2: Mid Left - Slight Left Tilt, Raised */
-.hero-fanned-card.card-pos-2 {
-  transform: rotate(-3deg) translateY(-10px);
-  z-index: 2;
-}
-
-/* Card 3: Center Left - Nearly Straight, Neutral */
-.hero-fanned-card.card-pos-3 {
-  transform: rotate(-0.5deg) translateY(2px);
-  z-index: 3;
-}
-
-/* Card 4: Center Right - In Front, Raised */
-.hero-fanned-card.card-pos-4 {
-  transform: rotate(1.2deg) translateY(-18px);
-  z-index: 5;
-}
-
-/* Card 5: Mid Right - Tilted Right, Neutral */
-.hero-fanned-card.card-pos-5 {
-  transform: rotate(4.5deg) translateY(2px);
-  z-index: 2;
-}
-
-/* Card 6: Far Right - Tilted Right */
-.hero-fanned-card.card-pos-6 {
-  transform: rotate(8deg) translateY(16px);
-  z-index: 4;
-}
-
-/* ==========================================================================
-   FLOATING PILL BADGES (MATCHING REFERENCE IMAGE EXACTLY)
-   ========================================================================== */
-
-.hero-floating-pill {
+/* Subtle Editorial Tag in Image Corner */
+.service-editorial-tag {
   position: absolute;
-  display: inline-flex;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(12, 22, 25, 0.94) 100%);
+  display: flex;
   align-items: center;
-  background-color: #FFFFFF;
-  color: #000000;
+  gap: 0.45rem;
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  padding: 0.42rem 1.05rem;
-  border-radius: 9999px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  opacity: 0.88;
+  transition: opacity 0.3s ease, background 0.3s ease;
   white-space: nowrap;
-  z-index: 30;
-  pointer-events: none;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Top-Left of Card 1 */
-.pill-pos-top-left {
-  top: 10px;
-  left: 20px;
-  transform: rotate(-6deg);
+.service-editorial-tag .tag-number {
+  color: var(--color-cyan-accent, #A0EFE9);
+  font-weight: 800;
 }
 
-/* Bottom-Center of Card 3/4 */
-.pill-pos-bottom-center {
-  bottom: -6px;
-  left: 45%;
-  transform: translateX(-50%) rotate(-1deg);
+.service-editorial-tag .tag-separator {
+  opacity: 0.4;
 }
 
-/* Top-Right of Card 6 */
-.pill-pos-top-right {
-  top: 10px;
-  right: 20px;
-  transform: rotate(6deg);
+.service-editorial-tag .tag-title {
+  text-transform: uppercase;
+}
+
+/* Card Hover States */
+.hero-service-image-card:hover {
+  transform: translateY(-8px) scale(1.025);
+  z-index: 35 !important;
+}
+
+.hero-service-image-card:hover .service-image-frame {
+  border-color: rgba(160, 239, 233, 0.7);
+  box-shadow: 0 30px 65px -10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(160, 239, 233, 0.25);
+}
+
+.hero-service-image-card:hover .service-editorial-img {
+  transform: scale(1.04);
+}
+
+.hero-service-image-card:hover .service-editorial-tag {
+  opacity: 1;
 }
 
 /* ==========================================================================
-   RESPONSIVENESS
+   4. MAIN HEADLINE: LARGE DIAGONAL CURSIVE "SECONDCOME" WITH UNDERLINE
    ========================================================================== */
 
-@media (max-width: 1200px) {
-  .hero-fanned-card {
-    width: clamp(160px, 15vw, 205px);
-    height: clamp(230px, 21.5vw, 290px);
-    margin-left: -28px;
-    margin-right: -28px;
-  }
+.hero-cursive-headline-lockup {
+  position: absolute;
+  top: clamp(440px, 50.5vh, 500px);
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 25;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%) rotate(-8.5deg);
+  transform-origin: center center;
+}
 
-  .hero-floating-pill {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.9rem;
+.hero-cursive-title-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  max-width: 96vw;
+}
+
+.hero-cursive-title {
+  font-family: var(--font-script, 'Alex Brush', cursive);
+  font-size: clamp(6.2rem, 13vw, 15rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  user-select: none;
+  text-shadow:
+    0 0 25px rgba(255, 255, 255, 0.45),
+    0 0 65px rgba(160, 239, 233, 0.4),
+    0 4px 20px rgba(0, 0, 0, 0.9);
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.7));
+}
+
+/* Thin Elegant Diagonal Underline Stroke */
+.hero-diagonal-line {
+  width: 104%;
+  height: 1.5px;
+  margin-top: -1.6rem;
+  background: linear-gradient(
+    90deg,
+    transparent 1%,
+    rgba(255, 255, 255, 0.9) 12%,
+    rgba(160, 239, 233, 0.95) 70%,
+    transparent 98%
+  );
+  box-shadow: 0 0 14px rgba(160, 239, 233, 0.6);
+}
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+
+@media (max-width: 1280px) {
+  .hero-service-images-layer {
+    gap: clamp(14px, 1.6vw, 22px);
+    top: clamp(135px, 15vh, 155px);
+  }
+  .hero-service-image-card {
+    height: clamp(260px, 22vw, 320px);
+  }
+  .hero-service-image-card:nth-child(even) {
+    margin-top: clamp(100px, 12vh, 140px);
   }
 }
 
-@media (max-width: 900px) {
-  .agency-hero-section {
-    padding-top: calc(var(--header-height, 80px) + 2rem);
-    min-height: 100svh;
+@media (max-width: 1024px) {
+  .hero-service-images-layer {
+    gap: 12px;
+    top: 135px;
+    width: 96vw;
   }
-
-  .hero-reference-collage {
-    transform: scale(0.82);
-    transform-origin: bottom center;
-    margin-bottom: -15px;
+  .hero-service-image-card {
+    height: 28vw;
   }
-
-  .hero-main-headline {
-    font-size: clamp(1.75rem, 4.2vw, 2.4rem);
+  .hero-service-image-card:nth-child(even) {
+    margin-top: clamp(70px, 9vh, 100px);
   }
-
-  .hero-script-tagline {
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
+  .hero-cursive-headline-lockup {
+    top: 48vh;
+    transform: translateY(-50%) rotate(-7deg);
   }
-
-  .hero-lead-subtitle {
-    font-size: 0.95rem;
-    max-width: 520px;
+  .hero-cursive-title {
+    font-size: clamp(4.2rem, 11vw, 8.5rem);
+  }
+  .hero-diagonal-line {
+    margin-top: -0.8rem;
   }
 }
 
-@media (max-width: 640px) {
-  .agency-hero-section {
-    padding-top: calc(var(--header-height, 80px) + 1.5rem);
-    padding-bottom: 2rem;
+/* Mobile Screens (<768px): Careful Recomposition to Prevent Overflow */
+@media (max-width: 768px) {
+  .secondcome-reference-hero {
+    min-height: 100vh;
+    height: auto;
+    overflow-x: clip;
+    padding-bottom: 3.5rem;
   }
 
-  .hero-main-headline {
-    font-size: clamp(1.55rem, 5.5vw, 2rem);
-    line-height: 1.22;
+  .sma-intro-container {
+    height: 55vh;
   }
 
-  .hero-script-tagline {
-    font-size: 1.95rem;
+  .sma-oversized-letter {
+    font-size: clamp(70px, 19vw, 120px);
   }
 
-  .hero-lead-subtitle {
-    font-size: 0.9rem;
+  .sma-intro-sublabel {
+    font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
   }
 
-  .hero-reference-collage-wrapper {
-    padding-top: 1rem;
+  .hero-editorial-canvas {
+    height: auto;
+    min-height: 94vh;
+    position: relative;
+    padding-top: 85px;
   }
 
-  .hero-reference-collage {
-    transform: scale(0.58);
-    transform-origin: bottom center;
-    margin-bottom: -60px;
+  .hero-statement-wrapper {
+    position: relative;
+    top: auto;
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  .hero-sub-statement {
+    font-size: 1.15rem;
+  }
+
+  /* Mobile Staggered Cards (Horizontal scroll rail with alternating heights & identical gap) */
+  .hero-service-images-layer {
+    position: relative;
+    top: auto;
+    width: 100%;
+    margin-top: 1rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 15px 1.5rem 30px;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .hero-service-images-layer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-service-image-card {
+    flex: 0 0 210px;
+    height: 290px;
+    scroll-snap-align: center;
+  }
+
+  .hero-service-image-card:nth-child(even) {
+    margin-top: 45px;
+  }
+
+  .hero-cursive-headline-lockup {
+    top: 320px;
+    transform: translateY(-50%) rotate(-6deg);
+  }
+
+  .hero-cursive-title {
+    font-size: clamp(3.4rem, 13vw, 5.2rem);
+  }
+
+  .hero-diagonal-line {
+    margin-top: -0.5rem;
   }
 }
 
-@media (max-width: 440px) {
-  .hero-reference-collage {
-    transform: scale(0.48);
-    transform-origin: bottom center;
-    margin-bottom: -80px;
-  }
-}
-
+/* Reduced Motion Preference Support */
 @media (prefers-reduced-motion: reduce) {
-  .hero-fanned-card:hover {
-    transform: none !important;
+  .hero-service-image-card {
+    transition: none;
+  }
+  .hero-service-image-card:hover {
+    transform: none;
   }
 }

@@ -122,7 +122,10 @@ body {
   width: 100%;
   z-index: 1000;
   pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+
 
 .header-inner {
   max-width: 1600px;

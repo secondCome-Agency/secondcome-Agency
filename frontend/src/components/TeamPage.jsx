@@ -141,8 +141,8 @@ export default function TeamPage() {
         </p>
       </section>
 
-      {/* 860 × 1680 Editorial Canvas with Generous Breathing Room */}
-      <div className="reference-editorial-canvas" aria-label="SecondCome Agency Team Roster">
+      {/* 860 × 1680 Editorial Canvas for Desktop / Tablet Viewports */}
+      <div className="reference-editorial-canvas editorial-canvas--desktop" aria-label="SecondCome Agency Team Roster">
         {/* ==================================================================
             1. TOP INTRODUCTION (Upper-Right Quadrant: x=56%, y=1%, width=40%)
             ================================================================== */}
@@ -196,7 +196,7 @@ export default function TeamPage() {
                   src={member.image}
                   alt={`${member.name} — ${member.role}`}
                   className="editorial-portrait-photo"
-                  style={{ objectPosition: member.imagePosition || 'center' }}
+                  style={{ objectPosition: member.imagePosition || 'center 10%' }}
                   loading="eager"
                   draggable={false}
                 />
@@ -240,18 +240,68 @@ export default function TeamPage() {
             </div>
           </React.Fragment>
         ))}
+      </div>
 
-        {/* ==================================================================
-            3. BOTTOM BRANDING (x=63%, y=78%)
-            ================================================================== */}
-        {/* <section className="editorial-bottom-branding" aria-label="SecondCome Agency Branding">
-          <div className="branding-wordmark-row">
-            <span className="wordmark-blue">secondcome</span>
+      {/* Editorial Flow Roster for Mobile Devices (<= 768px) */}
+      <div className="editorial-roster--mobile" aria-label="SecondCome Agency Team Roster Mobile">
+        {/* Mobile Philosophy Intro Banner */}
+        <section className="mobile-editorial-intro" aria-label="Team Philosophy">
+          <div className="mobile-intro-group">
+            <p className="mobile-intro-line">Growing together, timeless and enduring,</p>
+            <p className="mobile-intro-line">Inquiring relentlessly, tracing to the source,</p>
+            <p className="mobile-intro-line">Probing every question to its deepest core.</p>
           </div>
-          <div className="branding-chinese-title">STUDIO COLLECTIVE</div>
-          <div className="branding-chinese-sub">Luxury Brand Acceleration & Intelligent Systems</div>
-          <div className="branding-agency-tag">SECONDCOME AGENCY // 2026</div>
-        </section> */}
+          <div className="mobile-intro-divider" />
+          <div className="mobile-intro-group">
+            <p className="mobile-intro-line">Embracing innovation head-on,</p>
+            <p className="mobile-intro-line">Driven by action and transformation,</p>
+            <p className="mobile-intro-line">Giving this ever-shifting era its answer.</p>
+          </div>
+        </section>
+
+        {/* Mobile Roster Cards */}
+        <div className="mobile-cards-stack">
+          {TEAM_MEMBERS_SPEC.map((member, index) => {
+            const isEven = index % 2 === 1;
+            return (
+              <article
+                className={`mobile-member-card ${isEven ? 'card--accent-right' : 'card--accent-left'}`}
+                key={member.id}
+              >
+                <div className="mobile-card-visual">
+                  <div className="mobile-blue-rect" aria-hidden="true" />
+                  <div className="mobile-portrait-frame">
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={`${member.name} — ${member.role}`}
+                        className="mobile-portrait-photo"
+                        style={{ objectPosition: member.imagePosition || 'center 10%' }}
+                        loading="lazy"
+                        draggable={false}
+                      />
+                    ) : (
+                      <div className="editorial-placeholder-box" role="status">
+                        <span className="placeholder-lbl">PORTRAIT PENDING</span>
+                        <span className="placeholder-sublbl">{member.name}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mobile-card-content">
+                  <div className="mobile-member-signature">
+                    {member.signature || member.name}
+                  </div>
+                  <div className="mobile-member-role">{member.role}</div>
+                  {member.description && (
+                    <p className="mobile-member-desc">{member.description}</p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
