@@ -35,22 +35,36 @@
   --font-script: 'Alex Brush', cursive;
 
   /* Consistent Typography Scale */
-  --text-xs: 0.75rem;      /* 12px - Labels, Badges, Pills */
-  --text-sm: 0.875rem;     /* 14px - Meta, Form Labels, Small Actions */
-  --text-base: 1rem;       /* 16px - Standard Body Text */
-  --text-md: 1.125rem;     /* 18px - Lead Body, Sub-headings */
-  --text-lg: 1.25rem;      /* 20px - Card Titles, Highlight Text */
-  --text-xl: 1.5rem;       /* 24px - Section Sub-titles */
-  --text-2xl: 2rem;        /* 32px - Medium Headings */
-  --text-3xl: 2.5rem;      /* 40px - Large Headings */
-  --text-4xl: clamp(2.4rem, 5vw, 4.5rem); /* Display Headings */
+  --text-xs: 0.75rem;
+  /* 12px - Labels, Badges, Pills */
+  --text-sm: 0.875rem;
+  /* 14px - Meta, Form Labels, Small Actions */
+  --text-base: 1rem;
+  /* 16px - Standard Body Text */
+  --text-md: 1.125rem;
+  /* 18px - Lead Body, Sub-headings */
+  --text-lg: 1.25rem;
+  /* 20px - Card Titles, Highlight Text */
+  --text-xl: 1.5rem;
+  /* 24px - Section Sub-titles */
+  --text-2xl: 2rem;
+  /* 32px - Medium Headings */
+  --text-3xl: 2.5rem;
+  /* 40px - Large Headings */
+  --text-4xl: clamp(2.4rem, 5vw, 4.5rem);
+  /* Display Headings */
 
   /* Standardized Corner Radii */
-  --radius-btn: 100px;     /* Unified Pill Buttons */
-  --radius-card: 20px;     /* Unified Standard Cards */
-  --radius-card-sm: 14px;  /* Unified Small / Nested Cards */
-  --radius-input: 12px;    /* Unified Input Fields */
-  --radius-badge: 100px;   /* Unified Pills & Badges */
+  --radius-btn: 100px;
+  /* Unified Pill Buttons */
+  --radius-card: 20px;
+  /* Unified Standard Cards */
+  --radius-card-sm: 14px;
+  /* Unified Small / Nested Cards */
+  --radius-input: 12px;
+  /* Unified Input Fields */
+  --radius-badge: 100px;
+  /* Unified Pills & Badges */
 
   /* Standardized Button Padding */
   --btn-padding-primary: 0.95rem 2.2rem;
@@ -241,7 +255,7 @@ body {
   font-family: var(--font-script);
   font-size: 2.2rem;
   line-height: 0.9;
-  color: #A0EFE9;
+  color: rgba(4, 17, 21, 0.966);
   text-shadow: 0 0 16px rgba(160, 239, 233, 0.35), 0 2px 8px rgba(0, 0, 0, 0.5);
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -258,7 +272,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(4, 17, 21, 0.966);
   margin-top: -2px;
   transition: color 0.3s ease, letter-spacing 0.3s ease;
 }
@@ -3876,7 +3890,8 @@ body {
 
 .comp-homepage-banner {
   margin-top: 4.5rem;
-  background: #FFFFFF; /* Pure White Card */
+  background: #FFFFFF;
+  /* Pure White Card */
   border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 3.2rem 3.5rem;
@@ -3922,7 +3937,8 @@ body {
   gap: 0.65rem;
   padding: 0.45rem 1.15rem;
   background: #E8F7F4;
-  color: #003F3A; /* Deep Teal */
+  color: #003F3A;
+  /* Deep Teal */
   border: 1px solid rgba(54, 166, 163, 0.35);
   border-radius: 100px;
   font-family: var(--font-sans);
@@ -3936,18 +3952,22 @@ body {
 .comp-badge-dot-live {
   width: 7px;
   height: 7px;
-  background-color: #059669; /* Emerald/Turquoise */
+  background-color: #059669;
+  /* Emerald/Turquoise */
   border-radius: 50%;
   box-shadow: 0 0 8px #059669;
   animation: pulseEmeraldDot 2s infinite ease-in-out;
 }
 
 @keyframes pulseEmeraldDot {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
     box-shadow: 0 0 8px #059669;
   }
+
   50% {
     transform: scale(1.35);
     opacity: 0.65;
@@ -3967,7 +3987,8 @@ body {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #003F3A; /* Deep Teal */
+  color: #003F3A;
+  /* Deep Teal */
   display: block;
   margin-bottom: 0.55rem;
 }
@@ -3976,7 +3997,8 @@ body {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3.4vw, 2.9rem);
   font-weight: 600;
-  color: #0B2928; /* Dark Teal headline */
+  color: #0B2928;
+  /* Dark Teal headline */
   margin: 0 0 0.85rem 0;
   line-height: 1.18;
   letter-spacing: 0.01em;
@@ -4055,11 +4077,13 @@ body {
     margin-top: 3rem;
     border-radius: var(--radius-card);
   }
+
   .comp-homepage-banner-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.8rem;
   }
+
   .comp-homepage-cta-btn {
     width: auto;
     align-self: flex-start;
@@ -5622,6 +5646,7 @@ body {
     gap: 1.5rem;
     padding-right: 1.5rem;
   }
+
   .ticker-action-fixed {
     padding: 0 0.9rem;
     font-size: 0.76rem;

@@ -80,8 +80,7 @@ export default function HeroA({
     return (
         <section className="sc-hero" ref={root}>
             <div className="sc-top sc-lab">
-                <span>Independent creative studio</span>
-                <span>Global Reach · Est. 2024</span>
+                <span>Digital marketing & creative agency</span>
             </div>
 
             {cornerElement && (
