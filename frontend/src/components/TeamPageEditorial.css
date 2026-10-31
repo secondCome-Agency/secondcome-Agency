@@ -82,7 +82,7 @@
 }
 
 .secondcome-team-editorial-root .editorial-hero-title {
-  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
   font-size: clamp(1.9rem, 4.5vw, 3.4rem);
   font-weight: 400;
   letter-spacing: 0.04em;

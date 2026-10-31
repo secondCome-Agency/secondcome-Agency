@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import Navbar from './components/Navbar.jsx';
 import NavDrawer from './components/NavDrawer.jsx';
-import Hero from './components/Hero.jsx';
+import HeroA from './components/hero/HeroA.jsx';
 import PolaroidSection from './components/PolaroidSection.jsx';
 import ServicesSection from './components/ServicesSection.jsx';
 import CaseStudiesSection from './components/CaseStudiesSection.jsx';
@@ -16,15 +16,25 @@ import CtaSection from './components/CtaSection.jsx';
 import Footer from './components/Footer.jsx';
 import TeamPage from './components/TeamPage.jsx';
 import ComplementaryServicesPage from './components/ComplementaryServicesPage.jsx';
-import TopAnnouncementBar from './components/TopAnnouncementBar.jsx';
-import HomeComplementarySection from './components/HomeComplementarySection.jsx';
+import BlogPage from './components/BlogPage.jsx';
+import BlogPostPage from './components/BlogPostPage.jsx';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (hash) {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
 
   return null;
 }
@@ -32,10 +42,9 @@ function ScrollToTop() {
 function HomePage() {
   return (
     <>
-      <Hero />
+      <HeroA ctaHref="#about" />
       <PolaroidSection />
       <ServicesSection />
-      <HomeComplementarySection />
       <CaseStudiesSection />
       <TestimonialsSection />
       <CtaSection />
@@ -91,6 +100,11 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/complementary-services" element={<ComplementaryServicesPage />} />
+          <Route path="/complementary" element={<ComplementaryServicesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/insights" element={<BlogPage />} />
+          <Route path="/insights/:slug" element={<BlogPostPage />} />
         </Routes>
       </main>
 
@@ -98,4 +112,3 @@ export default function App() {
     </div>
   );
 }
-

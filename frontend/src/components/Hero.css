@@ -1,432 +1,322 @@
 /* ==========================================================================
-   SECOND COME AGENCY - EDITORIAL REFERENCE HERO
-   Exact recreation of the reference agency visual structure and animation
+   SECOND COME AGENCY - REDESIGNED HERO / LANDING PAGE SECTION
+   Brand Palette:
+   - Deep Teal:  #003F3A
+   - Dark Teal:  #0B2928 (Exact match to footer background)
+   - Turquoise:  #36A6A3
+   - Soft Mint:  #DDF3E8
+   - Off-white:  #F5FBF5
    ========================================================================== */
 
-/* Typography Glyphs for SMA letters - Imperial Luxury Display */
-.sma-font-s,
-.sma-font-m,
-.sma-font-a {
-  font-family: 'Cinzel Decorative', 'Cinzel', serif;
-  font-weight: 700;
-  display: inline-block;
-  line-height: 0.86;
-  letter-spacing: 0.02em;
-  color: #FFFFFF;
-  text-shadow: 0 4px 35px rgba(0, 0, 0, 0.7);
-}
-
-/* Base Hero Canvas */
-.secondcome-reference-hero {
-  position: relative;
-  width: 100%;
+.hero {
   min-height: 100vh;
   min-height: 100svh;
-  background-color: #0c1619;
-  color: #FFFFFF;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-/* ==========================================================================
-   1. OPENING SMA TYPOGRAPHIC INTRO OVERLAY
-   ========================================================================== */
-
-.sma-intro-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #0c1619;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0 3vw;
-  pointer-events: none;
-}
-
-.sma-intro-container {
-  width: 100%;
-  max-width: 1720px;
-  height: 74vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: 0 auto;
-}
-
-.sma-intro-col {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: center;
-  opacity: 0;
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  will-change: transform, opacity, clip-path;
-}
-
-.sma-oversized-letter {
-  font-size: clamp(140px, 46vh, 480px);
-  user-select: none;
-  pointer-events: none;
-}
-
-.sma-intro-sublabel {
-  margin-top: clamp(1.2rem, 2.8vh, 3rem);
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-weight: 900;
-  font-size: clamp(1rem, 1.8vw, 2.3rem);
-  letter-spacing: clamp(0.12em, 0.25vw, 0.22em);
-  color: #FFFFFF;
-  text-transform: uppercase;
-  white-space: nowrap;
-  user-select: none;
-}
-
-/* ==========================================================================
-   2. EDITORIAL CANVAS & 5 SERVICE VISUALS
-   ========================================================================== */
-
-.hero-editorial-canvas {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  height: 100svh;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-/* Centered Supporting Statement ("Making the ordinary") */
-.hero-statement-wrapper {
-  position: absolute;
-  top: clamp(116px, 14.5vh, 140px);
-  left: 0;
-  width: 100%;
-  text-align: center;
-  z-index: 15;
-  pointer-events: none;
-}
-
-.hero-sub-statement {
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: clamp(1.2rem, 1.8vw, 1.95rem);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  color: rgba(255, 255, 255, 0.92);
-  margin: 0 auto;
-}
-
-/* 5 Services Layer - Unified Alternating Staggered Flex Grid (One Upside, One Downside) */
-.hero-service-images-layer {
-  position: relative;
-  width: min(94vw, 1540px);
-  margin: 0 auto;
-  top: clamp(140px, 16.5vh, 165px);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: clamp(16px, 2vw, 32px);
-  z-index: 10;
-  box-sizing: border-box;
-  pointer-events: none;
-}
-
-/* Individual Service Image Card */
-.hero-service-image-card {
-  flex: 1 1 0;
-  min-width: 0;
-  height: clamp(285px, 22.5vw, 360px);
-  position: relative;
-  pointer-events: auto;
-  cursor: pointer;
-  user-select: none;
-  box-sizing: border-box;
-  border-radius: 6px;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.45s ease;
-  will-change: transform;
-}
-
-/* Alternating Upside and Downside Arrangement with Identical Gap (Never Sticking) */
-/* Card 1, 3, 5: UPSIDE (Top) */
-.hero-service-image-card:nth-child(odd) {
-  margin-top: 0;
-}
-
-/* Card 2, 4: DOWNSIDE (Bottom) */
-.hero-service-image-card:nth-child(even) {
-  margin-top: clamp(120px, 14vh, 165px);
-}
-
-.service-image-frame {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: #122025;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.85);
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.service-editorial-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.25, 1);
-}
-
-/* Subtle Editorial Tag in Image Corner */
-.service-editorial-tag {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.65rem 0.85rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(12, 22, 25, 0.94) 100%);
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #FFFFFF;
-  opacity: 0.88;
-  transition: opacity 0.3s ease, background 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.service-editorial-tag .tag-number {
-  color: var(--color-cyan-accent, #A0EFE9);
-  font-weight: 800;
-}
-
-.service-editorial-tag .tag-separator {
-  opacity: 0.4;
-}
-
-.service-editorial-tag .tag-title {
-  text-transform: uppercase;
-}
-
-/* Card Hover States */
-.hero-service-image-card:hover {
-  transform: translateY(-8px) scale(1.025);
-  z-index: 35 !important;
-}
-
-.hero-service-image-card:hover .service-image-frame {
-  border-color: rgba(160, 239, 233, 0.7);
-  box-shadow: 0 30px 65px -10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(160, 239, 233, 0.25);
-}
-
-.hero-service-image-card:hover .service-editorial-img {
-  transform: scale(1.04);
-}
-
-.hero-service-image-card:hover .service-editorial-tag {
-  opacity: 1;
-}
-
-/* ==========================================================================
-   4. MAIN HEADLINE: LARGE DIAGONAL CURSIVE "SECONDCOME" WITH UNDERLINE
-   ========================================================================== */
-
-.hero-cursive-headline-lockup {
-  position: absolute;
-  top: clamp(440px, 50.5vh, 500px);
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 25;
-  display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateY(-50%) rotate(-8.5deg);
-  transform-origin: center center;
-}
-
-.hero-cursive-title-wrapper {
+  text-align: center;
+  padding: calc(var(--header-height, 80px) + 30px) 5vw 80px;
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  max-width: 96vw;
+  overflow: hidden;
+  background-color: #0B2928; /* Exact match according to footer bg */
+  color: #F5FBF5;
+  box-sizing: border-box;
 }
 
-.hero-cursive-title {
-  font-family: var(--font-script, 'Alex Brush', cursive);
-  font-size: clamp(6.2rem, 13vw, 15rem);
-  font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: 0.02em;
-  color: #FFFFFF;
-  margin: 0;
-  padding: 0 1.5rem;
-  white-space: nowrap;
-  user-select: none;
-  text-shadow:
-    0 0 25px rgba(255, 255, 255, 0.45),
-    0 0 65px rgba(160, 239, 233, 0.4),
-    0 4px 20px rgba(0, 0, 0, 0.9);
-  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.7));
-}
-
-/* Thin Elegant Diagonal Underline Stroke */
-.hero-diagonal-line {
-  width: 104%;
-  height: 1.5px;
-  margin-top: -1.6rem;
-  background: linear-gradient(
-    90deg,
-    transparent 1%,
-    rgba(255, 255, 255, 0.9) 12%,
-    rgba(160, 239, 233, 0.95) 70%,
-    transparent 98%
+/* Subtle atmospheric drift grid texture */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: repeating-linear-gradient(
+    115deg,
+    transparent 0 120px,
+    rgba(54, 166, 163, 0.08) 120px 150px,
+    transparent 150px 330px
   );
-  box-shadow: 0 0 14px rgba(160, 239, 233, 0.6);
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 75%);
+  animation: heroDrift 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* ==========================================================================
-   5. RESPONSIVE DESIGN (TABLET & MOBILE)
-   ========================================================================== */
-
-@media (max-width: 1280px) {
-  .hero-service-images-layer {
-    gap: clamp(14px, 1.6vw, 22px);
-    top: clamp(135px, 15vh, 155px);
-  }
-  .hero-service-image-card {
-    height: clamp(260px, 22vw, 320px);
-  }
-  .hero-service-image-card:nth-child(even) {
-    margin-top: clamp(100px, 12vh, 140px);
-  }
+/* Soft ambient center glow using Deep Teal */
+.hero::after {
+  content: "";
+  position: absolute;
+  width: min(700px, 90vw);
+  height: 420px;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(0, 63, 58, 0.55) 0%, rgba(11, 41, 40, 0) 72%);
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
 }
 
-@media (max-width: 1024px) {
-  .hero-service-images-layer {
-    gap: 12px;
-    top: 135px;
-    width: 96vw;
-  }
-  .hero-service-image-card {
-    height: 28vw;
-  }
-  .hero-service-image-card:nth-child(even) {
-    margin-top: clamp(70px, 9vh, 100px);
-  }
-  .hero-cursive-headline-lockup {
-    top: 48vh;
-    transform: translateY(-50%) rotate(-7deg);
-  }
-  .hero-cursive-title {
-    font-size: clamp(4.2rem, 11vw, 8.5rem);
-  }
-  .hero-diagonal-line {
-    margin-top: -0.8rem;
+@keyframes heroDrift {
+  to {
+    transform: translateX(330px);
   }
 }
 
-/* Mobile Screens (<768px): Careful Recomposition to Prevent Overflow */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Main Display Brand Heading - Two Parts in Elegant Cursive */
+.hero h1.hero-heading-two-parts {
+  font-family: "Alex Brush", "Allura", cursive;
+  font-weight: 400;
+  font-size: clamp(54px, 11vw, 134px);
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  margin: 0;
+  padding: 0 8px;
+  color: #F5FBF5; /* Off-white */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6), 0 0 40px rgba(54, 166, 163, 0.25);
+  -webkit-user-select: none;
+  user-select: none;
+  max-width: 100%;
+}
+
+.hero-heading-part {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 1.05em;
+  position: relative;
+}
+
+.hero-part-1 {
+  color: #F5FBF5;
+}
+
+.hero-part-2 {
+  color: #F5FBF5;
+  margin-top: 0.06em; /* Adequate breathing room for cursive loops */
+}
+
+/* Blinking Turquoise Caret aligned for Cursive */
+.hero-main-caret {
+  display: inline-block;
+  width: 2.5px;
+  height: 0.72em;
+  background-color: #36A6A3; /* Turquoise */
+  vertical-align: 0em;
+  margin-left: 8px;
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(54, 166, 163, 0.7);
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.88em;
+  background-color: #36A6A3; /* Turquoise */
+  vertical-align: -0.06em;
+  margin-left: 6px;
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(54, 166, 163, 0.6);
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Sub-narrative introduction */
+.hero .sub {
+  max-width: 540px;
+  color: #9DB8B3; /* Muted Soft Mint */
+  margin: 26px auto 20px auto;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(16px, 1.35vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Dynamic Rotating Script Subtitle */
+.hero .rot {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(26px, 4vw, 46px);
+  min-height: 1.4em;
+  font-weight: 500;
+  color: #F5FBF5; /* Off-white */
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.hero .rot .script {
+  font-family: "Allura", "Alex Brush", cursive;
+  font-size: 1.5em;
+  color: #36A6A3; /* Turquoise */
+  margin-right: 8px;
+  line-height: 0.9;
+  transform: translateY(0.06em);
+  display: inline-block;
+}
+
+/* Luxury Call-To-Action Button Row */
+.hero .cta {
+  display: flex;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-pill {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 13px 26px;
+  border: 1px solid #36A6A3;
+  border-radius: 99px;
+  color: #36A6A3;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.hero-pill svg {
+  transition: transform 0.25s ease;
+}
+
+.hero-pill:hover svg {
+  transform: translateX(3px);
+}
+
+.hero-pill:hover {
+  background: #36A6A3;
+  color: #0B2928; /* Dark Teal text on hover */
+  border-color: #36A6A3;
+  box-shadow: 0 4px 20px rgba(54, 166, 163, 0.35);
+  transform: translateY(-2px);
+}
+
+.hero-pill-solid {
+  background: #36A6A3;
+  color: #0B2928;
+  border-color: #36A6A3;
+  box-shadow: 0 4px 20px rgba(54, 166, 163, 0.3);
+}
+
+.hero-pill-solid:hover {
+  background: #DDF3E8; /* Soft Mint */
+  border-color: #DDF3E8;
+  color: #003F3A; /* Deep Teal */
+  box-shadow: 0 6px 25px rgba(221, 243, 232, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Scroll indicator line */
+.hero .scroll {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 44px;
+  background: linear-gradient(#36A6A3, transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+/* Responsive Breakpoints */
 @media (max-width: 768px) {
-  .secondcome-reference-hero {
-    min-height: 100vh;
-    height: auto;
-    overflow-x: clip;
-    padding-bottom: 3.5rem;
+  .hero {
+    padding: calc(var(--header-height, 80px) + 20px) 5vw 60px;
   }
 
-  .sma-intro-container {
-    height: 55vh;
+  .hero h1.hero-heading-two-parts {
+    font-size: clamp(42px, 12vw, 84px);
+    line-height: 1.12;
+    letter-spacing: 0.02em;
+    padding: 0 4px;
   }
 
-  .sma-oversized-letter {
-    font-size: clamp(70px, 19vw, 120px);
+  .hero-part-2 {
+    margin-top: 0.05em;
   }
 
-  .sma-intro-sublabel {
-    font-size: clamp(0.7rem, 2.5vw, 0.95rem);
-    letter-spacing: 0.1em;
-    margin-top: 1rem;
+  .hero .rot {
+    font-size: clamp(22px, 5.2vw, 32px);
+    flex-wrap: wrap;
+    white-space: normal;
   }
 
-  .hero-editorial-canvas {
-    height: auto;
-    min-height: 94vh;
-    position: relative;
-    padding-top: 85px;
+  .hero .sub {
+    font-size: 15px;
+    margin: 20px auto 16px auto;
   }
 
-  .hero-statement-wrapper {
-    position: relative;
-    top: auto;
-    margin: 1.5rem 0 1rem 0;
+  .hero .cta {
+    margin-top: 28px;
+    gap: 10px;
   }
 
-  .hero-sub-statement {
-    font-size: 1.15rem;
-  }
-
-  /* Mobile Staggered Cards (Horizontal scroll rail with alternating heights & identical gap) */
-  .hero-service-images-layer {
-    position: relative;
-    top: auto;
-    width: 100%;
-    margin-top: 1rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    padding: 15px 1.5rem 30px;
-    gap: 16px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .hero-service-images-layer::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hero-service-image-card {
-    flex: 0 0 210px;
-    height: 290px;
-    scroll-snap-align: center;
-  }
-
-  .hero-service-image-card:nth-child(even) {
-    margin-top: 45px;
-  }
-
-  .hero-cursive-headline-lockup {
-    top: 320px;
-    transform: translateY(-50%) rotate(-6deg);
-  }
-
-  .hero-cursive-title {
-    font-size: clamp(3.4rem, 13vw, 5.2rem);
-  }
-
-  .hero-diagonal-line {
-    margin-top: -0.5rem;
+  .hero-pill {
+    padding: 11px 20px;
+    font-size: 12px;
   }
 }
 
-/* Reduced Motion Preference Support */
-@media (prefers-reduced-motion: reduce) {
-  .hero-service-image-card {
-    transition: none;
+@media (max-width: 480px) {
+  .hero h1.hero-heading-two-parts {
+    font-size: clamp(34px, 13vw, 56px);
+    line-height: 1.14;
+    letter-spacing: 0.01em;
   }
-  .hero-service-image-card:hover {
-    transform: none;
+
+  .hero .rot {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+}
+
+/* Accessibility / Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero::before {
+    animation: none !important;
+  }
+
+  .caret {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .hero-pill {
+    transition: none !important;
+    transform: none !important;
   }
 }

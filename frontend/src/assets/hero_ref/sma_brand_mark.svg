@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 430" width="100%" height="100%" fill="none" aria-label="SMA - Second Come Marketing Agency">
+  <!-- Monogram Glyphs S, M, A inspired by reference typographic contrast -->
+  <g fill="#FFFFFF">
+    <!-- Letter S (Artistic editorial swash S) -->
+    <path d="M 125 45 C 65 45 18 90 18 152 C 18 238 152 258 152 315 C 152 362 110 390 62 376 C 38 370 20 357 8 343 L 4 397 C 20 410 46 418 78 418 C 155 418 212 370 212 308 C 212 212 72 198 72 145 C 72 102 110 82 148 89 C 172 94 192 106 206 120 L 216 67 C 192 55 162 45 125 45 Z" />
+    <!-- Flourishing upper ascender loop of S -->
+    <path d="M 172 54 C 230 54 265 112 265 180 C 265 258 202 296 164 315 C 202 325 240 354 240 402 L 240 412 L 188 412 C 188 364 158 340 125 335 C 144 306 188 268 188 190 C 188 132 164 88 125 79 Z" opacity="0.96" />
+
+    <!-- Letter M (Modernist architectural block M with square cutout) -->
+    <path d="M 285 48 L 405 48 L 478 222 L 551 48 L 672 48 L 672 414 L 570 414 L 570 172 L 512 318 L 444 318 L 386 172 L 386 414 L 285 414 Z" />
+
+    <!-- Letter A (Flared avant-garde bold serif A) -->
+    <path d="M 810 48 L 685 414 L 762 414 L 786 332 L 884 332 L 908 414 L 986 414 L 858 48 Z M 805 260 L 834 144 L 864 260 Z" />
+  </g>
+
+  <!-- Subtitle Text: SECOND COME MARKETING AGENCY -->
+  <text x="490" y="426" text-anchor="middle" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="25" letter-spacing="9" fill="#FFFFFF">SECOND COME MARKETING AGENCY</text>
+</svg>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Second Come Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;700&family=Allura&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --bg2: #0B2928;
+      --deep: #003F3A;
+      --teal: #36A6A3;
+      --mint: #DDF3E8;
+      --ink: #F5FBF5;
+      --mute: #9DB8B3;
+      --line: #1d3b38;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      color-scheme: dark
+    }
+
+    @media(prefers-color-scheme:light) {
+      :root:not([data-theme="dark"]) {
+        --bg: #F5FBF5;
+        --bg2: #DDF3E8;
+        --deep: #003F3A;
+        --teal: #1d7f7c;
+        --mint: #0B2928;
+        --ink: #0B2928;
+        --mute: #3d5f5a;
+        --line: #bcd9cf;
+        color-scheme: light
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 17px/1.6 "Plus Jakarta Sans", system-ui, sans-serif;
+      overflow-x: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .serif {
+      font-family: "Cinzel", "Cormorant Garamond", Georgia, serif
+    }
+
+    .script {
+      font-family: "Allura", "Brush Script MT", cursive
+    }
+
+    /* nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 5vw 16px;
+      background: linear-gradient(var(--bg), transparent)
+    }
+
+    .pill {
+      font-weight: 700;
+      letter-spacing: .14em;
+      font-size: 13px;
+      text-transform: uppercase;
+      padding: 12px 22px;
+      border: 1px solid var(--teal);
+      border-radius: 99px;
+      color: var(--teal);
+      background: transparent;
+      cursor: pointer;
+      transition: .25s;
+      font-family: inherit
+    }
+
+    .pill:hover,
+    .pill.solid {
+      background: var(--teal);
+      color: #021614
+    }
+
+    .logo {
+      text-align: center;
+      line-height: 1
+    }
+
+    .logo b {
+      display: block;
+      font: 400 34px "Allura", cursive;
+      color: var(--teal)
+    }
+
+    .logo span {
+      font-size: 10px;
+      letter-spacing: .5em;
+      font-weight: 700
+    }
+
+    #menu {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: var(--bg2);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 18px
+    }
+
+    #menu.open {
+      display: flex
+    }
+
+    #menu a {
+      font: 500 clamp(30px, 6vw, 56px) "Cinzel", serif;
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    #menu a:hover {
+      color: var(--teal)
+    }
+
+    #menu button {
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 0px) + 20px);
+      right: 5vw
+    }
+
+    /* hero */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 5vw 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg)
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: repeating-linear-gradient(115deg, transparent 0 120px, rgba(54, 166, 163, .10) 120px 150px, transparent 150px 330px);
+      mask-image: radial-gradient(ellipse at 50% 40%, #000 0, transparent 70%);
+      animation: drift 18s linear infinite
+    }
+
+    @keyframes drift {
+      to {
+        transform: translateX(330px)
+      }
+    }
+
+    .hero>* {
+      position: relative
+    }
+
+    h1 {
+      font: 700 clamp(36px, 8.4vw, 112px)/1.05 "Cinzel", serif;
+      letter-spacing: .22em;
+      margin: 0;
+      min-height: 1.1em;
+      padding-left: .22em
+    }
+
+    .caret {
+      display: inline-block;
+      width: 2px;
+      height: .9em;
+      background: var(--teal);
+      vertical-align: -.08em;
+      margin-left: 6px;
+      animation: blink 1s steps(1) infinite
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0
+      }
+    }
+
+    .sub {
+      max-width: 520px;
+      color: var(--mute);
+      margin: 26px 0 20px
+    }
+
+    .rot {
+      font-size: clamp(26px, 4vw, 46px);
+      min-height: 1.4em;
+      font-weight: 500
+    }
+
+    .rot .script {
+      font-size: 1.5em;
+      color: var(--teal);
+      margin-right: 8px
+    }
+
+    .cta {
+      display: flex;
+      gap: 14px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+      justify-content: center
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(var(--teal), transparent)
+    }
+
+    /* sections */
+    section {
+      padding: clamp(70px, 11vw, 140px) 6vw;
+      position: relative
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 700
+    }
+
+    h2 {
+      font: 500 clamp(32px, 5.4vw, 68px)/1.1 "Cormorant Garamond", Georgia, serif;
+      margin: 14px 0 0;
+      max-width: 15em
+    }
+
+    h2 em {
+      color: var(--teal)
+    }
+
+    .strip {
+      border-block: 1px solid var(--line);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 18px 0;
+      background: var(--bg2)
+    }
+
+    .strip div {
+      display: inline-block;
+      animation: slide 30s linear infinite;
+      font: 500 20px "Cinzel", serif;
+      letter-spacing: .3em;
+      color: var(--mint)
+    }
+
+    .strip i {
+      color: var(--teal);
+      font-style: normal;
+      margin: 0 28px
+    }
+
+    @keyframes slide {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 56px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      padding: 32px 28px 36px;
+      background: var(--bg2);
+      border-radius: 4px;
+      transition: .3s;
+      position: relative
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--teal)
+    }
+
+    .card .n {
+      font: 500 14px "Cinzel", serif;
+      color: var(--teal);
+      letter-spacing: .3em
+    }
+
+    .card h3 {
+      font: 500 26px/1.2 "Cormorant Garamond", serif;
+      margin: 18px 0 10px
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--mute);
+      font-size: 15px
+    }
+
+    .tags {
+      margin-top: 16px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: var(--teal)
+    }
+
+    .steps {
+      display: grid;
+      gap: 0;
+      margin-top: 56px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      border-top: 1px solid var(--line)
+    }
+
+    .steps div {
+      padding: 34px 28px 10px 0
+    }
+
+    .steps b {
+      display: block;
+      font: 700 clamp(26px, 3.4vw, 40px) "Cinzel", serif;
+      letter-spacing: .14em
+    }
+
+    .steps p {
+      color: var(--mute);
+      margin: 10px 0 0;
+      max-width: 300px
+    }
+
+    .who {
+      background: var(--deep);
+      color: var(--ink)
+    }
+
+    .who h2 {
+      color: #F5FBF5
+    }
+
+    .who .eyebrow {
+      color: #DDF3E8
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 40px
+    }
+
+    .chips span {
+      padding: 10px 20px;
+      border: 1px solid rgba(221, 243, 232, .4);
+      border-radius: 99px;
+      font-size: 14px;
+      color: #DDF3E8
+    }
+
+    .note {
+      margin-top: 34px;
+      max-width: 620px;
+      color: #DDF3E8;
+      opacity: .8;
+      font-size: 15px
+    }
+
+    .final {
+      text-align: center;
+      padding-block: clamp(90px, 14vw, 180px)
+    }
+
+    .final h2 {
+      margin-inline: auto;
+      font-size: clamp(38px, 7vw, 92px)
+    }
+
+    .final .script {
+      font-size: 1.3em;
+      color: var(--teal)
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 6vw calc(30px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      color: var(--mute);
+      font-size: 13px;
+      letter-spacing: .06em
+    }
+
+    .wa {
+      position: fixed;
+      right: 22px;
+      bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+      z-index: 15;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid var(--teal);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 6px rgba(54, 166, 163, .12)
+    }
+
+    .wa svg {
+      width: 28px;
+      fill: var(--teal)
+    }
+
+    .js .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s, transform .8s
+    }
+
+    .js .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        animation: none !important;
+        transition: none !important
+      }
+    }
+
+    @media(max-width:560px) {
+      nav .pill {
+        padding: 10px 14px;
+        font-size: 11px
+      }
+
+      .logo b {
+        font-size: 26px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <button class="pill" id="open" aria-label="Open menu">Menu</button>
+    <a class="logo" href="#top"><b>Second Come</b><span>AGENCY</span></a>
+    <a class="pill" href="#contact">Book a call</a>
+  </nav>
+  <div id="menu" role="dialog" aria-label="Menu">
+    <button class="pill" id="close">Close</button>
+    <a href="#services">Services</a><a href="#approach">Approach</a><a href="#who">Who we serve</a><a
+      href="#contact">Book a call</a>
+  </div>
+
+  <header class="hero" id="top">
+    <h1><span id="brand"></span><span class="caret"></span></h1>
+    <p class="sub">More than an agency. Your partner in building brands that stand out.</p>
+    <div class="rot"><span class="script">We</span><span id="rot"></span><span class="caret"></span></div>
+    <div class="cta"><a class="pill solid" href="#contact">Start a project</a><a class="pill" href="#services">See what
+        we do</a></div>
+    <div class="scroll"></div>
+  </header>
+
+  <div class="strip" aria-hidden="true">
+    <div id="mq"></div>
+  </div>
+
+  <script>
+    document.documentElement.classList.add("js");
+    var $ = function (i) { return document.getElementById(i) };
+    var still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+    var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms) }) };
+    async function type(el, txt, sp) { for (var i = 1; i <= txt.length; i++) { el.textContent = txt.slice(0, i); await sleep(sp) } }
+    async function erase(el, sp) { var t = el.textContent; while (t.length) { t = t.slice(0, -1); el.textContent = t; await sleep(sp) } }
+    var phrases = ["build brands", "create content", "design websites", "automate the busywork", "run your ads", "plan your growth"];
+    (async function () {
+      if (still) { $("brand").textContent = "SECOND COME"; $("rot").textContent = " " + phrases[0]; return }
+      await type($("brand"), "SECOND COME", 110);
+      for (var i = 0; ; i = (i + 1) % phrases.length) { await type($("rot"), " " + phrases[i], 65); await sleep(1700); await erase($("rot"), 30); await sleep(200) }
+    })();
+    var items = ["BRANDING", "CONTENT", "WEBSITES", "AUTOMATION", "ADS & LEADS", "GROWTH STRATEGY"];
+    var row = items.map(function (t) { return t + "<i>✦</i>" }).join(""); $("mq").innerHTML = row + row + row + row;
+    $("open").onclick = function () { $("menu").classList.add("open") };
+    $("close").onclick = function () { $("menu").classList.remove("open") };
+    document.querySelectorAll("#menu a").forEach(function (a) { a.onclick = function () { $("menu").classList.remove("open") } });
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target) } }) }, { threshold: .15 });
+    document.querySelectorAll(".rv").forEach(function (n) { io.observe(n) });
+  </script>
+</body>
+
+</html>

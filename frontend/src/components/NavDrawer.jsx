@@ -8,11 +8,12 @@ export default function NavDrawer({ isOpen, onClose }) {
   const links = [
     { num: '01', text: 'ABOUT US', targetId: 'about' },
     { num: '02', text: 'OUR TEAM', href: '/team', isPage: true },
-    { num: '03', text: 'COMPLEMENTARY SERVICES', href: '/complementary-services', isPage: true },
-    { num: '04', text: 'OUR CAPABILITIES', targetId: 'services' },
-    { num: '05', text: 'CAMPAIGN PORTFOLIO', targetId: 'portfolio' },
+    { num: '03', text: 'OUR SERVICES', targetId: 'services' },
+    { num: '04', text: 'COMPLEMENTARY SERVICES', href: '/complementary-services', isPage: true },
+    { num: '05', text: 'CAMPAIGN PROJECTS', targetId: 'portfolio' },
     { num: '06', text: 'CLIENT RESULTS', targetId: 'testimonials' },
-    { num: '07', text: 'START A PROJECT', targetId: 'contact' },
+    { num: '07', text: 'BLOG', href: '/blog', isPage: true },
+    { num: '08', text: 'START A PROJECT', targetId: 'contact' },
   ];
 
   const handlePageClick = () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -28,8 +29,8 @@ export default function Footer() {
             <a href="tel:+919528812309" className="footer-phone-link">
               +91 95288 12309
             </a>
-            <a href="mailto:secondcome33@gmail.com" className="footer-email-link">
-              secondcome33@gmail.com
+            <a href="mailto:contact@secondcome.in" className="footer-email-link">
+              contact@secondcome.in
             </a>
           </div>
 
@@ -92,8 +93,10 @@ export default function Footer() {
             <h3 className="footer-nav-title">QUICK LINKS</h3>
             <ul className="footer-nav-list">
               <li><a href="#home" onClick={scrollToTop}>Home</a></li>
+              <li><Link to="/team">Our Team</Link></li>
+              <li><Link to="/complementary-services">Complementary Services (32.5k)</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
               <li><a href="#about">About Us</a></li>
-              <li><a href="/complementary-services">Complementary Support</a></li>
               <li><a href="#explore">Explore</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>

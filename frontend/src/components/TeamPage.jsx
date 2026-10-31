@@ -9,12 +9,12 @@ import './TeamPageEditorial.css';
 // If an image has not yet been provided, set `image: null` — an obvious temporary
 // placeholder rectangle will be rendered automatically without fabricating a person.
 // ============================================================================
-import team1 from '../assets/team1.jpg'; // Akash (Strategy Executer / CEO)
-import team2 from '../assets/team2.jpg'; // Anvi Sharma (CTO)
-import team3 from '../assets/team3.jpg'; // Suhani Maurya (Design Lead)
-import team4 from '../assets/team4.jpg'; // Tannu Bhadoria (COO)
-import team5 from '../assets/team5.jpg'; // Rashmi (Director of CRM)
-import team6 from '../assets/team6.jpeg'; // Sheetal Sharma (Marketing & Sales)
+import team1 from '../assets/team1.webp'; // Akash (Strategy Executer / CEO)
+import team2 from '../assets/team2.webp'; // Anvi Sharma (CTO)
+import team3 from '../assets/team3.webp'; // Suhani Maurya (Design Lead)
+import team4 from '../assets/team4.webp'; // Tannu Bhadoria (COO)
+import team5 from '../assets/team5.webp'; // Rashmi (Director of CRM)
+import team6 from '../assets/team6.webp'; // Sheetal Sharma (Marketing & Sales)
 
 // ============================================================================
 // ============================================================================
@@ -56,8 +56,8 @@ export const TEAM_MEMBERS_SPEC = [
   {
     id: 'portrait-c',
     code: 'C',
-    name: 'Anvi Sharma',
-    signature: 'Anvi Sharma',
+    name: 'Tanvi Sharma',
+    signature: 'Tanvi Sharma',
     role: 'Chief Technology Officer',
     description: 'Autonomous AI workflows & systems engineering.',
     image: team2,

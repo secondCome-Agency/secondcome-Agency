@@ -1,1051 +1,747 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import './ComplementaryServices.css';
 
-gsap.registerPlugin(ScrollTrigger);
+export const COMPLEMENTARY_SERVICES_DATA = [
+  {
+    id: 1,
+    num: '01',
+    refName: 'Google Reviews Engine- 3k',
+    title: 'Google Reviews Engine',
+    valueTag: '3k',
+    numericValue: 3000,
+    category: 'Reputation & SEO',
+    tagline: 'Automated 5-star social proof capture & sentiment acceleration',
+    shortDesc: 'Automated 5-star review collection via branded tap points and smart WhatsApp filters.',
+    description:
+      'Turn happy clients into automated 5-star Google reviews. We deploy custom NFC/QR review touchpoints, automated SMS/WhatsApp triggers, and smart feedback filtering to elevate your public reputation score effortlessly.',
+    shortDeliverables: [
+      'Automated WhatsApp / SMS review triggers',
+      'Smart sentiment routing (5★ to Google)',
+      'Branded NFC tap cards & counter standees'
+    ],
+    deliverables: [
+      'Automated post-purchase review request engine via WhatsApp / SMS',
+      'Smart sentiment filter to route issues privately and 5-stars to Google',
+      'Branded printable in-store NFC & QR review tap cards / counter standees',
+      'Live review monitoring & automated CEO response templates'
+    ],
+    highlight: 'Builds authentic social proof that boosts local rank by up to 34%.'
+  },
+  {
+    id: 2,
+    num: '02',
+    refName: 'Google Business Profile- 2.5k',
+    title: 'Google Business Profile',
+    valueTag: '2.5k',
+    numericValue: 2500,
+    category: 'Local Dominance',
+    tagline: 'Complete GBP claimed verification, optimization & map dominance',
+    shortDesc: 'Full profile verification, geo-tagged imagery, and local category structuring.',
+    description:
+      'We claim, verify, and fully architect your official Google Business Profile. From geo-tagged imagery and service hierarchies to keyword integration, we ensure your business ranks prominently when prospects search nearby.',
+    shortDeliverables: [
+      'Verification lock & ownership security',
+      'Geo-tagged photo catalog uploads',
+      'Direct booking links & FAQ integration'
+    ],
+    deliverables: [
+      'End-to-end profile verification and ownership security lock',
+      'Exact-match primary and secondary business category structuring',
+      'High-resolution geo-tagged photo uploads (interior, exterior, team)',
+      'Service catalog, operating hours, direct booking link & FAQ integration'
+    ],
+    highlight: 'Transforms high-intent "near me" searches directly into phone calls & visits.'
+  },
+  {
+    id: 3,
+    num: '03',
+    refName: 'Foundational On-Page SEO- 3.5k',
+    title: 'Foundational On-Page SEO',
+    valueTag: '3.5k',
+    numericValue: 3500,
+    category: 'Search Architecture',
+    tagline: 'Technical metadata, semantic hierarchy & schema indexing',
+    shortDesc: 'High-CTR meta tags, semantic headings, and JSON-LD schema for Google indexing.',
+    description:
+      'Engineered on-page search infrastructure. We optimize your title tags, meta descriptions, semantic H1-H3 structures, canonical tags, and rich JSON-LD Schema markup so search engines index your brand as an authority.',
+    shortDeliverables: [
+      'High-CTR editorial titles & meta tags',
+      'Structured JSON-LD schema markup',
+      'Search Console sync & crawl fix'
+    ],
+    deliverables: [
+      'High-CTR editorial title tags and meta descriptions across core pages',
+      'Semantic H1–H3 heading hierarchy alignment and keyword positioning',
+      'Structured JSON-LD schema (LocalBusiness, Organization & FAQ schemas)',
+      'Google Search Console verification, XML sitemap sync & crawl fix'
+    ],
+    highlight: 'Essential technical foundation required to rank on page 1 of Google.'
+  },
+  {
+    id: 4,
+    num: '04',
+    refName: 'Website Core Speed Optimization- 3k',
+    title: 'Website Core Speed Optimization',
+    valueTag: '3k',
+    numericValue: 3000,
+    category: 'Speed & Tech',
+    tagline: 'Sub-second load times & Google Core Web Vitals optimization',
+    shortDesc: 'Sub-second load times via WebP compression, script deferral, and Core Web Vitals tuning.',
+    description:
+      'Speed equals conversions. We compress and convert heavy assets to next-gen WebP formats, eliminate render-blocking scripts, configure browser caching, and optimize Core Web Vitals (LCP, FID, CLS) for instant loading.',
+    shortDeliverables: [
+      'Lossless next-gen WebP image conversion',
+      'Render-blocking script deferral',
+      'Target 90+ Google PageSpeed score'
+    ],
+    deliverables: [
+      'Next-generation WebP image conversion and lossless compression',
+      'Render-blocking CSS and JavaScript deferral & lazy loading',
+      'Browser caching headers & asset preloading configuration',
+      'Target 90+ score on Google PageSpeed Insights for mobile & desktop'
+    ],
+    highlight: 'A 1-second reduction in page load speed can increase conversions by 27%.'
+  },
+  {
+    id: 5,
+    num: '05',
+    refName: 'Social Profile & Brand Align- 2k',
+    title: 'Social Profile & Brand Align',
+    valueTag: '2k',
+    numericValue: 2000,
+    category: 'Brand & Creative',
+    tagline: 'Aesthetic visual harmony across Instagram, LinkedIn & Facebook',
+    shortDesc: 'Luxury cover banners, conversion bios, and branded highlight icons across all profiles.',
+    description:
+      'Eliminate disjointed branding. We redesign and align your public social channels with cohesive luxury cover banners, conversion-focused bios, custom story highlight icons, and a single high-converting link hub.',
+    shortDeliverables: [
+      'Bespoke banners for LinkedIn & YouTube',
+      'High-converting bio copywriting',
+      'Custom branded Instagram story highlights'
+    ],
+    deliverables: [
+      'Bespoke luxury header banners for LinkedIn, Facebook, and YouTube',
+      'High-converting bio copywriting with distinct value proposition & CTA',
+      'Custom branded Instagram highlight covers and story templates',
+      'Single centralized luxury link-in-bio hub with tracking parameters'
+    ],
+    highlight: 'Establishes instant visual credibility the moment a prospect lands on your profile.'
+  },
+  {
+    id: 6,
+    num: '06',
+    refName: 'High-Impact Creative Posters - 2.5k',
+    title: 'High-Impact Creative Posters',
+    valueTag: '2.5k',
+    numericValue: 2500,
+    category: 'Brand & Creative',
+    tagline: 'Editorial print & digital promo assets engineered to stop scrolls',
+    shortDesc: 'Editorial promotional posters with bespoke typography engineered for print and digital.',
+    description:
+      'High-concept graphic design created for both physical display and digital marketing. We craft custom typography and luxury visual layouts that deliver your primary marketing message with prestige and punch.',
+    shortDeliverables: [
+      '3 custom luxury promotional posters',
+      'Print-ready 300 DPI CMYK files',
+      'Multi-aspect ratios for IG Feed & Stories'
+    ],
+    deliverables: [
+      '3 custom luxury promotional posters tailored to your core offering',
+      'High-resolution CMYK print-ready files (300 DPI, vector formats)',
+      'Digital multi-aspect ratios optimized for Instagram Stories & Feed',
+      'Editable Figma/design source assets for future campaign iterations'
+    ],
+    highlight: 'Luxury visual storytelling that demands attention both offline and online.'
+  },
+  {
+    id: 7,
+    num: '07',
+    refName: 'Dynamic QR Touchpoint Integration- 2k',
+    title: 'Dynamic QR Touchpoint Integration',
+    valueTag: '2k',
+    numericValue: 2000,
+    category: 'Speed & Tech',
+    tagline: 'Smart, trackable QR bridges linking physical collateral to funnels',
+    shortDesc: 'Branded dynamic QR codes linking physical print collateral to digital funnels.',
+    description:
+      'Dynamic, branded QR codes that connect physical posters, packaging, table cards, or business cards directly to your digital booking calendar, WhatsApp automation, or promotional landing page without reprinting.',
+    shortDeliverables: [
+      'Custom branded dynamic QR code design',
+      'Real-time cloud destination rerouting',
+      'Google Analytics UTM scan tracking'
+    ],
+    deliverables: [
+      'Custom branded dynamic QR code with agency color integration & logo',
+      'Cloud rerouting capability to change destination URL at any time',
+      'UTM parameter tagging to track real-world scans inside Google Analytics',
+      'High-resolution vector SVG and EPS files for crisp print reproduction'
+    ],
+    highlight: 'Never reprint marketing materials again when campaign links or offers change.'
+  },
+  {
+    id: 8,
+    num: '08',
+    refName: 'Website UX & Touchpoint Tweaks - 2.5k',
+    title: 'Website UX & Touchpoint Tweaks',
+    valueTag: '2.5k',
+    numericValue: 2500,
+    category: 'Speed & Tech',
+    tagline: 'Frictionless mobile navigation & sticky conversion bars',
+    shortDesc: 'Frictionless mobile navigation, sticky contact bars, and form optimizations.',
+    description:
+      'Micro-optimizations that deliver macro-revenue. We audit and enhance mobile touch targets, implement sticky thumb-friendly CTA buttons, eliminate input friction in forms, and refine interactive hover feedback.',
+    shortDeliverables: [
+      'Sticky thumb navigation bar for mobile',
+      'Form field simplification & autofill',
+      'Tactile micro-animations on key CTAs'
+    ],
+    deliverables: [
+      'Mobile-first sticky thumb navigation bar for instant contact access',
+      'Form friction reduction (field simplification, autofill optimization)',
+      'Micro-animations and tactile feedback on interactive buttons',
+      'Viewport contrast check and accessibility compliance enhancement'
+    ],
+    highlight: 'Transforms casual mobile visitors into engaged, booked inquiries.'
+  },
+  {
+    id: 9,
+    num: '09',
+    refName: 'GMB & Local Authority Booster- 2.5k',
+    title: 'GMB & Local Authority Booster',
+    valueTag: '2.5k',
+    numericValue: 2500,
+    category: 'Local Dominance',
+    tagline: 'NAP citation consistency & local directory authority building',
+    shortDesc: 'Synchronized NAP data across top directories to boost Map Pack proximity rank.',
+    description:
+      'Solidify your local search dominance. We distribute and synchronize your NAP (Name, Address, Phone) across prominent regional business directories, boosting localized domain authority and Map Pack proximity ranking.',
+    shortDeliverables: [
+      '20+ verified directory citations',
+      'NAP consistency audit & duplicate removal',
+      'Geo-targeted keyword seeding'
+    ],
+    deliverables: [
+      '20+ verified citations across top business directories and map engines',
+      'NAP consistency audit and deduplication to remove duplicate listings',
+      'Geo-targeted local keyword seeding in business descriptions',
+      'Map Pack competitive positioning report and ranking audit'
+    ],
+    highlight: 'Ensures Google trusts your location data above local competitors.'
+  },
+  {
+    id: 10,
+    num: '10',
+    refName: 'Conversion Journey Optimization- 3.5k',
+    title: 'Conversion Journey Optimization',
+    valueTag: '3.5k',
+    numericValue: 3500,
+    category: 'Strategy & Growth',
+    tagline: 'Funnel leak diagnosis & psychological conversion triggers',
+    shortDesc: 'Customer decision mapping, drop-off reduction, and psychological conversion triggers.',
+    description:
+      'Comprehensive forensic analysis of how a prospect discovers, navigates, and makes a purchasing decision. We identify friction points, drop-off barriers, and inject urgency and proof triggers to maximize close rates.',
+    shortDeliverables: [
+      'End-to-end customer decision path mapping',
+      'Psychological headline & CTA copywriting',
+      'Risk-reversal & guarantee placement'
+    ],
+    deliverables: [
+      'Full customer decision path mapping from first ad click to payment',
+      'Headline and CTA copywriting enhancement using conversion psychology',
+      'Risk-reversal and guarantee positioning across booking touchpoints',
+      'Abandoned session recapture blueprint & lead magnet placement'
+    ],
+    highlight: 'Plugs silent revenue leaks and extracts more profit from existing traffic.'
+  },
+  {
+    id: 11,
+    num: '11',
+    refName: 'Offline-to-Digital Synergy Audit- 2.5k',
+    title: 'Offline-to-Digital Synergy Audit',
+    valueTag: '2.5k',
+    numericValue: 2500,
+    category: 'Strategy & Growth',
+    tagline: 'Turn physical walk-in visitors into high-LTV digital customers',
+    shortDesc: 'Turn in-person store or clinic visitors into owned digital retention audiences.',
+    description:
+      'Most businesses lose 80% of in-person traffic without capturing a digital contact. We audit your store, clinic, or venue touchpoints and implement a seamless capture strategy to build an owned digital retention audience.',
+    shortDeliverables: [
+      'On-site customer touchpoint inspection',
+      'Staff digital contact collection guide',
+      'Automated walk-in follow-up flow'
+    ],
+    deliverables: [
+      'On-site inspection of collateral, packaging, and check-out touchpoints',
+      'Staff conversation guide & incentive prompt for digital contact collection',
+      'Automated SMS/WhatsApp welcome sequence for walk-in prospects',
+      'Actionable 10-point omnichannel transformation report'
+    ],
+    highlight: 'Monetize existing foot traffic into lifetime recurring digital clients.'
+  },
+  {
+    id: 12,
+    num: '12',
+    refName: '90-Day Strategic Growth Handover- 3k',
+    title: '90-Day Strategic Growth Handover',
+    valueTag: '3k',
+    numericValue: 3000,
+    category: 'Strategy & Growth',
+    tagline: 'Documented SOPs, performance dashboards & long-term scaling blueprint',
+    shortDesc: 'Comprehensive ROI review, team operating SOPs, and next-quarter scaling roadmap.',
+    description:
+      'At the 90-day milestone, we deliver a comprehensive growth retrospective, complete operating playbook, custom KPI metrics dashboard, and documented SOPs so your brand retains permanent institutional advantage.',
+    shortDeliverables: [
+      'Executive 90-day ROI & attribution review',
+      'Documented team SOP playbook',
+      'Next-quarter scaling roadmap & budget'
+    ],
+    deliverables: [
+      'Executive 90-day performance review and ROI attribution report',
+      'Custom standard operating procedure (SOP) documentation for your team',
+      'Recorded video walkthrough explaining every system and campaign asset',
+      'Next-quarter scaling targets, budget recommendations & creative roadmap'
+    ],
+    highlight: 'Leaves your company with lasting, organized, self-sustaining growth systems.'
+  }
+];
 
 export default function ComplementaryServicesPage() {
-  const navigate = useNavigate();
-  const pageRef = useRef(null);
-  const heroRef = useRef(null);
-  const canvasRef = useRef(null);
-  const timelineRef = useRef(null);
-  const featureRef = useRef(null);
-  const calculatorRef = useRef(null);
-  const ctaRef = useRef(null);
+  const [activeCategory, setActiveCategory] = useState('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedService, setSelectedService] = useState(null);
+  const [isThreeMonthsModalOpen, setIsThreeMonthsModalOpen] = useState(false);
 
-  // Interactive States
-  const [activeMonthFilter, setActiveMonthFilter] = useState('all');
-  const [selectedServiceModal, setSelectedServiceModal] = useState(null);
-  const [businessType, setBusinessType] = useState('local');
-  const [primaryGoal, setPrimaryGoal] = useState('trust');
-  const [simulatedWeek, setSimulatedWeek] = useState(6);
-  const [activeFaq, setActiveFaq] = useState(null);
-  const [sliderPos, setSliderPos] = useState(50);
-  const [isDraggingSlider, setIsDraggingSlider] = useState(false);
+  const categories = ['ALL', 'Reputation & SEO', 'Local Dominance', 'Speed & Tech', 'Brand & Creative', 'Strategy & Growth'];
 
-  const monthsData = [
-    {
-      monthNum: '01',
-      monthTitle: 'FOUNDATION',
-      tagline: 'Establishing baseline trust, search indexation, and core performance.',
-      icon: '🛡️',
-      color: '#76e3d9',
-      badgeText: 'WEEKS 1–4',
-      services: [
-        {
-          id: 'm1-1',
-          title: 'Google Reviews Engine',
-          desc: 'Establish a systematic review collection process and customer trust badges.',
-          impact: 'High Trust',
-          scope: ['Review collection funnel setup', 'Google Review link shortener & QR', 'Customer sentiment response guide', 'Trust badge widgets for website'],
-          estValue: '$650',
-          previewType: 'reviews'
-        },
-        {
-          id: 'm1-2',
-          title: 'Google Business Profile',
-          desc: 'Complete GBP overhaul, category verification, visual assets, and local SEO keywords.',
-          impact: 'Local Visibility',
-          scope: ['Category & attribute optimization', 'Cover & photo asset optimization', 'Geotagged business listing verification', 'Weekly post scheduling setup'],
-          estValue: '$500',
-          previewType: 'gmb'
-        },
-        {
-          id: 'm1-3',
-          title: 'Foundational On-Page SEO',
-          desc: 'Schema markups, meta titles, target keywords, and initial crawl optimization.',
-          impact: 'Search Index',
-          scope: ['Meta tags & open graph optimization', 'JSON-LD structured data schema', 'Sitemap generation & Search Console submit', 'H1-H3 header structure audit'],
-          estValue: '$750',
-          previewType: 'seo'
-        },
-        {
-          id: 'm1-4',
-          title: 'Website Core Speed Optimization',
-          desc: 'Asset compression, caching policies, and Core Web Vitals performance boost.',
-          impact: 'Sub-second Load',
-          scope: ['WebP image compression pipeline', 'Font loading optimization (FOUT/FOIT)', 'JS script deferral & chunk cleanup', 'Lighthouse score target: 90+'],
-          estValue: '$600',
-          previewType: 'speed'
-        },
-      ],
-    },
-    {
-      monthNum: '02',
-      monthTitle: 'OPTIMIZATION',
-      tagline: 'Elevating brand consistency, lead touchpoints, and print-to-digital synergy.',
-      icon: '⚡',
-      color: '#A0EFE9',
-      badgeText: 'WEEKS 5–8',
-      services: [
-        {
-          id: 'm2-1',
-          title: 'Social Profile & Brand Align',
-          desc: 'Synchronize visual identity, bio links, and key banners across all platforms.',
-          impact: 'Brand Cohesion',
-          scope: ['Unified avatar & banner design', 'Link-in-bio custom mini landing page', 'Highlight cover icons for Instagram', 'Cross-platform handle consistency'],
-          estValue: '$450',
-          previewType: 'social'
-        },
-        {
-          id: 'm2-2',
-          title: 'High-Impact Creative Posters',
-          desc: 'Custom digital banners, social templates, and printable promo collaterals.',
-          impact: 'Visual Prestige',
-          scope: ['3 Custom high-res promo poster designs', 'Social media launch carousel assets', 'Print-ready vector PDF & CMYK files', 'Editable Canva/Figma asset kit'],
-          estValue: '$700',
-          previewType: 'creatives'
-        },
-        {
-          id: 'm2-3',
-          title: 'Dynamic QR Touchpoint Integration',
-          desc: 'Bridge offline customer traffic directly to digital review or menu endpoints.',
-          impact: 'Offline Funnel',
-          scope: ['Branded dynamic QR codes with analytics', 'Printable table tent / desk card layouts', 'Direct-to-WhatsApp or Call link routing', 'Scan track & conversion reporting'],
-          estValue: '$400',
-          previewType: 'qr'
-        },
-        {
-          id: 'm2-4',
-          title: 'Website UX & Touchpoint Tweaks',
-          desc: 'Fine-tuning critical conversion pages, mobile nav, and friction points.',
-          impact: 'Higher Conversion',
-          scope: ['Mobile navigation & sticky bar polish', 'Form field simplification & validation', 'CTA contrast & tap-target optimization', 'Micro-interactions on interactive cards'],
-          estValue: '$650',
-          previewType: 'ux'
-        },
-      ],
-    },
-    {
-      monthNum: '03',
-      monthTitle: 'GROWTH',
-      tagline: 'Maximizing conversion velocity, local authority, and long-term polish.',
-      icon: '🚀',
-      color: '#6B9E9B',
-      badgeText: 'WEEKS 9–12',
-      services: [
-        {
-          id: 'm3-1',
-          title: 'GMB & Local Authority Booster',
-          desc: 'Geo-targeted Q&A setup, product catalog listing, and citation audit.',
-          impact: 'Map Pack Rank',
-          scope: ['Local citation consistency audit', 'GBP FAQ section population', 'Service catalog pricing cards', 'Review response automation template'],
-          estValue: '$550',
-          previewType: 'gmb-adv'
-        },
-        {
-          id: 'm3-2',
-          title: 'Conversion Journey Optimization',
-          desc: 'A/B micro-testing recommendations and heatmapped CTA adjustments.',
-          impact: 'Revenue Velocity',
-          scope: ['Form conversion funnel audit', 'Exit-intent or sticky bar strategy', 'Value proposition message polish', 'Analytics event tracking confirmation'],
-          estValue: '$800',
-          previewType: 'cro'
-        },
-        {
-          id: 'm3-3',
-          title: 'Offline-to-Digital Synergy Audit',
-          desc: 'Evaluating total customer touchpoint journey from physical to digital response.',
-          impact: 'Omnichannel',
-          scope: ['Customer journey map review', 'Print marketing QR performance audit', 'Follow-up email/SMS template advice', 'Cross-channel brand alignment report'],
-          estValue: '$500',
-          previewType: 'omni'
-        },
-        {
-          id: 'm3-4',
-          title: '90-Day Strategic Growth Handover',
-          desc: 'Comprehensive performance recap report and future expansion roadmap.',
-          impact: 'Long-term Scale',
-          scope: ['3-Month analytics baseline report', 'SEO ranking benchmark comparison', 'Custom maintenance checklist', '1-on-1 strategic growth consultation call'],
-          estValue: '$600',
-          previewType: 'roadmap'
-        },
-      ],
-    },
-  ];
+  const filteredServices = useMemo(() => {
+    return COMPLEMENTARY_SERVICES_DATA.filter((service) => {
+      const matchesCategory = activeCategory === 'ALL' || service.category === activeCategory;
+      const matchesSearch =
+        service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.refName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.category.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
 
-  // Calculated ROI Values
-  const calculateROI = () => {
-    let base = 2700;
-    if (businessType === 'ecommerce') base += 850;
-    if (businessType === 'corporate') base += 1400;
-
-    let multiplier = 1.0;
-    if (primaryGoal === 'speed') multiplier = 1.15;
-    if (primaryGoal === 'leads') multiplier = 1.25;
-
-    const totalVal = Math.round(base * multiplier);
-    return {
-      totalVal: `$${totalVal.toLocaleString()}`,
-      boostPct: primaryGoal === 'leads' ? '+38%' : primaryGoal === 'speed' ? '+65%' : '+45%',
-      hoursSaved: '45+ Hours',
-      m1Val: `$${Math.round(totalVal * 0.35)}`,
-      m2Val: `$${Math.round(totalVal * 0.33)}`,
-      m3Val: `$${Math.round(totalVal * 0.32)}`,
-    };
-  };
-
-  const roiStats = calculateROI();
-
-  // FAQ Data
-  const faqs = [
-    {
-      q: 'Is there any hidden cost or catch with the 3 months of complementary support?',
-      a: 'Zero hidden costs. Every client who partners with SecondCome Agency for a website build or core project automatically receives this 3-month growth engine completely free as standard.'
-    },
-    {
-      q: 'When does the 3-month complementary support period officially start?',
-      a: 'The clock begins on the exact date your main website or core digital deliverable goes live. Month 01 starts immediately upon launch so we build momentum straight away.'
-    },
-    {
-      q: 'Can we request customizations to the 3-month support schedule?',
-      a: 'Absolutely. While we follow our proven 3-phase framework (Foundation → Optimization → Growth), we tailor specific tasks based on your business priorities, industry, and existing digital footprint.'
-    },
-    {
-      q: 'What happens after the 3-month complementary period finishes?',
-      a: 'You retain full 100% ownership of all assets, setups, and accounts created. You can manage them independently with the handover checklist we provide, or opt into our extended retainer care packages if desired.'
-    }
-  ];
-
-  // Canvas Particle Animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-
-    let width = (canvas.width = canvas.parentElement.offsetWidth);
-    let height = (canvas.height = canvas.parentElement.offsetHeight);
-
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      width = canvas.width = canvas.parentElement.offsetWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Create glowing particles
-    const particles = [];
-    const particleCount = 45;
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 2 + 1,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        alpha: Math.random() * 0.5 + 0.2,
-        color: Math.random() > 0.4 ? '#76e3d9' : '#A0EFE9',
-      });
-    }
-
-    let mouseX = width / 2;
-    let mouseY = height / 2;
-
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Draw subtle background glow follow cursor
-      const radial = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 350);
-      radial.addColorStop(0, 'rgba(118, 227, 217, 0.08)');
-      radial.addColorStop(1, 'rgba(21, 36, 41, 0)');
-      ctx.fillStyle = radial;
-      ctx.fillRect(0, 0, width, height);
-
-      // Connect near particles with faint glowing lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(118, 227, 217, ${0.15 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw particles
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 8;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.globalAlpha = 1.0;
-      });
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+  const totalCalculatedValue = useMemo(() => {
+    return COMPLEMENTARY_SERVICES_DATA.reduce((acc, curr) => acc + curr.numericValue, 0);
   }, []);
 
-  // GSAP Animations
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) return;
-
-      gsap.from('.comp-hero-anim', {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.comp-month-card', {
-        scrollTrigger: {
-          trigger: timelineRef.current,
-          start: 'top 80%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.18,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.comp-calc-anim', {
-        scrollTrigger: {
-          trigger: calculatorRef.current,
-          start: 'top 80%',
-        },
-        scale: 0.96,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.comp-feature-anim', {
-        scrollTrigger: {
-          trigger: featureRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.comp-cta-anim', {
-        scrollTrigger: {
-          trigger: ctaRef.current,
-          start: 'top 85%',
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: 'power3.out',
-      });
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  // Navigate to contact form
-  const handleExploreSupport = (e) => {
-    e?.preventDefault();
-    navigate('/');
-    setTimeout(() => {
-      const contactSec = document.getElementById('contact');
-      if (contactSec) {
-        contactSec.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-          const inputEl = document.getElementById('fullName');
-          if (inputEl) inputEl.focus();
-        }, 400);
-      }
-    }, 300);
-  };
-
-  // Filter months for tab view
-  const filteredMonths = activeMonthFilter === 'all'
-    ? monthsData
-    : monthsData.filter((m) => m.monthNum === activeMonthFilter);
-
-  // Before / After Drag logic
-  const handleMoveSlider = (e) => {
-    if (!isDraggingSlider) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-    const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(pct);
+  const handleWhatsAppContact = (serviceTitle = null) => {
+    let message = "Hey SecondCome Agency! 👋 I'm interested in the 3-Month Retainer with the 12 Complementary Services Suite (Valued at 32.5k).";
+    if (serviceTitle) {
+      message = `Hey SecondCome Agency! 👋 I'm reviewing your Complementary Services and specifically interested in "${serviceTitle}" included in the 3-Month package. Could we talk about this?`;
+    }
+    const text = encodeURIComponent(message);
+    window.open(`https://wa.me/919528812309?text=${text}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div className="comp-services-page" ref={pageRef}>
+    <div className="comp-page-root">
+      <div className="comp-container">
+        {/* ==================================================================
+            HERO HEADER WITH TOP-RIGHT CORNER BUTTON ("- 3 MONTHS ONLY")
+            ================================================================== */}
+        <section className="comp-header-wrapper" aria-label="Complementary Services Overview">
+          <div className="comp-header-top-row">
+            {/* Left Header Title Lockup */}
+            <div className="comp-header-left">
+              <div className="comp-eyebrow-pill">
+                <span className="comp-eyebrow-dot" />
+                <span>INCLUDED WITH EVERY 3-MONTH PARTNERSHIP</span>
+              </div>
 
-      {/* HERO SECTION WITH CANVAS & STATS */}
-      <section className="comp-hero-section" ref={heroRef}>
-        <canvas ref={canvasRef} className="comp-hero-canvas"></canvas>
-        <div className="comp-container relative z-10">
+              <h1 className="comp-main-title">COMPLEMENTARY SERVICES</h1>
 
-          <div className="comp-hero-top-badge comp-hero-anim">
-            <span className="comp-badge-sparkle">✨</span>
-            <span>INCLUDED FREE WITH EVERY PROJECT</span>
-            <span className="comp-badge-live-pulse"></span>
-          </div>
-
-          <div className="comp-hero-header">
-            <h1 className="heading-serif comp-hero-headline comp-hero-anim">
-              COMPLEMENTARY<br />
-              <span className="comp-gradient-text">CONCIERGE ENGINE</span>
-            </h1>
-            <div className="heading-script comp-hero-script comp-hero-anim">
-              90 days of continuous growth, on us.
+              <p className="comp-lead-desc">
+                We believe true market dominance requires an uncompromising foundation. Every client partnering with
+                Second Come Agency receives our complete 12-pillar acceleration suite—valued at{' '}
+                <strong>₹32,500 (32.5k)</strong>—delivered <strong>100% complimentary</strong> to ensure explosive velocity.
+              </p>
             </div>
-          </div>
 
-          <div className="comp-hero-body-wrap comp-hero-anim">
-            <p className="comp-hero-body">
-              Your website launch is just the beginning. For 90 days after delivery, our team works relentlessly behind the scenes to optimize your search presence, user conversion, social cohesion, and brand prestige.
-            </p>
-            <div className="comp-hero-actions">
-              <button onClick={() => {
-                const el = document.getElementById('comp-calculator');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }} className="pill-btn comp-action-primary">
-                <span>CALCULATE INCLUDED VALUE</span>
-                <svg width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {/* Right Corner Button: "- 3 MONTHS ONLY" as requested */}
+            <div className="comp-corner-action">
+              <button
+                type="button"
+                className="btn-three-months-corner"
+                id="btn-three-months-corner"
+                onClick={() => setIsThreeMonthsModalOpen(true)}
+                title="View 3 Months Only details and eligibility"
+              >
+                <span className="btn-pulse-beacon" />
+                <span className="btn-corner-text">- 3 MONTHS ONLY</span>
+                <svg className="btn-corner-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
+              <span className="corner-note">Limited-Window Client Benefit</span>
+            </div>
+          </div>
+        </section>
 
-              <button onClick={() => {
-                const el = document.getElementById('comp-roadmap');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }} className="comp-action-secondary">
-                <span>VIEW 3-MONTH ROADMAP</span>
-              </button>
+        {/* ==================================================================
+            METRICS & TOTAL COMBINED VALUE STRIP
+            ================================================================== */}
+        <div className="comp-metrics-strip" aria-label="Suite Value Metrics">
+          <div className="metric-item">
+            <span className="metric-label">TOTAL ACCELERATOR VALUE</span>
+            <div className="metric-value-row">
+              <span className="metric-number">32.5k</span>
+              <span className="metric-sub">(₹{totalCalculatedValue.toLocaleString()})</span>
             </div>
           </div>
 
-          {/* DYNAMIC IMPACT MATRIX STATS BAR */}
-          <div className="comp-hero-stats-grid comp-hero-anim">
-            <div className="comp-stat-card">
-              <div className="comp-stat-val">$2,800+</div>
-              <div className="comp-stat-lbl">Estimated Free Value</div>
-              <div className="comp-stat-sub">Zero additional fees</div>
-            </div>
-            <div className="comp-stat-card">
-              <div className="comp-stat-val">90 Days</div>
-              <div className="comp-stat-lbl">Dedicated Concierge</div>
-              <div className="comp-stat-sub">3 structured monthly sprints</div>
-            </div>
-            <div className="comp-stat-card">
-              <div className="comp-stat-val">12+</div>
-              <div className="comp-stat-lbl">Key Micro-Deliverables</div>
-              <div className="comp-stat-sub">SEO, GBP, UX & QR funnels</div>
-            </div>
-            <div className="comp-stat-card">
-              <div className="comp-stat-val">100%</div>
-              <div className="comp-stat-lbl">Asset Ownership</div>
-              <div className="comp-stat-sub">All setups remain yours forever</div>
+          <div className="metric-item">
+            <span className="metric-label">YOUR INVESTMENT</span>
+            <div className="metric-value-row">
+              <span className="metric-strike">₹32,500</span>
+              <span className="metric-highlight">₹0 FREE</span>
             </div>
           </div>
 
+          <div className="metric-item">
+            <span className="metric-label">DELIVERABLES INCLUDED</span>
+            <div className="metric-value-row">
+              <span className="metric-number">12</span>
+              <span className="metric-sub">Full Service Pillars</span>
+            </div>
+          </div>
+
+          <div className="metric-item">
+            <span className="metric-label">ELIGIBILITY WINDOW</span>
+            <div className="metric-value-row">
+              <span className="metric-number">3 Months</span>
+              <span className="metric-sub">Active Retainer</span>
+            </div>
+          </div>
         </div>
-      </section>
 
-      {/* ROADMAP SECTION WITH MONTH TABS & INTERACTIVE CARDS */}
-      <section className="comp-timeline-section" id="comp-roadmap" ref={timelineRef}>
-        <div className="comp-container">
-          
-          <div className="comp-timeline-header-wrap">
-            <div>
-              <span className="comp-section-label">THE 90-DAY STRATEGIC ARCHITECTURE</span>
-              <h2 className="heading-serif comp-section-title">3 MONTHS. TOTAL TRANSMUTATION.</h2>
-            </div>
-
-            {/* MONTH FILTER TABS */}
-            <div className="comp-tabs-bar">
-              <button 
-                className={`comp-tab-btn ${activeMonthFilter === 'all' ? 'is-active' : ''}`}
-                onClick={() => setActiveMonthFilter('all')}
+        {/* ==================================================================
+            FILTER & SEARCH BAR
+            ================================================================== */}
+        <div className="comp-controls-bar">
+          <div className="comp-category-tabs" role="tablist">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`comp-cat-btn ${activeCategory === cat ? 'is-active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
               >
-                <span>ALL PHASES (01–03)</span>
+                {cat === 'ALL' ? 'ALL SERVICES (12)' : cat}
               </button>
-              <button 
-                className={`comp-tab-btn ${activeMonthFilter === '01' ? 'is-active' : ''}`}
-                onClick={() => setActiveMonthFilter('01')}
-              >
-                <span>MONTH 01: FOUNDATION</span>
-              </button>
-              <button 
-                className={`comp-tab-btn ${activeMonthFilter === '02' ? 'is-active' : ''}`}
-                onClick={() => setActiveMonthFilter('02')}
-              >
-                <span>MONTH 02: OPTIMIZATION</span>
-              </button>
-              <button 
-                className={`comp-tab-btn ${activeMonthFilter === '03' ? 'is-active' : ''}`}
-                onClick={() => setActiveMonthFilter('03')}
-              >
-                <span>MONTH 03: GROWTH</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="comp-months-grid">
-            {filteredMonths.map((m) => (
-              <div className="comp-month-card" key={m.monthNum}>
-                
-                <div className="comp-month-card-badge">
-                  <span>{m.badgeText}</span>
-                </div>
-
-                <div className="comp-month-top">
-                  <div className="comp-month-icon-wrap">
-                    <span className="comp-month-icon">{m.icon}</span>
-                    <span className="comp-month-num">{m.monthNum}</span>
-                  </div>
-                  <div>
-                    <span className="comp-month-tag">PHASE {m.monthNum}</span>
-                    <h3 className="heading-serif comp-month-title">{m.monthTitle}</h3>
-                  </div>
-                </div>
-
-                <p className="comp-month-tagline">{m.tagline}</p>
-                <div className="comp-month-divider"></div>
-
-                <div className="comp-services-list">
-                  {m.services.map((item) => (
-                    <div 
-                      className="comp-service-item" 
-                      key={item.id}
-                      onClick={() => setSelectedServiceModal(item)}
-                    >
-                      <div className="comp-service-header">
-                        <span className="comp-service-bullet"></span>
-                        <h4 className="comp-service-name">{item.title}</h4>
-                        <span className="comp-service-pill">{item.impact}</span>
-                      </div>
-                      <p className="comp-service-desc">{item.desc}</p>
-                      
-                      <div className="comp-service-footer">
-                        <span className="comp-service-value">Est. Val: {item.estValue}</span>
-                        <span className="comp-service-inspect-btn">
-                          INSPECT & SCOPE 
-                          <svg width="14" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-              </div>
             ))}
           </div>
 
+          <div className="comp-search-box">
+            <svg className="comp-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search reference services..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="comp-search-input"
+            />
+          </div>
         </div>
-      </section>
 
-      {/* DYNAMIC VALUE CALCULATOR SECTION */}
-      <section className="comp-calculator-section" id="comp-calculator" ref={calculatorRef}>
-        <div className="comp-container">
-          <div className="comp-calc-box comp-calc-anim">
-            
-            <div className="comp-calc-header">
-              <span className="comp-section-label">INTERACTIVE ESTIMATOR</span>
-              <h2 className="heading-serif comp-calc-title">CALCULATE YOUR INCLUDED COMPLEMENTARY VALUE</h2>
-              <p className="comp-calc-sub">See how much value SecondCome injects directly into your business during your first 90 days after launch.</p>
-            </div>
-
-            <div className="comp-calc-grid">
-              
-              {/* Controls */}
-              <div className="comp-calc-controls">
-                
-                <div className="comp-calc-group">
-                  <label className="comp-calc-label">1. SELECT YOUR BUSINESS MODEL</label>
-                  <div className="comp-calc-options">
-                    <button 
-                      className={`comp-calc-opt ${businessType === 'local' ? 'is-selected' : ''}`}
-                      onClick={() => setBusinessType('local')}
-                    >
-                      🏢 Local Business / Clinic / Studio
-                    </button>
-                    <button 
-                      className={`comp-calc-opt ${businessType === 'ecommerce' ? 'is-selected' : ''}`}
-                      onClick={() => setBusinessType('ecommerce')}
-                    >
-                      🛍️ E-Commerce / Storefront
-                    </button>
-                    <button 
-                      className={`comp-calc-opt ${businessType === 'corporate' ? 'is-selected' : ''}`}
-                      onClick={() => setBusinessType('corporate')}
-                    >
-                      🏛️ Corporate / Professional Services
-                    </button>
-                  </div>
-                </div>
-
-                <div className="comp-calc-group">
-                  <label className="comp-calc-label">2. SELECT PRIMARY 90-DAY GROWTH GOAL</label>
-                  <div className="comp-calc-options">
-                    <button 
-                      className={`comp-calc-opt ${primaryGoal === 'trust' ? 'is-selected' : ''}`}
-                      onClick={() => setPrimaryGoal('trust')}
-                    >
-                      ⭐ Build Instant Trust & Local Reviews
-                    </button>
-                    <button 
-                      className={`comp-calc-opt ${primaryGoal === 'speed' ? 'is-selected' : ''}`}
-                      onClick={() => setPrimaryGoal('speed')}
-                    >
-                      ⚡ Blazing Site Speed & Core Vitals
-                    </button>
-                    <button 
-                      className={`comp-calc-opt ${primaryGoal === 'leads' ? 'is-selected' : ''}`}
-                      onClick={() => setPrimaryGoal('leads')}
-                    >
-                      🎯 Maximize Customer Inquiries & CTR
-                    </button>
-                  </div>
-                </div>
-
+        {/* ==================================================================
+            12 REFERENCE SERVICES CARDS GRID
+            ================================================================== */}
+        <div className="comp-cards-grid">
+          {filteredServices.map((service) => (
+            <article className="comp-card" key={service.id} id={`service-${service.id}`}>
+              <div className="comp-card-top-bar">
+                <span className="comp-card-num">{service.num}</span>
+                <span className="comp-card-cat-badge">{service.category}</span>
               </div>
 
-              {/* Output Card */}
-              <div className="comp-calc-output-card">
-                <div className="comp-calc-output-top">
-                  <span className="comp-calc-output-tag">TOTAL INCLUDED VALUE</span>
-                  <div className="comp-calc-big-val">{roiStats.totalVal}</div>
-                  <span className="comp-calc-zero-fee">100% Free with your SecondCome Project</span>
+              <div className="comp-card-title-group">
+                <h2 className="comp-card-headline">{service.title}</h2>
+                <div className="comp-value-tag">
+                  <span className="comp-val-strike">Value: {service.valueTag}</span>
+                  <span className="comp-val-free">100% INCLUDED</span>
+                </div>
+              </div>
+
+              <p className="comp-card-desc">{service.shortDesc || service.description}</p>
+
+              <ul className="comp-deliverables-list">
+                {(service.shortDeliverables || service.deliverables.slice(0, 3)).map((d, idx) => (
+                  <li className="comp-deliverable-item" key={idx}>
+                    <svg className="comp-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="comp-card-footer">
+                <button
+                  type="button"
+                  className="comp-btn-details"
+                  onClick={() => setSelectedService(service)}
+                >
+                  <span>VIEW FULL SPECS</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+                <span className="comp-card-retainer-pill">3-Month Retainer</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* ==================================================================
+            "WHY 3 MONTHS ONLY?" FEATURE EXPLANATION SECTION
+            ================================================================== */}
+        <section className="comp-benefit-section" id="why-three-months-section" aria-label="3 Months Retainer Commitment Benefit">
+          <div className="comp-benefit-grid">
+            <div className="comp-benefit-left">
+              <div className="comp-benefit-badge">
+                <span>EXCLUSIVE CLIENT BENEFIT</span>
+              </div>
+              <h2 className="comp-benefit-title">Why "- 3 Months Only"?</h2>
+              <p className="comp-benefit-text">
+                Real exponential growth doesn&apos;t happen overnight. It takes 90 days of consistent conversion data,
+                continuous optimization, and creative momentum. When you commit to a 3-month growth journey with Second
+                Come Agency, we absorb all upfront operational friction by gifting you our complete 12-service suite at zero cost.
+              </p>
+
+              <div className="comp-benefit-steps">
+                <div className="comp-step-card">
+                  <span className="comp-step-num">01</span>
+                  <div>
+                    <h3 className="comp-step-title">Lock In 3-Month Partnership</h3>
+                    <p className="comp-step-desc">
+                      Enroll in any of our core advertising, development, or brand strategy retainers.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="comp-calc-breakdown">
-                  <div className="comp-breakdown-row">
-                    <span>Month 01 (Foundation)</span>
-                    <span className="font-mono">{roiStats.m1Val}</span>
-                  </div>
-                  <div className="comp-breakdown-row">
-                    <span>Month 02 (Optimization)</span>
-                    <span className="font-mono">{roiStats.m2Val}</span>
-                  </div>
-                  <div className="comp-breakdown-row">
-                    <span>Month 03 (Growth)</span>
-                    <span className="font-mono">{roiStats.m3Val}</span>
+                <div className="comp-step-card">
+                  <span className="comp-step-num">02</span>
+                  <div>
+                    <h3 className="comp-step-title">Instant Activation of All 12 Engines</h3>
+                    <p className="comp-step-desc">
+                      From Google Business Profile verification to Core Speed optimization, our team deploys all 12 services immediately.
+                    </p>
                   </div>
                 </div>
 
-                <div className="comp-calc-perks">
-                  <div className="comp-perk-badge">
-                    <span className="comp-perk-icon">📈</span>
-                    <span>Est. Growth Boost: <strong>{roiStats.boostPct}</strong></span>
-                  </div>
-                  <div className="comp-perk-badge">
-                    <span className="comp-perk-icon">⏱️</span>
-                    <span>Agency Time Saved: <strong>{roiStats.hoursSaved}</strong></span>
+                <div className="comp-step-card">
+                  <span className="comp-step-num">03</span>
+                  <div>
+                    <h3 className="comp-step-title">Complete 90-Day Scaling Handover</h3>
+                    <p className="comp-step-desc">
+                      You receive full documented SOPs, assets, rankings, and automated funnels that you own forever.
+                    </p>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <button onClick={handleExploreSupport} className="pill-btn comp-calc-cta-btn">
-                  <span>CLAIM WITH YOUR PROJECT</span>
-                  <svg width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="comp-benefit-right">
+              <div className="comp-action-card-right">
+                <span className="comp-action-badge-pill">LIMITED TIME CLIENT ALLOCATION</span>
+                <div className="comp-action-price-banner">
+                  <span className="comp-price-was">Standard Setup: ₹32,500</span>
+                  <div className="comp-price-now">₹0</div>
+                </div>
+                <p className="comp-action-desc">
+                  Claim all 12 complementary services seamlessly integrated into your 3-month agency retainer today.
+                </p>
+
+                <button
+                  type="button"
+                  className="comp-btn-claim-now"
+                  onClick={() => handleWhatsAppContact()}
+                >
+                  <span>CLAIM COMPLEMENTARY SUITE</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>
               </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* INTERACTIVE WEEK-BY-WEEK SIMULATOR */}
-      <section className="comp-simulator-section">
-        <div className="comp-container">
-          
-          <div className="comp-simulator-header">
-            <span className="comp-section-label">INTERACTIVE TIMELINE SCRUBBER</span>
-            <h2 className="heading-serif comp-section-title">THE 12-WEEK CONCIERGE PROGRESSION</h2>
-            <p className="comp-simulator-sub">Drag the slider or click a week to preview what gets executed at every step of your 90-day journey.</p>
-          </div>
-
-          <div className="comp-simulator-box">
-            
-            {/* Week Scrubber Bar */}
-            <div className="comp-scrubber-controls">
-              <label className="comp-scrubber-label">CURRENT TIMELINE: <strong>WEEK {simulatedWeek} OF 12</strong></label>
-              <input 
-                type="range" 
-                min="1" 
-                max="12" 
-                value={simulatedWeek} 
-                onChange={(e) => setSimulatedWeek(parseInt(e.target.value))}
-                className="comp-week-range-slider"
-              />
-              <div className="comp-scrubber-ticks">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((w) => (
-                  <button 
-                    key={w} 
-                    className={`comp-tick-btn ${simulatedWeek === w ? 'is-active' : ''}`}
-                    onClick={() => setSimulatedWeek(w)}
-                  >
-                    W{w}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Simulated Output Dashboard */}
-            <div className="comp-simulator-dashboard">
-              
-              <div className="comp-sim-col">
-                <span className="comp-sim-phase-badge">
-                  {simulatedWeek <= 4 ? 'PHASE 01: FOUNDATION' : simulatedWeek <= 8 ? 'PHASE 02: OPTIMIZATION' : 'PHASE 03: GROWTH'}
-                </span>
-                <h3 className="heading-serif comp-sim-week-title">Week {simulatedWeek} Milestones</h3>
-                
-                <ul className="comp-sim-checklist">
-                  {simulatedWeek <= 4 && (
-                    <>
-                      <li className="is-done">✓ Audit Google Business Profile baseline & reviews</li>
-                      <li className="is-done">✓ Configure website Schema Markups & OpenGraph metadata</li>
-                      <li className="is-in-progress">⚙️ Compress hero image pipelines & defer render-blocking scripts</li>
-                      <li>○ Generate Google Review shortlink & client response playbook</li>
-                    </>
-                  )}
-                  {simulatedWeek > 4 && simulatedWeek <= 8 && (
-                    <>
-                      <li className="is-done">✓ Review Month 01 GBP & SEO traffic indexation stats</li>
-                      <li className="is-done">✓ Design custom brand social banners & Instagram highlight covers</li>
-                      <li className="is-in-progress">⚙️ Generate dynamic QR codes for print collaterals & menus</li>
-                      <li>○ Refine mobile navigation bar & sticky contact CTA buttons</li>
-                    </>
-                  )}
-                  {simulatedWeek > 8 && (
-                    <>
-                      <li className="is-done">✓ Complete Month 02 Conversion audit & mobile tap-target tweaks</li>
-                      <li className="is-done">✓ Launch GMB product catalog & geotagged post cadence</li>
-                      <li className="is-in-progress">⚙️ Audit offline-to-digital QR funnel analytics & conversion rates</li>
-                      <li>○ Handover 90-day comprehensive SEO & brand metrics report</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-
-              <div className="comp-sim-col comp-sim-visual-box">
-                <div className="comp-sim-screen-header">
-                  <span className="comp-dot red"></span>
-                  <span className="comp-dot yellow"></span>
-                  <span className="comp-dot green"></span>
-                  <span className="comp-sim-screen-title">SecondCome Concierge Engine • Live Status Preview</span>
-                </div>
-                
-                <div className="comp-sim-screen-body">
-                  <div className="comp-sim-metric-row">
-                    <span>Core Web Vitals Speed Score</span>
-                    <span className="comp-metric-highlight font-mono">{simulatedWeek * 6 + 28} / 100</span>
-                  </div>
-                  <div className="comp-sim-bar-bg">
-                    <div className="comp-sim-bar-fill" style={{ width: `${Math.min(100, simulatedWeek * 6 + 28)}%` }}></div>
-                  </div>
-
-                  <div className="comp-sim-metric-row mt-4">
-                    <span>Search Indexation & Trust Signals</span>
-                    <span className="comp-metric-highlight font-mono">{Math.min(100, simulatedWeek * 8 + 15)}% Complete</span>
-                  </div>
-                  <div className="comp-sim-bar-bg">
-                    <div className="comp-sim-bar-fill cyan" style={{ width: `${Math.min(100, simulatedWeek * 8 + 15)}%` }}></div>
-                  </div>
-
-                  <div className="comp-sim-status-banner mt-6">
-                    <span className="comp-pulse-ring"></span>
-                    <span>Status: Active Monitoring & Optimization in progress</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* BEFORE VS AFTER INTERACTIVE COMPARISON */}
-      <section className="comp-comparison-section">
-        <div className="comp-container">
-          
-          <div className="comp-comparison-header">
-            <span className="comp-section-label">THE TRANSFORMATIONAL DIFFERENCE</span>
-            <h2 className="heading-serif comp-section-title">WITHOUT VS WITH SECONDCOME CONCIERGE</h2>
-            <p className="comp-simulator-sub">Drag the interactive slider to see how your digital presence transforms over 90 days.</p>
-          </div>
-
-          <div 
-            className="comp-slider-container"
-            onMouseDown={() => setIsDraggingSlider(true)}
-            onMouseUp={() => setIsDraggingSlider(false)}
-            onMouseLeave={() => setIsDraggingSlider(false)}
-            onMouseMove={handleMoveSlider}
-            onTouchStart={() => setIsDraggingSlider(true)}
-            onTouchEnd={() => setIsDraggingSlider(false)}
-            onTouchMove={handleMoveSlider}
-          >
-            {/* After Side (Right / Base) */}
-            <div className="comp-slider-pane comp-pane-after">
-              <span className="comp-pane-label is-after">WITH SECONDCOME 90-DAY CONCIERGE ✨</span>
-              <div className="comp-pane-content">
-                <div className="comp-pane-card">
-                  <div className="comp-card-badge green">90+ Lighthouse Score</div>
-                  <h3>Blazing Fast & Conversion Focused</h3>
-                  <p>Optimized Core Web Vitals, active Google Reviews strategy, synchronized social branding, dynamic QR touchpoints, and continuous monthly tweaks.</p>
-                  <ul className="comp-check-list">
-                    <li>✓ 4.9★ Google Business Profile Rating</li>
-                    <li>✓ Sub-second Page Load Times</li>
-                    <li>✓ High-converting Mobile UX & Sticky CTAs</li>
-                    <li>✓ 100% Asset & Schema Indexing</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Before Side (Left / Clipped) */}
-            <div className="comp-slider-pane comp-pane-before" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-              <span className="comp-pane-label is-before">WITHOUT CONCIERGE SUPPORT ⚠️</span>
-              <div className="comp-pane-content">
-                <div className="comp-pane-card before-card">
-                  <div className="comp-card-badge red">Static / Forgotten Website</div>
-                  <h3>Stagnant Launch & Missed Reviews</h3>
-                  <p>Website is launched but left untouched. No review strategy, unoptimized search profiles, slow image assets, and zero post-launch growth momentum.</p>
-                  <ul className="comp-check-list-warn">
-                    <li>⚠️ Low Google Reviews & Zero Schema Markup</li>
-                    <li>⚠️ Slow Mobile Load Times & High Bounce Rate</li>
-                    <li>⚠️ Disconnected Social Profiles & Offline Touchpoints</li>
-                    <li>⚠️ No Ongoing Growth or Performance Analytics</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Slider Divider Bar */}
-            <div className="comp-slider-handle" style={{ left: `${sliderPos}%` }}>
-              <div className="comp-handle-line"></div>
-              <div className="comp-handle-button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
-                </svg>
-              </div>
             </div>
           </div>
+        </section>
+      </div>
 
-        </div>
-      </section>
-
-      {/* FEATURE SPOTLIGHT SECTION */}
-      <section className="comp-feature-section" ref={featureRef}>
-        <div className="comp-container">
-          <div className="comp-feature-grid">
-            <div className="comp-feature-left comp-feature-anim">
-              <span className="comp-section-label">EXTENDED DEDICATED ENGAGEMENT</span>
-              <h2 className="heading-serif comp-feature-heading">
-                THREE MONTHS.<br />
-                MORE THAN JUST A WEBSITE.
-              </h2>
-              <p className="comp-feature-body">
-                We believe exceptional digital agencies should stand beside their creations long after the code is deployed. For three full months, SecondCome acts as your dedicated digital caretaker, ensuring your brand thrives in the wild.
-              </p>
-              <div className="comp-feature-badges">
-                <div className="comp-f-badge">
-                  <span className="comp-f-num">01</span>
-                  <span>Structured Sprints</span>
-                </div>
-                <div className="comp-f-badge">
-                  <span className="comp-f-num">02</span>
-                  <span>Zero Lock-In</span>
-                </div>
-                <div className="comp-f-badge">
-                  <span className="comp-f-num">03</span>
-                  <span>Direct Team Access</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="comp-feature-right comp-feature-anim">
-              <div className="comp-progression-track">
-                <div className="comp-progression-step">
-                  <div className="comp-step-num">01</div>
-                  <div className="comp-step-content">
-                    <h4>Foundation & Indexation Phase</h4>
-                    <p>Building essential trust signals, review presence, schema markup, and core Web Vitals speed.</p>
-                  </div>
-                </div>
-
-                <div className="comp-step-connector">
-                  <svg width="16" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2v20m0 0l-5-5m5 5l5-5" />
-                  </svg>
-                </div>
-
-                <div className="comp-progression-step">
-                  <div className="comp-step-num">02</div>
-                  <div className="comp-step-content">
-                    <h4>Optimization & Brand Cohesion Phase</h4>
-                    <p>Elevating brand consistency across social handles, print QR touchpoints, and conversion UI polish.</p>
-                  </div>
-                </div>
-
-                <div className="comp-step-connector">
-                  <svg width="16" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2v20m0 0l-5-5m5 5l5-5" />
-                  </svg>
-                </div>
-
-                <div className="comp-progression-step">
-                  <div className="comp-step-num">03</div>
-                  <div className="comp-step-content">
-                    <h4>Growth Velocity & Handover Phase</h4>
-                    <p>Maximizing customer inquiries, local map pack authority, and strategic long-term roadmap delivery.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FREQUENTLY ASKED QUESTIONS */}
-      <section className="comp-faq-section">
-        <div className="comp-container">
-          <div className="comp-faq-header">
-            <span className="comp-section-label">CLEAR ANSWERS</span>
-            <h2 className="heading-serif comp-section-title">COMPLEMENTARY SUPPORT FAQ</h2>
-          </div>
-
-          <div className="comp-faq-accordion">
-            {faqs.map((faq, i) => (
-              <div 
-                key={i} 
-                className={`comp-faq-item ${activeFaq === i ? 'is-open' : ''}`}
-                onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-              >
-                <div className="comp-faq-question">
-                  <h3>{faq.q}</h3>
-                  <span className="comp-faq-toggle">{activeFaq === i ? '−' : '+'}</span>
-                </div>
-                {activeFaq === i && (
-                  <div className="comp-faq-answer">
-                    <p>{faq.a}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="comp-cta-section" ref={ctaRef}>
-        <div className="comp-container">
-          <div className="comp-cta-box comp-cta-anim">
-            <span className="heading-script comp-cta-script">Begin Your Transformation</span>
-            <h2 className="heading-serif comp-cta-heading">
-              READY TO ELEVATE YOUR BRAND WITH 90 DAYS OF INCLUDED CONCIERGE CARE?
-            </h2>
-            <p className="comp-cta-text">
-              Partner with SecondCome Agency. Get a world-class digital experience plus 3 months of complementary growth engineering.
-            </p>
-            <div className="comp-cta-action">
-              <button onClick={handleExploreSupport} className="pill-btn comp-cta-btn">
-                <span>START YOUR PROJECT WITH FREE CONCIERGE</span>
-                <svg className="pill-icon arrow-icon" width="22" height="14" viewBox="0 0 38 20" fill="none">
-                  <path d="M23.5 12C25.6 10.8 27.6 9.7 29.7 8.5C31.3 7.6 32.9 6.7 34.5 5.8C35.8 5 37.5 4.3 36.8 2.9C36.1 1.5 33.1 0 29.7 1.8L24.5 4.7C24.2 4.9 23.7 5 23.3 4.8L12.1 1.3C11.5 1.1 10.9 1.1 10.3 1.5L7.3 3.3L15.2 9.9L10 12.8C9.4 13.1 8.7 13.2 8.1 13L4.4 11.8C3.8 11.6 3.2 11.7 2.7 12L1.3 13C0.8 13.4 0.8 14.2 1.3 14.6L5.8 17.8C7.8 19.2 10.2 19.3 12.3 18.2L15.5 16.4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICE INSPECTION MODAL */}
-      {selectedServiceModal && (
-        <div className="comp-modal-overlay" onClick={() => setSelectedServiceModal(null)}>
+      {/* ==================================================================
+          MODAL: SERVICE DETAILS EXPANDER
+          ================================================================== */}
+      {selectedService && (
+        <div className="comp-modal-backdrop" onClick={() => setSelectedService(null)}>
           <div className="comp-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button className="comp-modal-close" onClick={() => setSelectedServiceModal(null)}>✕</button>
-            
-            <div className="comp-modal-header">
-              <span className="comp-modal-pill">{selectedServiceModal.impact}</span>
-              <h3 className="heading-serif comp-modal-title">{selectedServiceModal.title}</h3>
-              <p className="comp-modal-desc">{selectedServiceModal.desc}</p>
+            <button
+              type="button"
+              className="comp-modal-close-btn"
+              onClick={() => setSelectedService(null)}
+              aria-label="Close dialog"
+            >
+              ✕
+            </button>
+
+            <span className="comp-modal-tag">{selectedService.category} • {selectedService.num}</span>
+            <h3 className="comp-modal-title">{selectedService.title}</h3>
+
+            <div className="comp-modal-val-row">
+              <span className="comp-modal-badge">Standard Valuation: {selectedService.valueTag}</span>
+              <span style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 700 }}>
+                ✓ 100% Complimentary with 3-Month Retainer
+              </span>
             </div>
 
-            <div className="comp-modal-body">
-              <div className="comp-modal-scope-box">
-                <h4>DELIVERABLE SCOPE & CHECKLIST</h4>
-                <ul>
-                  {selectedServiceModal.scope.map((item, index) => (
-                    <li key={index}>
-                      <span className="comp-check-icon">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <p className="comp-modal-desc">{selectedService.description}</p>
 
-              <div className="comp-modal-meta-grid">
-                <div className="comp-modal-meta-item">
-                  <span className="meta-lbl">ESTIMATED MONETARY VALUE</span>
-                  <span className="meta-val highlight">{selectedServiceModal.estValue}</span>
-                </div>
-                <div className="comp-modal-meta-item">
-                  <span className="meta-lbl">INCLUDED FREE</span>
-                  <span className="meta-val">100% Covered</span>
-                </div>
-              </div>
+            <div className="comp-modal-section-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <span>KEY DELIVERABLES & SCOPE</span>
             </div>
 
-            <div className="comp-modal-footer">
-              <button onClick={handleExploreSupport} className="pill-btn comp-modal-action">
-                <span>INQUIRE ABOUT THIS PACKAGE</span>
+            <ul className="comp-modal-deliverables">
+              {selectedService.deliverables.map((item, idx) => (
+                <li className="comp-modal-item" key={idx}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: '2px' }}>
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="comp-modal-cta-row">
+              <button
+                type="button"
+                className="comp-modal-primary-btn"
+                onClick={() => {
+                  const title = selectedService.title;
+                  setSelectedService(null);
+                  handleWhatsAppContact(title);
+                }}
+              >
+                <span>CLAIM THIS SERVICE ON WHATSAPP</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
           </div>
         </div>
       )}
 
+      {/* ==================================================================
+          MODAL: "3 MONTHS ONLY" OFFER EXPLANATION
+          ================================================================== */}
+      {isThreeMonthsModalOpen && (
+        <div className="comp-modal-backdrop" onClick={() => setIsThreeMonthsModalOpen(false)}>
+          <div className="comp-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="comp-modal-close-btn"
+              onClick={() => setIsThreeMonthsModalOpen(false)}
+              aria-label="Close dialog"
+            >
+              ✕
+            </button>
+
+            <span className="comp-modal-tag">SPECIAL RETAINER PROMOTION</span>
+            <h3 className="comp-modal-title">- 3 MONTHS ONLY OFFER</h3>
+
+            <div className="comp-modal-val-row">
+              <span className="comp-modal-badge">Total Suite Worth: ₹32,500</span>
+              <span style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 700 }}>
+                Zero Hidden Setup Fees
+              </span>
+            </div>
+
+            <p className="comp-modal-desc">
+              To achieve compounding revenue and establish brand authority, our engineering and creative teams require a
+              structured 90-day execution runway. For clients who commit to a 3-month growth partnership, we waive every
+              single implementation fee across all 12 complementary services.
+            </p>
+
+            <div className="comp-modal-section-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>WHAT IS INCLUDED IN THE 3-MONTH WINDOW?</span>
+            </div>
+
+            <ul className="comp-modal-deliverables">
+              <li className="comp-modal-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: '2px' }}>
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>All 12 Reference Services:</strong> Full setup of Google Reviews, Business Profile, Speed, SEO, Posters &amp; more.</span>
+              </li>
+              <li className="comp-modal-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: '2px' }}>
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>Zero Setup or Hidden Charges:</strong> 100% absorbed by Second Come Agency.</span>
+              </li>
+              <li className="comp-modal-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: '2px' }}>
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>Permanent Asset Ownership:</strong> All created assets, QR systems, profiles &amp; SOPs remain yours forever.</span>
+              </li>
+            </ul>
+
+            <div className="comp-modal-cta-row" style={{ flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
+              <button
+                type="button"
+                className="comp-modal-primary-btn"
+                style={{ width: '100%' }}
+                onClick={() => {
+                  setIsThreeMonthsModalOpen(false);
+                  handleWhatsAppContact("3-Month Retainer with 12 Complementary Services");
+                }}
+              >
+                <span>DISCUSS YOUR 3-MONTH PLAN ON WHATSAPP</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                style={{
+                  background: 'none',
+                  border: '1px solid rgba(45, 69, 77, 0.2)',
+                  color: 'var(--color-dark-teal, #2D454D)',
+                  padding: '0.65rem 1.25rem',
+                  borderRadius: '999px',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  width: '100%'
+                }}
+                onClick={() => {
+                  setIsThreeMonthsModalOpen(false);
+                  setTimeout(() => {
+                    document.getElementById('why-three-months-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 150);
+                }}
+              >
+                <span>VIEW FULL 90-DAY EXECUTION ROADMAP ↓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

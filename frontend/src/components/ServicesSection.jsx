@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import image1 from "../assets/image1.png";
 import image2 from "../assets/image2.png";
 import image3 from "../assets/image3.png";
@@ -71,7 +72,7 @@ export default function ServicesSection() {
         {/* Section Heading */}
         <div className="services-section-header">
           <span className="services-badge-pill">[ OUR CAPABILITIES ]</span>
-          <h2 className="services-main-heading">CORE CAPABILITIES & SOLUTIONS</h2>
+          <h2 className="services-main-heading">Core Capabilities &amp; Solutions</h2>
           <span className="services-script-sub">Engineered to accelerate modern market leaders</span>
         </div>
 
@@ -98,6 +99,54 @@ export default function ServicesSection() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ==================================================================
+            COMPLEMENTARY SERVICES PROMO BANNER BOX (REDIRECT TO /complementary-services)
+            ================================================================== */}
+        <div className="comp-homepage-banner">
+          <div className="comp-homepage-banner-content">
+            <div className="comp-homepage-text-block">
+              <span className="comp-homepage-badge">
+                <span className="comp-badge-dot-live" />
+                <span>3 Months Support Included</span>
+              </span>
+              <span className="comp-homepage-sub">VALUED AT ₹32,500 • 100% COVERED</span>
+              <h3 className="comp-homepage-heading">
+                12 Complementary Services With Every Growth Project
+              </h3>
+              <p className="comp-homepage-desc">
+                From Google Reviews automation and Local SEO to Speed Optimization, Posters, and QR Systems—we architect your entire digital foundation at zero extra fee.
+              </p>
+              <div className="comp-homepage-chips">
+                <span className="comp-homepage-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#36A6A3" strokeWidth="3">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  Google Reviews Engine
+                </span>
+                <span className="comp-homepage-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#36A6A3" strokeWidth="3">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  90+ PageSpeed &amp; SEO
+                </span>
+                <span className="comp-homepage-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#36A6A3" strokeWidth="3">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  Local Maps &amp; QR Bridges
+                </span>
+              </div>
+            </div>
+
+            <Link to="/complementary-services" className="comp-homepage-cta-btn">
+              <span>EXPLORE ALL 12 SERVICES</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </div>
 

@@ -378,7 +378,7 @@ export default function CaseStudiesSection() {
     <section className="portfolio-section" id="portfolio">
       <div className="portfolio-header-wrap">
         <span className="trust-pill"><span className="trust-dot"></span> PROVEN RECORD</span>
-        <h2 className="heading-serif">FEATURED CASE STUDIES</h2>
+        <h2 className="heading-serif">Demo Projects</h2>
         <span className="heading-script">Real metrics. Unmatched growth.</span>
       </div>
 
@@ -452,18 +452,16 @@ export default function CaseStudiesSection() {
                     <span>Live Demo</span>
                   </a>
                 ) : (
-                  <button
-                    type="button"
-                    className="case-btn case-btn-disabled"
-                    disabled
-                    title="Live Demo URL coming soon"
+                  <span
+                    className="case-badge-soon"
+                    aria-label="Live Demo URL coming soon"
                   >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <circle cx="12" cy="12" r="10"></circle>
                       <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    <span>Demo Soon</span>
-                  </button>
+                    <span>Coming Soon</span>
+                  </span>
                 )}
 
                 {item.githubUrl && (

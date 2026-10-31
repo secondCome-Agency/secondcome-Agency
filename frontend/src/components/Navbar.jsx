@@ -27,55 +27,9 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
     }
   };
 
-  const handleSupportClick = (e) => {
-    e.preventDefault();
-    navigate('/complementary-services');
-    window.scrollTo(0, 0);
-  };
-
   return (
     <header className="site-header">
-      {/* Top Announcement Marquee Ticker Strip */}
-      <div className="top-ticker-strip">
-        <Link
-          to="/complementary-services"
-          onClick={handleSupportClick}
-          className="ticker-marquee-link"
-          aria-label="Explore Complementary Support"
-        >
-          <div className="ticker-track">
-            <div className="ticker-content">
-              <span>Every website includes 3 months of free support</span>
-              <span className="ticker-diamond">◆</span>
-              <span>SEO, Google Business Profile, Social Optimization, Speed</span>
-              <span className="ticker-diamond">◆</span>
-              <span>Real digital impact for ambitious businesses</span>
-              <span className="ticker-diamond">◆</span>
-            </div>
-            <div className="ticker-content" aria-hidden="true">
-              <span>Every website includes 3 months of free support</span>
-              <span className="ticker-diamond">◆</span>
-              <span>SEO, Google Business Profile, Social Optimization, Speed</span>
-              <span className="ticker-diamond">◆</span>
-              <span>Real digital impact for ambitious businesses</span>
-              <span className="ticker-diamond">◆</span>
-            </div>
-          </div>
-        </Link>
-
-        <Link
-          to="/complementary-services"
-          onClick={handleSupportClick}
-          className="ticker-action-fixed"
-          aria-label="See what's included"
-        >
-          <span>See what's included</span>
-          <span className="ticker-action-arrow">→</span>
-        </Link>
-      </div>
-
       <div className="header-inner">
-
         <button
           id="menu-toggle-btn"
           className="pill-btn pill-btn--left"
@@ -88,7 +42,6 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
           </svg>
           <span className="pill-text">{isDrawerOpen ? 'CLOSE' : 'MENU'}</span>
         </button>
-
 
         <div className="brand-logo-container">
           <Link to="/" className="brand-logo">
@@ -107,4 +60,3 @@ export default function Navbar({ isDrawerOpen, onToggleDrawer }) {
     </header>
   );
 }
-

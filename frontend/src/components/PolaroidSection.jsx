@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import image4 from "../assets/image4.png"
-import image5 from "../assets/image5.png"
+import image4 from "../assets/image4.webp";
+import image5 from "../assets/image5.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +12,7 @@ export default function PolaroidSection() {
 
   const cardsData = [
     { id: 1, title: 'Identity & Brand Strategy', num: '01', img: image4 },
-    { id: 2, title: 'AI Automations & Scaling', num: '02', img: '/assets/polaroid2.jpg' },
+    { id: 2, title: 'AI Automations & Scaling', num: '02', img: '/assets/polaroid2.webp' },
     { id: 3, title: 'High-Performance Web Platforms', num: '03', img: image5 },
   ];
 
@@ -71,7 +71,7 @@ export default function PolaroidSection() {
 
           <div className="cta-wrapper">
             <Link to="/team" className="btn-primary">
-              <span>WORK WITH OUR TEAM</span>
+              <span>Work With Our Team</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
           </div>
@@ -94,7 +94,15 @@ export default function PolaroidSection() {
                   }}
                 >
                   <div className="polaroid-frame">
-                    <img src={card.img} alt={card.title} className="polaroid-img" />
+                    <img
+                      src={card.img}
+                      alt={card.title}
+                      className="polaroid-img"
+                      loading="lazy"
+                      decoding="async"
+                      width="480"
+                      height="520"
+                    />
                     <div className="polaroid-caption">
                       <span className="caption-num">{card.num}</span>
                       <span className="caption-text">{card.title}</span>
