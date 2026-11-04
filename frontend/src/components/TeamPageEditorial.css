@@ -553,3 +553,17 @@
     letter-spacing: 0.015em;
   }
 }
+@media (max-width: 360px) {
+  .secondcome-team-editorial-root .card--accent-left .mobile-blue-rect {
+    left: -4px;
+  }
+  .secondcome-team-editorial-root .card--accent-right .mobile-blue-rect {
+    right: -4px;
+  }
+  .secondcome-team-editorial-root .mobile-member-card {
+    max-width: 280px;
+  }
+  .secondcome-team-editorial-root .mobile-member-signature {
+    font-size: 2rem;
+  }
+}

@@ -95,11 +95,24 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 body {
   background-color: var(--color-canvas);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+#root,
+.app-root {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -3143,8 +3156,28 @@ body {
 
 /* Mobile & Small Tablets (481px - 768px) */
 @media (max-width: 768px) {
+  :root {
+    --header-height: 70px;
+  }
+
   .site-header {
     height: 70px;
+  }
+
+  .heading-script {
+    margin-left: 1.5rem;
+  }
+
+  .polaroid-card-col {
+    min-height: 400px;
+    margin-top: 1.5rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    min-height: 48px;
   }
 
   .header-inner {
@@ -3298,6 +3331,25 @@ body {
 
 /* Extra Small Phones & Foldables (up to 480px) */
 @media (max-width: 480px) {
+  :root {
+    --header-height: 65px;
+  }
+
+  .heading-script {
+    margin-left: 0.5rem;
+    font-size: clamp(1.75rem, 6.8vw, 2.3rem);
+  }
+
+  .polaroid-card-col {
+    min-height: 350px;
+    margin-top: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
   .header-inner {
     padding: 0.75rem 0.6rem;
   }
@@ -3424,6 +3476,58 @@ body {
   .filter-pill-btn {
     padding: 0.5rem 0.95rem;
     font-size: 0.68rem;
+  }
+}
+
+/* Very Small Phones & Narrow Foldables (<= 380px) */
+@media (max-width: 380px) {
+  :root {
+    --header-height: 62px;
+  }
+
+  .header-inner {
+    padding: 0.45rem 0.5rem;
+  }
+
+  .pill-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.6rem;
+    gap: 0.25rem;
+  }
+
+  .pill-text {
+    letter-spacing: 0.04em;
+  }
+
+  .logo-script {
+    font-size: 1.15rem;
+  }
+
+  .logo-sub {
+    font-size: 0.4rem;
+    letter-spacing: 0.12em;
+  }
+
+  .polaroid-stack {
+    width: 210px;
+    height: 300px;
+  }
+
+  .polaroid-img {
+    height: 145px;
+  }
+
+  .polaroid-card {
+    padding: 0.6rem 0.6rem 1rem 0.6rem;
+  }
+
+  .case-card {
+    width: calc(100vw - 2rem);
+    padding: 1.4rem 1rem;
+  }
+
+  .cta-form-wrapper {
+    padding: 1.5rem 0.85rem !important;
   }
 }
 
@@ -6387,16 +6491,21 @@ h6,
 
   .whatsapp-float,
   .chat-float {
-    bottom: 16px !important;
-    right: 16px !important;
-    width: 50px !important;
-    height: 50px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 14px !important;
+    width: 48px !important;
+    height: 48px !important;
     z-index: 800 !important;
   }
 
   .floating-whatsapp-container {
-    bottom: 16px !important;
-    right: 16px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 14px !important;
     z-index: 9999 !important;
+  }
+
+  .floating-whatsapp-btn {
+    width: 48px !important;
+    height: 48px !important;
   }
 }

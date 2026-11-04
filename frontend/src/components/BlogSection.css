@@ -1129,3 +1129,26 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .blog-post-title {
+    font-size: clamp(1.6rem, 6.5vw, 2rem);
+  }
+  .blog-post-container {
+    padding: 2rem 1rem 3.5rem 1rem;
+  }
+  .blog-post-summary-box,
+  .blog-post-quote,
+  .blog-post-takeaways-box {
+    padding: 1.25rem 1rem;
+  }
+  .blog-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .blog-card-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
