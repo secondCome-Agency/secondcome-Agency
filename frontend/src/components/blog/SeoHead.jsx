@@ -33,6 +33,7 @@ export default function SeoHead({
 
     // 2. Standard Meta Tags
     setMetaTag('name', 'description', description);
+    setMetaTag('name', 'robots', 'index, follow');
     if (keywords) {
       setMetaTag('name', 'keywords', keywords);
     }
